@@ -18,8 +18,18 @@ namespace Presentation.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(bool Register = false , bool Login = false)
         {
+            if (Register == true)
+            {
+                ViewBag.Create = true;
+            }
+            if (Login == true)
+            {
+                ViewBag.Login = true;
+            }
+
+
             return View();
         }
 

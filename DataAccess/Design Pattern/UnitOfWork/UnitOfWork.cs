@@ -17,6 +17,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         {
             _db = db;
             userRepository = new UserRepository(_db);
+            userProfileRepository = new UserProfileRepository(_db);
 
 
         }
@@ -25,6 +26,8 @@ namespace DataAccess.Design_Pattern.UnitOfWork
 
         #region Repositories
         public UserRepository userRepository { get; private set; }
+        public UserProfileRepository userProfileRepository { get; private set; }
+
 
 
         #endregion

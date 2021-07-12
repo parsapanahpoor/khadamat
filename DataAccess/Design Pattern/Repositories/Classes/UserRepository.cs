@@ -19,7 +19,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
-      
+        
 
         public string GetUserByUserName(string username)
         {

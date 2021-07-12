@@ -15,12 +15,12 @@ namespace Presentation.Controllers
     public class AccountController : Controller
     {
         #region Constructor
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IUnitOfWork _context;
 
-        public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager, IUnitOfWork context)
+        public AccountController(UserManager<User> userManager,
+            SignInManager<User> signInManager, IUnitOfWork context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,8 +43,6 @@ namespace Presentation.Controllers
             if (ModelState.IsValid)
             {
 
-
-
                 if (_context.userRepository.IsExistUserName(model.UserName))
                 {
                     ModelState.AddModelError("", "این نام کاربری توسط فرد دیگری انتخاب شده است ");
@@ -62,6 +60,7 @@ namespace Presentation.Controllers
                 }
                 var user = new User()
                 {
+
                     UserName = model.UserName,
                     PhoneNumber = model.PhoneNumber,
                     Email = FixedText.FixEmail(model.Email),
@@ -70,20 +69,24 @@ namespace Presentation.Controllers
                     IsActive = true,
                     IsDelete = false,
                     ActiveCode = RandomNumberGenerator.GetNumber(),
-
+                  
                 };
+
+
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
-                List<string> requestRoles = new List<string>();
-                requestRoles.Add("User");
+                _context.userProfileRepository.AddUserProfileAfterRegister(user.Id);
+                _context.SaveChangesDB();
+                //List<string> requestRoles = new List<string>();
+                //requestRoles.Add("User");
 
-                var reslt = await _userManager.AddToRolesAsync(user, requestRoles);
+                //var reslt = await _userManager.AddToRolesAsync(user, requestRoles);
 
 
                 if (result.Succeeded)
                 {
-                    return Redirect("/Login?Register=true");
+                    return Redirect("/Home/Index?Register=true");
                 }
 
                 foreach (var error in result.Errors)
@@ -95,9 +98,72 @@ namespace Presentation.Controllers
             return View(model);
         }
 
-
         #endregion
 
+        [HttpGet]
 
+        public IActionResult Login(string returnUrl = null, bool EditProfile = false, bool Register = false, bool recovery = false, bool permission = false)
+        {
+
+
+
+            ViewBag.EditProfile = EditProfile;
+            ViewBag.permission = permission;
+            ViewBag.Register = Register;
+            ViewBag.recovery = recovery;
+
+            ViewData["returnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        {
+            if (_signInManager.IsSignedIn(User))
+                return RedirectToAction("Index", "Home");
+            ViewData["returnUrl"] = returnUrl;
+
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(model.UserName);
+
+                if (!user.IsActive)
+                {
+                    ModelState.AddModelError("", "حساب کاربری شما فعال نمی باشد");
+                    return View(model);
+                }
+
+
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+
+
+
+
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
+                    return Redirect("/Home/Index?Login=true");
+
+                }
+
+                if (result.IsLockedOut)
+                {
+                    ViewData["ErrorMessage"] = "اکانت شما به دلیل پنج بار ورود ناموفق به مدت پنج دقیق قفل شده است";
+                    return View(model);
+                }
+
+                ModelState.AddModelError("", "رمزعبور یا نام کاربری اشتباه است");
+            }
+            return View(model);
+        }
+
+        public IActionResult AccessDenied(string ReturnUrl)
+        {
+
+            return Redirect("/Account/Login?permission=true");
+
+        }
     }
 }

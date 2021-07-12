@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataContext.Context
 {
-   public class KhadamatContext : IdentityDbContext
+   public class KhadamatContext : IdentityDbContext<User>
     {
         public KhadamatContext(DbContextOptions<KhadamatContext> options)
         : base(options)

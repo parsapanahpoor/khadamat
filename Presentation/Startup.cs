@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Models.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace Presentation
             #endregion
 
             #region IdentityServices
-            services.AddIdentity<IdentityUser, IdentityRole>(option =>
+            services.AddIdentity<User, IdentityRole>(option =>
             {
                 option.Password.RequireDigit = false;
                 option.Password.RequireLowercase = false;
