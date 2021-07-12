@@ -16,6 +16,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
 
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataContext\DataContext.csproj" />
+    <ProjectReference Include="..\IoC\IoC.csproj" />
+  </ItemGroup>
   
   
 
