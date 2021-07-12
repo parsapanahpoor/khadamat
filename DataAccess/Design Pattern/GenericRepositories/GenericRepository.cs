@@ -98,7 +98,9 @@ namespace DataAccess.Design_Pattern.GenericRepositories
 
         public void Add(TEntity entity)
         {
+
             dbSet.Add(entity);
+           
         }
 
         public void Update(TEntity entity)

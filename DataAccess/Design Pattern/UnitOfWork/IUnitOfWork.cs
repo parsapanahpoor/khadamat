@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Design_Pattern.Repositories.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,10 @@ namespace DataAccess.Design_Pattern.UnitOfWork
     public interface IUnitOfWork : IDisposable
     {
 
+        #region Repositories
+        UserRepository userRepository { get; }
 
+        #endregion
 
 
         void SaveChangesDB();

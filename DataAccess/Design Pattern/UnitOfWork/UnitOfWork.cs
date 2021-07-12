@@ -1,4 +1,5 @@
-﻿using DataContext.Context;
+﻿using DataAccess.Design_Pattern.Repositories.Classes;
+using DataContext.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,16 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         public UnitOfWork(KhadamatContext db)
         {
             _db = db;
-          
+            userRepository = new UserRepository(_db);
+
 
         }
+
+        #endregion
+
+        #region Repositories
+        public UserRepository userRepository { get; private set; }
+
 
         #endregion
 

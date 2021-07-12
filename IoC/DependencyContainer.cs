@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DataAccess.Design_Pattern.UnitOfWork;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace IoC
         {
 
 
-            //service.AddScoped<IUnitOfWork, UnitOfWork>();
+            service.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
         }
