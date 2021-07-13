@@ -18,7 +18,8 @@ namespace Presentation.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(bool Register = false , bool Login = false , bool EmployeeRegister = false)
+        public IActionResult Index(bool Register = false , bool Login = false , bool EmployeeRegister = false
+                                        , bool ConfirmEmail = false)
         {
             if (Register == true)
             {
@@ -31,6 +32,10 @@ namespace Presentation.Controllers
             if (EmployeeRegister == true)
             {
                 ViewBag.EmployeeRegister = true;
+            }
+            if (ConfirmEmail == true)
+            {
+                ViewBag.ConfirmEmail = true;
             }
 
             return View();

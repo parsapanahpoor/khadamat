@@ -1,4 +1,6 @@
-﻿using DataAccess.Design_Pattern.UnitOfWork;
+﻿using DataAccess.Design_Pattern.Repositories.Classes;
+using DataAccess.Design_Pattern.Repositories.Interfaces;
+using DataAccess.Design_Pattern.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace IoC
 
 
             service.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            service.AddScoped<IMessageSender , MessageSender>();
 
         }
     }

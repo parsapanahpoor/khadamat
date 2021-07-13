@@ -1,4 +1,5 @@
-﻿using DataAccess.Design_Pattern.UnitOfWork;
+﻿using DataAccess.Design_Pattern.Repositories.Interfaces;
+using DataAccess.Design_Pattern.UnitOfWork;
 using DataAccess.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +19,16 @@ namespace Presentation.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IUnitOfWork _context;
+        private readonly IMessageSender _messageSender;
 
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager, IUnitOfWork context)
+            SignInManager<User> signInManager, IUnitOfWork context
+            , IMessageSender messageSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _messageSender = messageSender;
         }
         #endregion
 
@@ -69,7 +73,7 @@ namespace Presentation.Controllers
                     IsActive = true,
                     IsDelete = false,
                     ActiveCode = RandomNumberGenerator.GetNumber(),
-                  
+
                 };
 
 
@@ -158,6 +162,14 @@ namespace Presentation.Controllers
 
                 if (result.Succeeded)
                 {
+                    var emailMessage =
+                      Url.Action("ConfirmEmail", "Account",
+                          new { username = user.UserName, ActiveCode = user.ActiveCode },
+                          Request.Scheme);
+
+                    await _messageSender.SendEmailAsync(model.Email, "This is Code For Activation EmployeeRegistration ", emailMessage);
+
+
                     return Redirect("/Home/Index?EmployeeRegister=true");
                 }
 
@@ -168,6 +180,41 @@ namespace Presentation.Controllers
 
             }
             return View(model);
+        }
+
+        #endregion
+
+        #region ConfirmEmail
+
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userName, string ActiveCode)
+        {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(ActiveCode))
+                return NotFound();
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user.ActiveCode == ActiveCode)
+            {
+
+                if (user == null) return NotFound();
+                user.IsActive = true;
+                user.ActiveCode = RandomNumberGenerator.GetNumber();
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return Redirect("/Home/Index?ConfirmEmail=true");
+                }
+                else
+                {
+                    return NotFound();
+
+                }
+
+            }
+
+            return NotFound();
+
         }
 
         #endregion

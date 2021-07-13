@@ -83,7 +83,41 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        ثبت نام خدمت رسان در اولین مرحله با موفقیت انجام شده است 
+                        ثبت نام خدمت رسان در اولین مرحله با موفقیت انجام شده است  .
+                        ایمیلی جهت فعال سازی حساب کاربری شما برایتان ارسال شده است .
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <script>
+                // Your delay in milliseconds
+                var delay = 8000;
+                setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
+            </script>
+        }
+
+        @if (ViewBag.ConfirmEmail == true)
+        {
+            <div class="col-md-12">
+                <div class="card bg-success-gradient" >
+                    <div class="card-header">
+                        <h3 class="card-title"> ثبت نام  موفقیت  </h3>
+
+                        <div class="card-tools">
+                            <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+
+
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        ثبت نام اولیه ی خدمت دهنده با موفقیت انجام شده است .
+                        حساب کاربری شما فعال گردیده است 
+            
                     </div>
                     <!-- /.card-body -->
                 </div>
