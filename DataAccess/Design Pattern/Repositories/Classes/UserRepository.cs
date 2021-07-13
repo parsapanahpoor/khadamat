@@ -22,14 +22,14 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         public SideBarUserPanelViewModel GetSideBarUserPanelData(string username)
         {
 
-            return GetAll(includeProperties : "UserProfile").Where(p => p.UserName == username)
+            return GetAll(includeProperties: "UserProfile").Where(p => p.UserName == username)
                                 .Select(p => new SideBarUserPanelViewModel()
-                                { 
-                                  UserName = username , 
-                                  ImageName = p.UserProfile.UserAvatar
-                                
-                                
-                                
+                                {
+                                    UserName = username,
+                                    ImageName = p.UserProfile.UserAvatar
+
+
+
                                 }).Single();
 
         }
