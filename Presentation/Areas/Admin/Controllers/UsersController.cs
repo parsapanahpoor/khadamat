@@ -175,8 +175,9 @@ namespace Presentation.Areas.Admin.Controllers
             user.PhoneNumber = userEdited.PhoneNumber;
             user.Email = userEdited.Email;
 
-        
-
+            var profile = _context.userProfileRepository.GetUserProfileById(user.Id);
+            _context.userProfileRepository.EditUserProfile(profile , userEdited.UserAvatar);
+            _context.SaveChangesDB();
 
             var result = await _userManager.UpdateAsync(user);
 
