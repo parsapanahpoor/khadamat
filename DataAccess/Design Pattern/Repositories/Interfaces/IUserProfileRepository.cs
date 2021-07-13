@@ -15,6 +15,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void AddUserProfileAfterRegisterAdminPanel(string id , IFormFile Avatar );
         void EditUserProfile(UserProfile userProfile ,  IFormFile Avatar );
         UserProfile GetUserProfileById(string id);
+        void DeleteUserProfile(UserProfile userProfile);
 
     }
 }

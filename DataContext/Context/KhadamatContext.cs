@@ -45,6 +45,18 @@ namespace DataContext.Context
                 .OnDelete(DeleteBehavior.Cascade);
             });
 
+            modelBuilder.Entity<User>()
+           .HasQueryFilter(u => !u.IsDelete);
+
+
+
+
+
+
+
+
+
+
             base.OnModelCreating(modelBuilder);
         }
 

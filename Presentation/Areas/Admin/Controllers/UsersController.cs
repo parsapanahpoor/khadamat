@@ -203,6 +203,10 @@ namespace Presentation.Areas.Admin.Controllers
 
             var result = await _userManager.UpdateAsync(user);
 
+            var profile = _context.userProfileRepository.GetUserProfileById(id);
+            _context.userProfileRepository.DeleteUserProfile(profile);
+            _context.SaveChangesDB();
+
             return Redirect("/Admin/Users/Index?Delete=true");
         }
 

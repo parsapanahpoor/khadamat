@@ -35,7 +35,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Add(pro);
         }
 
-     
+
 
         public void AddUserProfileAfterRegisterAdminPanel(string id, IFormFile Avatar)
         {
@@ -46,7 +46,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
 
             };
-            
+
             if (Avatar != null)
             {
 
@@ -62,7 +62,21 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Add(pro);
         }
 
-        public void EditUserProfile(UserProfile userProfile ,  IFormFile Avatar)
+        public void DeleteUserProfile(UserProfile userProfile)
+        {
+            if (userProfile.UserAvatar != "Defult.jpg")
+            {
+                string deleteimagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/UserAvatar", userProfile.UserAvatar);
+                if (File.Exists(deleteimagePath))
+                {
+                    File.Delete(deleteimagePath);
+                }
+            }
+            Delete(userProfile);
+
+        }
+
+        public void EditUserProfile(UserProfile userProfile, IFormFile Avatar)
         {
 
             if (userProfile.UserAvatar != "Defult.jpg")
@@ -79,7 +93,16 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 {
                     Avatar.CopyTo(stream);
                 }
+            }
+            else
+            {
+                userProfile.UserAvatar = NameGenerator.GenerateUniqCode() + Path.GetExtension(Avatar.FileName);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/UserAvatar", userProfile.UserAvatar);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    Avatar.CopyTo(stream);
                 }
+            }
             Update(userProfile);
         }
 
