@@ -186,14 +186,24 @@
                                 </ul>
                             </li>
 
-            
-
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="btn btn-info" style="height:35px; margin-top:1px;">
+                                    <a href="@Url.Action("ManageUserForLogin", "Account")" class="red-link">
+                                        <p style="color:white;">ورود به پنل    </p>
+                                    </a>
+                                </li>
+                            }
+                            @if (!User.Identity.IsAuthenticated)
+                            {
                             <li class="btn btn-success" style="height:35px; margin-top:1px;">
-                                <a href="/Logout" class="red-link">
+                                <a href="/Account/Login" class="red-link">
                                     <p style="color:white;">ورود   </p>
                                 </a>
                             </li>
-                        
+                            }
+
+
 
                         </ul>
                     </nav>
