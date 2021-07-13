@@ -197,7 +197,7 @@ namespace Presentation.Controllers
                 if (User.IsInRole("Admin"))
                 {
 
-                    return Redirect("/Admin/Users/Index");
+                    return Redirect("/Admin/Home/Index");
 
                 }
                 else

@@ -19,7 +19,20 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
-        
+        public SideBarUserPanelViewModel GetSideBarUserPanelData(string username)
+        {
+
+            return GetAll(includeProperties : "UserProfile").Where(p => p.UserName == username)
+                                .Select(p => new SideBarUserPanelViewModel()
+                                { 
+                                  UserName = username , 
+                                  ImageName = p.UserProfile.UserAvatar
+                                
+                                
+                                
+                                }).Single();
+
+        }
 
         public string GetUserByUserName(string username)
         {
@@ -42,10 +55,6 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetAll().Any(p => p.UserName == username);
         }
 
-        SideBarUserPanelViewModel IUserRepository.GetSideBarUserPanelData(string username)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }
