@@ -78,10 +78,10 @@ namespace Presentation.Controllers
 
                 _context.userProfileRepository.AddUserProfileAfterRegister(user.Id);
                 _context.SaveChangesDB();
-                //List<string> requestRoles = new List<string>();
-                //requestRoles.Add("User");
+                List<string> requestRoles = new List<string>();
+                requestRoles.Add("User");
 
-                //var reslt = await _userManager.AddToRolesAsync(user, requestRoles);
+                var reslt = await _userManager.AddToRolesAsync(user, requestRoles);
 
 
                 if (result.Succeeded)

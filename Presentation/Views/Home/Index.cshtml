@@ -2,64 +2,106 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="content-wrapper" style="min-height: 805px;">
-    @if (ViewBag.Create == true)
-    {
-        <div class="col-md-12">
-            <div class="card bg-success-gradient">
-                <div class="card-header">
-                    <h3 class="card-title"> ثبت با موفقیت </h3>
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <div class="content-header">
 
-                    <div class="card-tools">
-                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
-                        </button>
+        @if (ViewBag.Create == true)
+        {
+            <div class="col-md-12">
+                <div class="card bg-success-gradient">
+                    <div class="card-header">
+                        <h3 class="card-title"> ثبت با موفقیت </h3>
+
+                        <div class="card-tools">
+                            <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        <!-- /.card-tools -->
                     </div>
-                    <!-- /.card-tools -->
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        ثبت کاربر   جدید   با موفقیت انجام شده است
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    ثبت کاربر   جدید   با موفقیت انجام شده است
-                </div>
-                <!-- /.card-body -->
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
-        </div>
-        <script>
-            // Your delay in milliseconds
-            var delay = 8000;
-            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
-        </script>
-    }
+            <script>
+                // Your delay in milliseconds
+                var delay = 8000;
+                setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
+            </script>
+        }
 
-    @if (ViewBag.Login == true)
-    {
-        <div class="col-md-12">
-            <div class="card bg-info-gradient">
-                <div class="card-header">
-                    <h3 class="card-title"> ورود  با موفقیت </h3>
+        @if (ViewBag.Login == true)
+        {
+            <div class="col-md-12">
+                <div class="card bg-info-gradient">
+                    <div class="card-header">
+                        <h3 class="card-title"> ورود  با موفقیت </h3>
 
-                    <div class="card-tools">
-                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
-                        </button>
+                        <div class="card-tools">
+                            <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+
+
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        ورود @User.Identity.Name با موفقیت انجام شده است
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <script>
+                // Your delay in milliseconds
+                var delay = 8000;
+                setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
+            </script>
+        }
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-primary">
+                            <div class="inner">
+                                <h3>ثبت نام خدمات دهنده  </h3>
+                                <p>Employee Registration</p>
+
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">کلیک کنید  <i class="fa fa-arrow-circle-left"></i></a>
+                        </div>
                     </div>
 
+                    <div class="col-lg-6 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>ثبت نام کاربر عادی </h3>
 
-                    <!-- /.card-tools -->
+                                <p>User Registration</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="/Register" class="small-box-footer">کلیک کنید <i class="fa fa-arrow-circle-left"></i></a>
+                        </div>
+                    </div>
+
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    ورود @User.Identity.Name با موفقیت انجام شده است 
-                </div>
-                <!-- /.card-body -->
+
+
+
             </div>
-            <!-- /.card -->
-        </div>
-        <script>
-            // Your delay in milliseconds
-            var delay = 8000;
-            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
-        </script>
-    }
-</div>
+  </section>
+    </div>
+    </div>
