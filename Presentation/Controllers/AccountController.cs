@@ -28,7 +28,7 @@ namespace Presentation.Controllers
         }
         #endregion
 
-        #region Register
+        #region User Registeration 
 
         [Route("/Register")]
         public IActionResult Register()
@@ -87,6 +87,78 @@ namespace Presentation.Controllers
                 if (result.Succeeded)
                 {
                     return Redirect("/Home/Index?Register=true");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+            }
+            return View(model);
+        }
+
+        #endregion
+
+        #region Employee Registration 
+
+        [Route("/EmploeeRegister")]
+        public IActionResult EmploeeRegister()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Route("/EmploeeRegister")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EmploeeRegister(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (_context.userRepository.IsExistUserName(model.UserName))
+                {
+                    ModelState.AddModelError("", "این نام کاربری توسط فرد دیگری انتخاب شده است ");
+                    return View(model);
+                }
+                if (_context.userRepository.IsExistEmail(FixedText.FixEmail(model.Email)))
+                {
+                    ModelState.AddModelError("", "این ایمیل  توسط فرد دیگری انتخاب شده است");
+                    return View(model);
+                }
+                if (_context.userRepository.IsExistPhoneNumber(FixedText.FixEmail(model.PhoneNumber)))
+                {
+                    ModelState.AddModelError("PhoneNumber", "شماره تلفن وارد شده توسط فرد دیگری انتخاب شده است  ");
+                    return View(model);
+                }
+                var user = new User()
+                {
+
+                    UserName = model.UserName,
+                    PhoneNumber = model.PhoneNumber,
+                    Email = FixedText.FixEmail(model.Email),
+                    EmailConfirmed = true,
+                    RegisterDate = DateTime.Now,
+                    IsActive = false,
+                    IsDelete = false,
+                    ActiveCode = RandomNumberGenerator.GetNumber(),
+
+                };
+
+
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                _context.userProfileRepository.AddUserProfileAfterRegister(user.Id);
+                _context.SaveChangesDB();
+                List<string> requestRoles = new List<string>();
+                requestRoles.Add("Employee");
+
+                var reslt = await _userManager.AddToRolesAsync(user, requestRoles);
+
+
+                if (result.Succeeded)
+                {
+                    return Redirect("/Home/Index?EmployeeRegister=true");
                 }
 
                 foreach (var error in result.Errors)

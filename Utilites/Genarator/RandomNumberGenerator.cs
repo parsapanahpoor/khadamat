@@ -10,7 +10,7 @@ namespace Utilities.Genarator
         {
             Random rand = new Random();
             string num = "";
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 8; i++)
             {
                 string number = rand.Next(0, 9).ToString();
                 if (num.Contains(number) == false)
