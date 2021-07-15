@@ -33,20 +33,20 @@ namespace Presentation.Areas.Admin.Controllers
 
         #region UsersManager
         #region Indexes
-   public ActionResult Index(int? id, bool Create = false, bool Edit = false, bool Delete = false)
+        public ActionResult Index(int? id, bool Create = false, bool Edit = false, bool Delete = false)
         {
             ViewBag.Create = Create;
             ViewBag.Edit = Edit;
             ViewBag.Delete = Delete;
 
 
-            var model = _userManager.Users.Include(p=>p.UserProfile)
+            var model = _userManager.Users
                         .Select(u => new IndexViewModel()
                         {
                             Id = u.Id,
                             UserName = u.UserName,
                             Email = u.Email,
-                            UserAvatar = u.UserProfile.UserAvatar,
+                            UserAvatar = u.UserAvatar,
                             PhoneNumber = u.PhoneNumber,
                             IsActive = u.IsActive
                         }).ToList();
@@ -58,12 +58,13 @@ namespace Presentation.Areas.Admin.Controllers
 
             var usersid = await _userManager.GetUsersInRoleAsync("Employee");
             var model = usersid
-                        .Select(u => new EmployeesViewModelForShowInAdminPanel()
+                        .Select(u => new IndexViewModel()
                         {
                             Id = u.Id,
                             UserName = u.UserName,
                             Email = u.Email,
                             PhoneNumber = u.PhoneNumber,
+                            UserAvatar = u.UserAvatar,
                             IsActive = u.IsActive
                         }).ToList();
 
@@ -74,11 +75,13 @@ namespace Presentation.Areas.Admin.Controllers
         {
             var usersid = await _userManager.GetUsersInRoleAsync("User");
             var model = usersid
-                        .Select(u => new EmployeesViewModelForShowInAdminPanel()
-                        { Id = u.Id,
+                        .Select(u => new IndexViewModel()
+                        {
+                            Id = u.Id,
                             UserName = u.UserName,
                             Email = u.Email,
                             PhoneNumber = u.PhoneNumber,
+                            UserAvatar = u.UserAvatar,
                             IsActive = u.IsActive
                         }).ToList();
 
@@ -86,34 +89,36 @@ namespace Presentation.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async  Task<IActionResult> AdminsIndex()
+        public async Task<IActionResult> AdminsIndex()
         {
 
             var usersid = await _userManager.GetUsersInRoleAsync("Admin");
             var model = usersid
-                        .Select(u => new EmployeesViewModelForShowInAdminPanel()
+                        .Select(u => new IndexViewModel()
                         {
                             Id = u.Id,
                             UserName = u.UserName,
                             Email = u.Email,
                             PhoneNumber = u.PhoneNumber,
+                            UserAvatar = u.UserAvatar,
                             IsActive = u.IsActive
                         }).ToList();
 
 
             return View(model);
         }
-        public async  Task<ActionResult> SupportersIndex()
+        public async Task<ActionResult> SupportersIndex()
         {
 
             var usersid = await _userManager.GetUsersInRoleAsync("Support");
             var model = usersid
-                        .Select(u => new EmployeesViewModelForShowInAdminPanel()
+                        .Select(u => new IndexViewModel()
                         {
                             Id = u.Id,
                             UserName = u.UserName,
                             Email = u.Email,
                             PhoneNumber = u.PhoneNumber,
+                            UserAvatar = u.UserAvatar,
                             IsActive = u.IsActive
                         }).ToList();
 
@@ -158,7 +163,9 @@ namespace Presentation.Areas.Admin.Controllers
                     EmailConfirmed = true,
                     RegisterDate = DateTime.Now,
                     IsActive = true,
+                    UserAvatar = "Defult.jpg",
                     IsDelete = false,
+
                     ActiveCode = RandomNumberGenerator.GetNumber(),
 
                 };
@@ -167,8 +174,18 @@ namespace Presentation.Areas.Admin.Controllers
 
 
 
+                if (model.UserAvatar != null)
+                {
 
-             
+
+                    user.UserAvatar = NameGenerator.GenerateUniqCode() + Path.GetExtension(model.UserAvatar.FileName);
+                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/UserAvatar", user.UserAvatar);
+                    using (var stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        model.UserAvatar.CopyTo(stream);
+                    }
+                }
+
 
                 #endregion
 
@@ -176,7 +193,6 @@ namespace Presentation.Areas.Admin.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
 
 
-                _context.userProfileRepository.AddUserProfileAfterRegisterAdminPanel(user.Id , model.UserAvatar);
 
                 _context.SaveChangesDB();
 
@@ -199,7 +215,6 @@ namespace Presentation.Areas.Admin.Controllers
             if (string.IsNullOrEmpty(id)) return NotFound();
             var user = await _userManager.FindByIdAsync(id);
 
-            var profile =   _context.userProfileRepository.GetUserProfileById(user.Id);
 
             EditUserInAdminPanel editUser = new EditUserInAdminPanel()
             {
@@ -208,7 +223,7 @@ namespace Presentation.Areas.Admin.Controllers
                 Email = user.Email,
                 UserName = user.UserName,
                 Id = user.Id,
-                AvatarName = profile.UserAvatar
+                AvatarName = user.UserAvatar
 
 
 
@@ -242,11 +257,21 @@ namespace Presentation.Areas.Admin.Controllers
             user.PhoneNumber = userEdited.PhoneNumber;
             user.Email = userEdited.Email;
 
-            var profile = _context.userProfileRepository.GetUserProfileById(user.Id);
-            _context.userProfileRepository.EditUserProfile(profile , userEdited.UserAvatar);
-            _context.SaveChangesDB();
+            if (userEdited.UserAvatar != null)
+            {
+
+
+                user.UserAvatar = NameGenerator.GenerateUniqCode() + Path.GetExtension(userEdited.UserAvatar.FileName);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/UserAvatar", user.UserAvatar);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    userEdited.UserAvatar.CopyTo(stream);
+                }
+            }
 
             var result = await _userManager.UpdateAsync(user);
+            _context.SaveChangesDB();
+
 
             if (result.Succeeded) return Redirect("/Admin/Users/Index?Edit=true");
 
@@ -270,8 +295,8 @@ namespace Presentation.Areas.Admin.Controllers
 
             var result = await _userManager.UpdateAsync(user);
 
-            var profile = _context.userProfileRepository.GetUserProfileById(id);
-            _context.userProfileRepository.DeleteUserProfile(profile);
+            _context.userRepository.DeleteUserAvatar(user);
+           
             _context.SaveChangesDB();
 
             return Redirect("/Admin/Users/Index?Delete=true");

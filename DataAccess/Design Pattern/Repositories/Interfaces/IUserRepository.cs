@@ -18,6 +18,7 @@ namespace DataAccess.Design_Pattern.Repositories
         string GetUserByUserName(string username);
         SideBarUserPanelViewModel GetSideBarUserPanelData(string username);
         Models.Entities.User.User GetUserByForgotPasswordCode(string Code);
+        void DeleteUserAvatar(User user);
 
     }
 }

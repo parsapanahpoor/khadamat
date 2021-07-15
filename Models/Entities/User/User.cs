@@ -41,7 +41,6 @@ namespace Models.Entities.User
 
         #region Relations
 
-        public virtual UserProfile UserProfile { get; set; }
 
 
         #endregion

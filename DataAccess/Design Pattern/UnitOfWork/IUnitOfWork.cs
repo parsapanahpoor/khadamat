@@ -12,7 +12,6 @@ namespace DataAccess.Design_Pattern.UnitOfWork
 
         #region Repositories
         UserRepository userRepository { get; }
-        UserProfileRepository userProfileRepository { get; }
 
         #endregion
 

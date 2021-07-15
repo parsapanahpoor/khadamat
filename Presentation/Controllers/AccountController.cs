@@ -74,9 +74,10 @@ namespace Presentation.Controllers
                     Email = FixedText.FixEmail(model.Email),
                     EmailConfirmed = true,
                     RegisterDate = DateTime.Now,
-                    IsActive = true,
+                    IsActive = false,
                     IsDelete = false,
                     ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
+                    UserAvatar =  "Defult.jpg" , 
                     ActiveCode = RandomNumberGenerator.GetNumber()
 
                 };
@@ -85,19 +86,28 @@ namespace Presentation.Controllers
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
-                _context.userProfileRepository.AddUserProfileAfterRegister(user.Id);
                 _context.SaveChangesDB();
                 List<string> requestRoles = new List<string>();
                 requestRoles.Add("User");
 
                 var reslt = await _userManager.AddToRolesAsync(user, requestRoles);
 
-
+                #region SendEmail
                 if (result.Succeeded)
                 {
+                    var emailMessage =
+                      Url.Action("ConfirmEmail", "Account",
+                          new { username = user.UserName, ActiveCode = user.ActiveCode },
+                          Request.Scheme);
+
+                    await _messageSender.SendEmailAsync(model.Email, "This is Code For Activation EmployeeRegistration ", emailMessage);
+
+
                     return Redirect("/Home/Index?Register=true");
                 }
 
+                #endregion
+              
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
@@ -150,6 +160,7 @@ namespace Presentation.Controllers
                     IsActive = false,
                     IsDelete = false,
                     ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
+                    UserAvatar = "Defult.jpg",
                     ActiveCode = RandomNumberGenerator.GetNumber(),
 
                 };
@@ -158,14 +169,13 @@ namespace Presentation.Controllers
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
-                _context.userProfileRepository.AddUserProfileAfterRegister(user.Id);
                 _context.SaveChangesDB();
                 List<string> requestRoles = new List<string>();
                 requestRoles.Add("Employee");
 
                 var reslt = await _userManager.AddToRolesAsync(user, requestRoles);
 
-
+                #region SendEmail
                 if (result.Succeeded)
                 {
                     var emailMessage =
@@ -178,6 +188,8 @@ namespace Presentation.Controllers
 
                     return Redirect("/Home/Index?EmployeeRegister=true");
                 }
+
+                #endregion
 
                 foreach (var error in result.Errors)
                 {

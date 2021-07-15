@@ -19,7 +19,6 @@ namespace DataContext.Context
 
         #region User
 
-        public DbSet<UserProfile> UserProfile { get; set; }
 
 
         #endregion
@@ -36,14 +35,7 @@ namespace DataContext.Context
             foreach (var fk in cascadeFKs)
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
 
-            modelBuilder.Entity<UserProfile>(table =>
-            {
-                table.HasKey(x => x.UserAvatarId);
-
-                table.HasOne(x => x.User)
-                .WithOne(x => x.UserProfile)
-                .OnDelete(DeleteBehavior.Cascade);
-            });
+        
 
             modelBuilder.Entity<User>()
            .HasQueryFilter(u => !u.IsDelete);

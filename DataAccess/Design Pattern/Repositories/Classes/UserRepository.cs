@@ -4,6 +4,7 @@ using DataContext.Context;
 using Models.Entities.User;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +20,28 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
+        public void DeleteUserAvatar(User user)
+        {
+            if (user.UserAvatar != "Defult.jpg")
+            {
+                string deleteimagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/UserAvatar", user.UserAvatar);
+                if (File.Exists(deleteimagePath))
+                {
+                    File.Delete(deleteimagePath);
+                }
+            }
+
+
+        }
+
         public SideBarUserPanelViewModel GetSideBarUserPanelData(string username)
         {
 
-            return GetAll(includeProperties: "UserProfile").Where(p => p.UserName == username)
+            return GetAll().Where(p => p.UserName == username)
                                 .Select(p => new SideBarUserPanelViewModel()
                                 {
                                     UserName = username,
-                                    ImageName = p.UserProfile.UserAvatar
+                                    ImageName = p.UserAvatar
 
 
 
