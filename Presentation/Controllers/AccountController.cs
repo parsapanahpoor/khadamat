@@ -510,7 +510,7 @@ namespace Presentation.Controllers
                 }
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-                var result = _userManager.ResetPasswordAsync(user, token, recovery.Password);
+               await _userManager.ResetPasswordAsync(user, token, recovery.Password);
 
 
 
