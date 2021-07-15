@@ -20,9 +20,6 @@ namespace Models.Entities.User
         public string UserId { get; set; }
 
 
-        [Display(Name = "آواتار")]
-        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
-        public string UserAvatar { get; set; }
 
 
         #region Relations

@@ -32,8 +32,8 @@ namespace Presentation.Areas.Admin.Controllers
         }
 
         #region UsersManager
-
-        public ActionResult Index(int? id, bool Create = false, bool Edit = false, bool Delete = false)
+        #region Indexes
+   public ActionResult Index(int? id, bool Create = false, bool Edit = false, bool Delete = false)
         {
             ViewBag.Create = Create;
             ViewBag.Edit = Edit;
@@ -46,14 +46,81 @@ namespace Presentation.Areas.Admin.Controllers
                             Id = u.Id,
                             UserName = u.UserName,
                             Email = u.Email,
-                            UserAvatar = u.UserProfile.UserAvatar
-                            ,
+                            UserAvatar = u.UserProfile.UserAvatar,
                             PhoneNumber = u.PhoneNumber,
                             IsActive = u.IsActive
                         }).ToList();
             return View(model);
         }
 
+        public async Task<ActionResult> EmployeeList()
+        {
+
+            var usersid = await _userManager.GetUsersInRoleAsync("Employee");
+            var model = usersid
+                        .Select(u => new EmployeesViewModelForShowInAdminPanel()
+                        {
+                            Id = u.Id,
+                            UserName = u.UserName,
+                            Email = u.Email,
+                            PhoneNumber = u.PhoneNumber,
+                            IsActive = u.IsActive
+                        }).ToList();
+
+
+            return View(model);
+        }
+        public async Task<ActionResult> UsersIndex()
+        {
+            var usersid = await _userManager.GetUsersInRoleAsync("User");
+            var model = usersid
+                        .Select(u => new EmployeesViewModelForShowInAdminPanel()
+                        { Id = u.Id,
+                            UserName = u.UserName,
+                            Email = u.Email,
+                            PhoneNumber = u.PhoneNumber,
+                            IsActive = u.IsActive
+                        }).ToList();
+
+
+            return View(model);
+        }
+
+        public async  Task<IActionResult> AdminsIndex()
+        {
+
+            var usersid = await _userManager.GetUsersInRoleAsync("Admin");
+            var model = usersid
+                        .Select(u => new EmployeesViewModelForShowInAdminPanel()
+                        {
+                            Id = u.Id,
+                            UserName = u.UserName,
+                            Email = u.Email,
+                            PhoneNumber = u.PhoneNumber,
+                            IsActive = u.IsActive
+                        }).ToList();
+
+
+            return View(model);
+        }
+        public async  Task<ActionResult> SupportersIndex()
+        {
+
+            var usersid = await _userManager.GetUsersInRoleAsync("Support");
+            var model = usersid
+                        .Select(u => new EmployeesViewModelForShowInAdminPanel()
+                        {
+                            Id = u.Id,
+                            UserName = u.UserName,
+                            Email = u.Email,
+                            PhoneNumber = u.PhoneNumber,
+                            IsActive = u.IsActive
+                        }).ToList();
+
+
+            return View(model);
+        }
+        #endregion
 
 
 

@@ -23,6 +23,11 @@ namespace Models.Entities.User
         [Display(Name = "تاریخ ثبت نام")]
         public DateTime RegisterDate { get; set; }
 
+        [Display(Name = "آواتار")]
+        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+        public string UserAvatar { get; set; }
+
+
         [Display(Name = "کد فعال سازی")]
         [MaxLength(50, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
         public string ActiveCode { get; set; }
