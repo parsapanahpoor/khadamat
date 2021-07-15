@@ -129,6 +129,37 @@
                 setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
             </script>
         }
+        @if (ViewBag.ForgotPassword == true)
+        {
+            <div class="col-md-12">
+                <div class="card bg-success-gradient" >
+                    <div class="card-header">
+                        <h3 class="card-title"> بازیابی کلمه ی عبور با موفقیت  </h3>
+
+                        <div class="card-tools">
+                            <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+
+
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                    
+                        کلمه ی عبور شما با موفقیت بازیابی گردید 
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <script>
+                // Your delay in milliseconds
+                var delay = 8000;
+                setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
+            </script>
+        }
 
 
         <section class="content">

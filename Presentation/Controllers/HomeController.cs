@@ -19,7 +19,7 @@ namespace Presentation.Controllers
         }
 
         public IActionResult Index(bool Register = false , bool Login = false , bool EmployeeRegister = false
-                                        , bool ConfirmEmail = false)
+                                        , bool ConfirmEmail = false , bool ForgotPassword = false)
         {
             if (Register == true)
             {
@@ -36,6 +36,10 @@ namespace Presentation.Controllers
             if (ConfirmEmail == true)
             {
                 ViewBag.ConfirmEmail = true;
+            } 
+            if (ForgotPassword == true)
+            {
+                ViewBag.ForgotPassword = true;
             }
 
             return View();

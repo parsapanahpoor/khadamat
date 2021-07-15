@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Convertors;
 using Utilities.Genarator;
+using Utilities.Senders;
 
 namespace Presentation.Controllers
 {
@@ -20,15 +21,18 @@ namespace Presentation.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IUnitOfWork _context;
         private readonly IMessageSender _messageSender;
+        private IViewRenderService _viewRender;
 
         public AccountController(UserManager<User> userManager,
             SignInManager<User> signInManager, IUnitOfWork context
-            , IMessageSender messageSender)
+            , IMessageSender messageSender, IViewRenderService viewRender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _messageSender = messageSender;
+            _viewRender = viewRender;
+
         }
         #endregion
 
@@ -72,7 +76,8 @@ namespace Presentation.Controllers
                     RegisterDate = DateTime.Now,
                     IsActive = true,
                     IsDelete = false,
-                    ActiveCode = RandomNumberGenerator.GetNumber(),
+                    ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
+                    ActiveCode = RandomNumberGenerator.GetNumber()
 
                 };
 
@@ -144,6 +149,7 @@ namespace Presentation.Controllers
                     RegisterDate = DateTime.Now,
                     IsActive = false,
                     IsDelete = false,
+                    ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
                     ActiveCode = RandomNumberGenerator.GetNumber(),
 
                 };
@@ -343,6 +349,172 @@ namespace Presentation.Controllers
 
         #endregion
 
+        #region ForgotPassword
+        [Route("/ForgotPassword")]
+        public IActionResult ForgotPassword()
+        {
 
+            return View();
+        }
+        [Route("/ForgotPassword")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(String Email)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Email == null)
+                {
+                    return NotFound();
+                }
+
+                var user = await _userManager.FindByEmailAsync(Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("Email", " حساب کاربری یافت نشده است ");
+                    return View();
+                }
+
+                if (!user.IsActive)
+                {
+                    ModelState.AddModelError("Email", "حساب کاربری شما فعال نشده است .");
+                    return View();
+                }
+
+
+                #region Send ForgetPasswordCode Email
+
+                string body = _viewRender.RenderToStringAsync("_ForgotPassword", user);
+                SendEmail.Send(user.Email, "فراموشی رمز عبور ", body);
+
+                #endregion
+
+                return Redirect("/Account/ConfirmForgetPasswordCode?id=" + user.Id);
+
+
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> ConfirmForgetPasswordCode(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (!user.IsActive)
+            {
+                ModelState.AddModelError("ForgotPasswordCode", "حساب کاربری شما فعال نشده است .");
+                return View();
+            }
+
+            ViewBag.Id = id;
+            ViewBag.username = user.UserName;
+
+            return View(user);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmForgetPasswordCode(string id, string ForgotPasswordCode)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            ViewBag.Id = id;
+            ViewBag.username = user.UserName;
+
+            if (ModelState.IsValid)
+            {
+
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                if (ForgotPasswordCode == null)
+                {
+                    return NotFound();
+                }
+
+
+
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                if (!user.IsActive)
+                {
+                    ModelState.AddModelError("ForgotPasswordCode", "حساب کاربری شما فعال نشده است .");
+                    return View();
+                }
+
+                if (user.ForgotPasswordCode == ForgotPasswordCode)
+                {
+                    return Redirect("/Account/RecoveryPassword?id=" + user.Id);
+
+                }
+                else
+                {
+                    ModelState.AddModelError("ForgotPasswordCode", "کد وارد شده معتبر نمی باشد ");
+
+                    return View();
+                }
+
+            }
+
+
+
+            return View(user);
+        }
+
+        public IActionResult RecoveryPassword(string id)
+
+        {
+            return View(new RecoverPasswordViewModel()
+            {
+
+                Userid = id
+            });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> RecoveryPassword(RecoverPasswordViewModel recovery)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(recovery.Userid);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                var result = _userManager.ResetPasswordAsync(user, token, recovery.Password);
+
+
+
+                _context.SaveChangesDB();
+
+
+
+
+                return Redirect("/Home/Index?ForgotPassword=true");
+
+            }
+
+
+            return View(recovery);
+        }
+
+        #endregion
     }
 }

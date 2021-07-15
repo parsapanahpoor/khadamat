@@ -34,6 +34,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         }
 
+        public User GetUserByForgotPasswordCode(string Code)
+        {
+            var user = GetAll(p => p.ForgotPasswordCode == Code).First();
+            return user; 
+        }
+
         public string GetUserByUserName(string username)
         {
             return GetAll(p => p.UserName == username).Select(p => p.Id).First();

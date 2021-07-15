@@ -64,7 +64,7 @@ namespace DataAccess.ViewModels
     public class RecoverPasswordViewModel
     {
 
-        public int Userid { get; set; }
+        public string Userid { get; set; }
 
         [Display(Name = "کلمه عبور جدید")]
         [Required(ErrorMessage = "لطفا{0} را وارد نمایید...")]
@@ -124,4 +124,19 @@ namespace DataAccess.ViewModels
 
 
     }
+
+    public class ResetPassword
+    {
+        [Display(Name = "کلمه عبور")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+        public string Password { get; set; }
+
+        [Display(Name = "تکرار کلمه عبور")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+        [Compare("Password", ErrorMessage = "کلمه های عبور مغایرت دارند")]
+        public string RePassword { get; set; }
+    }
+
 }

@@ -17,7 +17,7 @@ namespace DataAccess.Design_Pattern.Repositories
         bool IsExistPhoneNumber(string phonenumber);
         string GetUserByUserName(string username);
         SideBarUserPanelViewModel GetSideBarUserPanelData(string username);
-
+        Models.Entities.User.User GetUserByForgotPasswordCode(string Code);
 
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.Convertors;
 
 namespace IoC
 {
@@ -18,6 +19,7 @@ namespace IoC
 
             service.AddScoped<IUnitOfWork, UnitOfWork>();
             service.AddScoped<IMessageSender , MessageSender>();
+            service.AddScoped<IViewRenderService, RenderViewToString>( );
 
         }
     }

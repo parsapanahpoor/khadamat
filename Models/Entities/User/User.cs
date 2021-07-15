@@ -26,8 +26,10 @@ namespace Models.Entities.User
         [Display(Name = "کد فعال سازی")]
         [MaxLength(50, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
         public string ActiveCode { get; set; }
+        [Display(Name = "کد فراموشی رمز عبور ")]
+        [MaxLength(50, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+        public string ForgotPasswordCode { get; set; }
 
-   
         public bool IsDelete { get; set; }
 
 
