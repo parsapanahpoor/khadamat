@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.Entities.User
 {
-    public  class User : IdentityUser
+    public class User : IdentityUser
     {
         public User()
         {
@@ -42,7 +42,7 @@ namespace Models.Entities.User
 
         #region Relations
 
-
+        public virtual EmployeeDocuments EmployeeDocuments { get; set; }
 
         #endregion
 

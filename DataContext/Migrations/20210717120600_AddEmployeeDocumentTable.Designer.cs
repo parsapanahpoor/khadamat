@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210717120600_AddEmployeeDocumentTable")]
+    partial class AddEmployeeDocumentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,13 +174,13 @@ namespace DataContext.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Userid")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Userid")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Userid] IS NOT NULL");
 
                     b.ToTable("employeeDocument");
                 });
@@ -327,9 +329,7 @@ namespace DataContext.Migrations
                 {
                     b.HasOne("Models.Entities.User.User", "User")
                         .WithOne("EmployeeDocuments")
-                        .HasForeignKey("Models.Entities.User.EmployeeDocuments", "Userid")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("Models.Entities.User.EmployeeDocuments", "Userid");
 
                     b.Navigation("User");
                 });

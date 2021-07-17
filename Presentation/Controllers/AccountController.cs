@@ -166,12 +166,16 @@ namespace Presentation.Controllers
                     ActiveCode = RandomNumberGenerator.GetNumber(),
 
                 };
-
-
-
                 var result = await _userManager.CreateAsync(user, model.Password);
 
+                _context.employeeRepository.AddEmployeeDocument(user.Id);
+
+
                 _context.SaveChangesDB();
+
+
+
+
                 List<string> requestRoles = new List<string>();
                 requestRoles.Add("Employee");
 
