@@ -76,6 +76,7 @@ namespace Presentation.Controllers
                     RegisterDate = DateTime.Now,
                     IsActive = false,
                     IsDelete = false,
+                    IsAccepted = true,
                     ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
                     UserAvatar =  "Defult.jpg" , 
                     ActiveCode = RandomNumberGenerator.GetNumber()
@@ -159,6 +160,7 @@ namespace Presentation.Controllers
                     RegisterDate = DateTime.Now,
                     IsActive = false,
                     IsDelete = false,
+                    IsAccepted = false,
                     ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
                     UserAvatar = "Defult.jpg",
                     ActiveCode = RandomNumberGenerator.GetNumber(),

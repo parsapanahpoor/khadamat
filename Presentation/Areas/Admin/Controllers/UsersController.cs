@@ -48,7 +48,7 @@ namespace Presentation.Areas.Admin.Controllers
                             Email = u.Email,
                             UserAvatar = u.UserAvatar,
                             PhoneNumber = u.PhoneNumber,
-                            IsActive = u.IsActive
+                            IsActive = u.IsActive,
                         }).ToList();
             return View(model);
         }
@@ -65,7 +65,8 @@ namespace Presentation.Areas.Admin.Controllers
                             Email = u.Email,
                             PhoneNumber = u.PhoneNumber,
                             UserAvatar = u.UserAvatar,
-                            IsActive = u.IsActive
+                            IsActive = u.IsActive,
+                            IsAccepted = u.IsAccepted
                         }).ToList();
 
 
@@ -82,7 +83,7 @@ namespace Presentation.Areas.Admin.Controllers
                             Email = u.Email,
                             PhoneNumber = u.PhoneNumber,
                             UserAvatar = u.UserAvatar,
-                            IsActive = u.IsActive
+                            IsActive = u.IsActive,
                         }).ToList();
 
 
@@ -101,7 +102,7 @@ namespace Presentation.Areas.Admin.Controllers
                             Email = u.Email,
                             PhoneNumber = u.PhoneNumber,
                             UserAvatar = u.UserAvatar,
-                            IsActive = u.IsActive
+                            IsActive = u.IsActive,
                         }).ToList();
 
 
@@ -119,7 +120,8 @@ namespace Presentation.Areas.Admin.Controllers
                             Email = u.Email,
                             PhoneNumber = u.PhoneNumber,
                             UserAvatar = u.UserAvatar,
-                            IsActive = u.IsActive
+                            IsActive = u.IsActive,
+
                         }).ToList();
 
 
@@ -165,7 +167,7 @@ namespace Presentation.Areas.Admin.Controllers
                     IsActive = true,
                     UserAvatar = "Defult.jpg",
                     IsDelete = false,
-
+                    IsAccepted = true,
                     ActiveCode = RandomNumberGenerator.GetNumber(),
 
                 };
@@ -319,7 +321,23 @@ namespace Presentation.Areas.Admin.Controllers
             var result = await _userManager.UpdateAsync(user);
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> AcceptkUser(string Userid, int id)
+        {
+            var user = await _userManager.FindByIdAsync(Userid);
 
+            if (id == 1)
+            {
+                user.IsAccepted = false;
+
+            }
+            if (id == 2)
+            {
+                user.IsAccepted = true;
+
+            }
+            var result = await _userManager.UpdateAsync(user);
+            return RedirectToAction(nameof(EmployeeList));
+        }
 
         #endregion
 

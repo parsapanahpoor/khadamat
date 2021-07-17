@@ -36,7 +36,7 @@
             <!-- /.card -->
         </div>
         <script>
-    // Your delay in milliseconds
+            // Your delay in milliseconds
             var delay = 5000;
             setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
     }
@@ -63,7 +63,7 @@
             <!-- /.card -->
         </div>
         <script>
-    // Your delay in milliseconds
+            // Your delay in milliseconds
             var delay = 5000;
             setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
     }
@@ -90,7 +90,7 @@
             <!-- /.card -->
         </div>
         <script>
-    // Your delay in milliseconds
+            // Your delay in milliseconds
             var delay = 5000;
             setTimeout(function () { document.getElementById("DeleteBtn").click(); }, delay);</script>
     }
@@ -140,6 +140,7 @@
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.5px;" aria-label="موبایل : activate to sort column ascending">موبایل </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">وضعیت</th>
+                                        
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 420.6px;" aria-label=" activate to sort column ascending"></th>
                                         </tr>
                                     </thead>
@@ -147,20 +148,22 @@
 
                                         @foreach (var item in Model)
                                         {
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">
-                                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.UserAvatar" alt="message user image">
-                                                </td>
-                                                <td>@item.UserName</td>
-                                                <td>@item.PhoneNumber</td>
-                                                @if (item.IsActive)
-                                                {
-                                                    <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=1" class="btn btn-success btn-sm" style="color:white;">فعال</a></td>
-                                                }
-                                                @if (!item.IsActive)
-                                                {
-                                                    <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">غیر فعال</a></td>
-                                                }
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">
+                                                <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.UserAvatar" alt="message user image">
+                                            </td>
+                                            <td>@item.UserName</td>
+                                            <td>@item.PhoneNumber</td>
+                                            @if (item.IsActive)
+                                            {
+                                                <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=1" class="btn btn-success btn-sm" style="color:white;">فعال</a></td>
+                                            }
+                                            @if (!item.IsActive)
+                                            {
+                                                <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">غیر فعال</a></td>
+                                            }
+
+
                                             <td>
 
                                                 <a class="btn btn-warning btn-sm waves-effect" asp-action="Edit" asp-area="Admin" asp-controller="Users" asp-route-id="@item.Id">
@@ -173,7 +176,7 @@
                                                     اطلاعات
                                                 </a>
 
-                                                <a class="btn btn-danger btn-sm waves-effect"  href="/Admin/Users/Edit?Id=@item.Id&&Delete=true">
+                                                <a class="btn btn-danger btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Delete=true">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                     حذف
                                                 </a>
@@ -187,7 +190,7 @@
                                                     حذف نقش
                                                 </a>
                                             </td>
-                                            </tr>
+                                        </tr>
                                         }
                                     </tbody>
 
@@ -220,7 +223,7 @@
     <!-- AdminLTE for demo purposes -->
     <!-- page script -->
     <script>
-    $(function () {
+        $(function () {
             $("#example1").DataTable({
                 "language": {
                     "paginate": {

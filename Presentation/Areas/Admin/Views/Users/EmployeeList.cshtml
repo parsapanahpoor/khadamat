@@ -58,6 +58,7 @@
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.5px;" aria-label="موبایل : activate to sort column ascending">موبایل </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">وضعیت</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">اهراز</th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 420.6px;" aria-label=" activate to sort column ascending"></th>
                                         </tr>
                                     </thead>
@@ -78,6 +79,14 @@
                                             @if (!item.IsActive)
                                             {
                                                 <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">غیر فعال</a></td>
+                                            }
+                                            @if (item.IsAccepted)
+                                            {
+                                                <td><a href="/Admin/Users/AcceptkUser?Userid=@item.Id&&id=1" class="btn btn-primary btn-sm" style="color:white;">تایید شده</a></td>
+                                            }
+                                            @if (!item.IsAccepted)
+                                            {
+                                                <td><a href="/Admin/Users/AcceptkUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">تایید نشده </a></td>
                                             }
                                             <td>
 
