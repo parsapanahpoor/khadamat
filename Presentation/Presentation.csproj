@@ -26,10 +26,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Employee\Controllers\" />
     <Folder Include="Areas\Employee\Data\" />
     <Folder Include="Areas\Employee\Models\" />
-    <Folder Include="Areas\Employee\Views\" />
     <Folder Include="Areas\Supporter\Controllers\" />
     <Folder Include="Areas\Supporter\Data\" />
     <Folder Include="Areas\Supporter\Models\" />
