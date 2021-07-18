@@ -34,9 +34,7 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/" class="nav-link">خانه</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">تماس</a>
-                </li>
+               
             </ul>
 
             <!-- SEARCH FORM -->
@@ -95,7 +93,7 @@
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-lock"></i>
                                     <p style="color:white">
-                                        امنیت
+                                        اطلاعات کاربری 
                                         <i class="right fa fa-angle-left"></i>
                                     </p>
                                 </a>
@@ -103,7 +101,11 @@
                                     <li class="nav-item">
                                         <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>مدیریت نقش ها</p>
+                                            <p>
+
+                                                احراز هویت
+                                                <partial name="_IsAcceptedPossition" />
+                                            </p>
                                         </a>
                                     </li>
 

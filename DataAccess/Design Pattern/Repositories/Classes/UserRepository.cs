@@ -34,6 +34,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         }
 
+        public bool? GetEmployeeAcceptedPossition(string username)
+        {
+            var user = GetAll(p=>p.UserName == username).First();
+            return user.IsAccepted;
+        }
+
         public SideBarUserPanelViewModel GetSideBarUserPanelData(string username)
         {
 

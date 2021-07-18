@@ -1,0 +1,19 @@
+﻿
+@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@inject IUnitOfWork _UserService
+@using DataAccess.ViewModels
+@{ var possition = _UserService.userRepository.GetEmployeeAcceptedPossition(User.Identity.Name); }
+
+@if (possition == true)
+{
+    <span class="right badge badge-success">تایید شده </span>
+}
+@if (possition == false)
+{
+    <span class="right badge badge-danger">تایید نشده </span>
+}
+@if (possition == null)
+{
+    <span class="right badge badge-warning">تکمیل نشده  </span>
+}
