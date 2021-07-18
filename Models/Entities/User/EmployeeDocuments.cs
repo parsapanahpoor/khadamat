@@ -34,9 +34,12 @@ namespace Models.Entities.User
         [Display(Name = " توضیحات    ")]
         public string Description { get; set; }
 
+        public int PossitionId { get; set; }
+
         #region Relations
 
         public virtual User User { get; set; }
+        public virtual EmployeeInformationPossition EmployeeInformationPossition { get; set; }
 
         #endregion
     }

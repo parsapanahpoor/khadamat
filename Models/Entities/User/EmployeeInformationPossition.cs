@@ -26,7 +26,7 @@ namespace Models.Entities.User
 
 
         #region Navigation Property
-
+        public virtual EmployeeDocuments EmployeeDocuments { get; set; }
         #endregion
     }
 }
