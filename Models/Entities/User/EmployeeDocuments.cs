@@ -31,7 +31,8 @@ namespace Models.Entities.User
 
         public int? HomePhoneNumber { get; set; }
 
-
+        [Display(Name = " توضیحات    ")]
+        public string Description { get; set; }
 
         #region Relations
 

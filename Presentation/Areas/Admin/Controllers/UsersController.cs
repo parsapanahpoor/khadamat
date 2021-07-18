@@ -66,7 +66,7 @@ namespace Presentation.Areas.Admin.Controllers
                             PhoneNumber = u.PhoneNumber,
                             UserAvatar = u.UserAvatar,
                             IsActive = u.IsActive,
-                            IsAccepted = u.IsAccepted
+                            IsAccepted = (bool)u.IsAccepted
                         }).ToList();
 
 

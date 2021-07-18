@@ -36,7 +36,7 @@ namespace Models.Entities.User
         public string ForgotPasswordCode { get; set; }
 
         public bool IsDelete { get; set; }
-        public bool IsAccepted { get; set; }
+        public  bool? IsAccepted { get; set; }
 
 
 
