@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.Entities.User
 {
-   public  class EmployeeInformationPossition
+    public class EmployeeInformationPossition
     {
         public EmployeeInformationPossition()
         {
@@ -20,6 +20,7 @@ namespace Models.Entities.User
 
         [Display(Name = "عنوان   ")]
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+        [Required]
         public string PossitionName { get; set; }
 
 

@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210718165000_RemoveEmployeeInfoPossition")]
+    partial class RemoveEmployeeInfoPossition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,21 +186,6 @@ namespace DataContext.Migrations
                         .IsUnique();
 
                     b.ToTable("employeeDocument");
-                });
-
-            modelBuilder.Entity("Models.Entities.User.EmployeeInformationPossition", b =>
-                {
-                    b.Property<int>("PossitionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PossitionName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("PossitionId");
-
-                    b.ToTable("employeeInformationPossitions");
                 });
 
             modelBuilder.Entity("Models.Entities.User.User", b =>

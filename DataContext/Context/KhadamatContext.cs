@@ -44,10 +44,7 @@ namespace DataContext.Context
              .WithOne(a => a.EmployeeDocuments)
              .HasForeignKey<EmployeeDocuments>(c => c.Userid);
 
-            modelBuilder.Entity<EmployeeInformationPossition>()
-             .HasKey(p => new { p.PossitionId})
-             ;
-
+           
 
 
             base.OnModelCreating(modelBuilder);
