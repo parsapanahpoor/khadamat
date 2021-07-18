@@ -1,4 +1,4 @@
-﻿
+﻿@model Models.Entities.User.User
 @{
     ViewData["Title"] = "داشبورد خدمت رسان ";
 
@@ -27,28 +27,34 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+                @if (Model.IsAccepted == null)
+                {
+                    <div class="col-md-12">
+                        <div class="card card-warning">
+                            <div class="card-header">
+                                <h3 class="card-title"> حساب کاربری شما تایید نگردیده </h3>
 
-                <div class="col-md-12">
-                    <div class="card bg-warning-gradient">
-                        <div class="card-header">
-                            <h3 class="card-title"> حساب کاربری شما تایید نگردیده </h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
                             </div>
-                            <!-- /.card-tools -->
+                            <!-- /.card-header -->
+                            <div class="card-body" style="display: block;">
+                                کاربر محترم ! ضمن تشکر از ثبت نام شما در سامانه ی خدمت یار خواهش مندیم ثبت نام خود را نهایی کنید
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                             کاربر محترم ! ضمن تشکر از ثبت نام شما در سامانه ی خدمت یار خواهش مندیم ثبت نام خود را نهایی کنید 
-                        </div>
-                        <!-- /.card-body -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
-                </div>
-
+                    @*<script>
+            // Your delay in milliseconds
+            var delay = 8000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
+                </script>*@
+                }
             </div>
         </div><!-- /.container-fluid -->
     </section>

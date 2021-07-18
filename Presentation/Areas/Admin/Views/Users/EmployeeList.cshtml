@@ -80,13 +80,18 @@
                                             {
                                                 <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">غیر فعال</a></td>
                                             }
-                                            @if (item.IsAccepted)
+                                            @if (item.IsAccepted == true)
                                             {
                                                 <td><a href="/Admin/Users/AcceptkUser?Userid=@item.Id&&id=1" class="btn btn-primary btn-sm" style="color:white;">تایید شده</a></td>
                                             }
-                                            @if (!item.IsAccepted)
+                                            @if (item.IsAccepted == false)
+
                                             {
                                                 <td><a href="/Admin/Users/AcceptkUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">تایید نشده </a></td>
+                                            } 
+                                            @if (item.IsAccepted == null)
+                                            {
+                                                <td><a  class="btn btn-warning btn-sm" style="color:white;">ثبت جدید   </a></td>
                                             }
                                             <td>
 

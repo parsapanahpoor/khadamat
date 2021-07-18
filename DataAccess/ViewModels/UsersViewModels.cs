@@ -14,7 +14,7 @@ namespace DataAccess.ViewModels
         public string UserAvatar { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsActive { get; set; }
-        public bool IsAccepted { get; set; }
+        public bool? IsAccepted { get; set; }
     }
 
 

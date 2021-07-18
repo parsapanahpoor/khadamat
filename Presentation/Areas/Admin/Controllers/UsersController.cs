@@ -16,7 +16,7 @@ using Utilities.Genarator;
 namespace Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -66,7 +66,7 @@ namespace Presentation.Areas.Admin.Controllers
                             PhoneNumber = u.PhoneNumber,
                             UserAvatar = u.UserAvatar,
                             IsActive = u.IsActive,
-                            IsAccepted = (bool)u.IsAccepted
+                            IsAccepted = u.IsAccepted
                         }).ToList();
 
 

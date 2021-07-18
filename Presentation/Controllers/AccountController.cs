@@ -160,7 +160,7 @@ namespace Presentation.Controllers
                     RegisterDate = DateTime.Now,
                     IsActive = false,
                     IsDelete = false,
-                    IsAccepted = false,
+                    IsAccepted = null,
                     ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
                     UserAvatar = "Defult.jpg",
                     ActiveCode = RandomNumberGenerator.GetNumber(),
