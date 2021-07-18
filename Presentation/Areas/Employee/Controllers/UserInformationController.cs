@@ -1,5 +1,6 @@
 ﻿using DataAccess.Design_Pattern.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models.Entities.User;
@@ -31,9 +32,54 @@ namespace Presentation.Areas.Employee.Controllers
         }
         #endregion
 
-        public IActionResult EmployeeDocument()
+        public async Task<IActionResult> EmployeeDocument()
         {
-            return View();
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+           
+            var model = _context.employeeRepository.GetEmployeeDocument(user.Id);
+            
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EmployeeDocument(EmployeeDocuments  employee , IFormFile Picture ,IFormFile Certificate)
+        {
+            if (ModelState.IsValid)
+            {
+                //if (employee.EmployeeCertificate == null)
+                //{
+                //    ModelState.AddModelError("", "تصویر اجاره نامه ی خود را وارد کنید  ");
+                //    return View(employee);
+                //}
+                //if (employee.PersonalPicture == null)
+                //{
+                //    ModelState.AddModelError("", "تصویر 3*4 خود را وارد کنید  ");
+                //    return View(employee);
+                //}
+                if (employee.BankAccountNumber == null)
+                {
+                    ModelState.AddModelError("", "شماره حساب خود را وارد کنید  ");
+                    return View(employee);
+                }
+                if (employee.HomePhoneNumber == null)
+                {
+                    ModelState.AddModelError("", "شماره تلفن ثابت خود را وارد کنید  ");
+                    return View(employee);
+                }
+
+                var user = await _userManager.FindByIdAsync(employee.Userid);
+                user.IsAccepted = false;
+                var task = await  _userManager.UpdateAsync(user);
+
+                _context.employeeRepository.UpdateEmployeeDocumentFromEmployeePanel(employee , Picture , Certificate);
+                
+
+
+                _context.SaveChangesDB();
+                return View();
+
+            }
+            return View(employee);
         }
     }
 }

@@ -186,6 +186,22 @@ namespace DataContext.Migrations
                     b.ToTable("employeeDocument");
                 });
 
+            modelBuilder.Entity("Models.Entities.User.EmployeeInformationPossition", b =>
+                {
+                    b.Property<int>("PossitionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PossitionName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("PossitionId");
+
+                    b.ToTable("employeeInformationPossitions");
+                });
+
             modelBuilder.Entity("Models.Entities.User.User", b =>
                 {
                     b.Property<string>("Id")

@@ -1,4 +1,5 @@
 ﻿using DataAccess.Design_Pattern.GenericRepositories;
+using Microsoft.AspNetCore.Http;
 using Models.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
     {
 
         void AddEmployeeDocument(string userid);
+        EmployeeDocuments GetEmployeeDocument(string userid);
+        void UpdateEmployeeDocumentFromEmployeePanel(EmployeeDocuments employee, IFormFile Picture, IFormFile Certificate);
     }
 }

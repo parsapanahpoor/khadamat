@@ -20,6 +20,7 @@ namespace DataContext.Context
         #region User
 
         public DbSet<EmployeeDocuments> employeeDocument { get; set; }
+        public DbSet<EmployeeInformationPossition> employeeInformationPossitions { get; set; }
 
         #endregion
 
@@ -42,6 +43,10 @@ namespace DataContext.Context
              .HasOne(a => a.User)
              .WithOne(a => a.EmployeeDocuments)
              .HasForeignKey<EmployeeDocuments>(c => c.Userid);
+
+            modelBuilder.Entity<EmployeeInformationPossition>()
+             .HasKey(p => new { p.PossitionId})
+             ;
 
 
 
