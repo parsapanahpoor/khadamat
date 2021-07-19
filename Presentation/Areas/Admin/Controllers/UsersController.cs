@@ -259,17 +259,9 @@ namespace Presentation.Areas.Admin.Controllers
             user.PhoneNumber = userEdited.PhoneNumber;
             user.Email = userEdited.Email;
 
-            if (userEdited.UserAvatar != null)
-            {
 
 
-                user.UserAvatar = NameGenerator.GenerateUniqCode() + Path.GetExtension(userEdited.UserAvatar.FileName);
-                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/UserAvatar", user.UserAvatar);
-                using (var stream = new FileStream(imagePath, FileMode.Create))
-                {
-                    userEdited.UserAvatar.CopyTo(stream);
-                }
-            }
+
 
             var result = await _userManager.UpdateAsync(user);
             _context.SaveChangesDB();
