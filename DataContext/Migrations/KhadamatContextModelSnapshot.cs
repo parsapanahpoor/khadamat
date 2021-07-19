@@ -167,8 +167,8 @@ namespace DataContext.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int?>("HomePhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<long?>("HomePhoneNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PersonalPicture")
                         .HasMaxLength(200)

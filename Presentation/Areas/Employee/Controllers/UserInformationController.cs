@@ -71,13 +71,14 @@ namespace Presentation.Areas.Employee.Controllers
                 user.IsAccepted = false;
                 var task = await  _userManager.UpdateAsync(user);
 
+
+                employee.PossitionId = 2;
                 _context.employeeRepository.UpdateEmployeeDocumentFromEmployeePanel(employee , Picture , Certificate);
                 
 
 
                 _context.SaveChangesDB();
-                return View();
-
+                return Redirect("/Employee/Home/Index");
             }
             return View(employee);
         }

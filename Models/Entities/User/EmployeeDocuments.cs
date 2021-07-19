@@ -29,7 +29,7 @@ namespace Models.Entities.User
         [Display(Name = "شماره حساب بانکی     ")]
         public long? BankAccountNumber { get; set; }
 
-        public int? HomePhoneNumber { get; set; }
+        public long? HomePhoneNumber { get; set; }
 
         [Display(Name = " توضیحات    ")]
         public string Description { get; set; }

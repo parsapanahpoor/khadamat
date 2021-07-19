@@ -27,7 +27,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                @if (Model.IsAccepted == null)
+                @if (ViewBag.Possition == 1)
                 {
                     <div class="col-md-12">
                         <div class="card card-warning">
@@ -49,12 +49,39 @@
                         </div>
                         <!-- /.card -->
                     </div>
-                    @*<script>
-            // Your delay in milliseconds
-            var delay = 8000;
-            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
-                </script>*@
+             
                 }
+
+                @if (ViewBag.Possition == 2)
+                {
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title"> مدارک شما ارسال شد </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body" style="display: block;">
+                                کاربر محترم ! ضمن تشکر از ثبت نام شما در سامانه ی خدمت یار                                                               ضمن تشکر از ارسال مدارک خود بعد از برسی کارشناسان نتیجه  به شما اعلام خواهد شد
+
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+              
+                    <script>
+                        // Your delay in milliseconds
+                        var delay = 5000;
+                        setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+                }
+
             </div>
         </div><!-- /.container-fluid -->
     </section>

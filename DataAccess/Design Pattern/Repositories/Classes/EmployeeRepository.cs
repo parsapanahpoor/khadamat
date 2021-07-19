@@ -28,7 +28,9 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             EmployeeDocuments employee = new EmployeeDocuments()
             {
 
-                Userid = userid
+                Userid = userid,
+                PossitionId = 1
+                
 
             };
 
@@ -39,6 +41,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         {
             return GetAll(p => p.Userid == userid)
                         .Single();
+        }
+
+        public int GetEmployeeInfoPossition(string userid)
+        {
+            return GetAll(p => p.Userid == userid)
+                        .Select(p => p.PossitionId).Single();
         }
 
         public void UpdateEmployeeDocumentFromEmployeePanel(EmployeeDocuments employee, IFormFile Picture, IFormFile Certificate)

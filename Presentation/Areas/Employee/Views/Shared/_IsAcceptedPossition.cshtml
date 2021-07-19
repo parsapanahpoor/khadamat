@@ -1,19 +1,26 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity;
 @using DataAccess.Design_Pattern.Repositories
 @using DataAccess.Design_Pattern.UnitOfWork
 @inject IUnitOfWork _UserService
+@inject UserManager<Models.Entities.User.User> _userManager;
 @using DataAccess.ViewModels
-@{ var possition = _UserService.userRepository.GetEmployeeAcceptedPossition(User.Identity.Name); }
+@{ var user = await _userManager.FindByNameAsync(User.Identity.Name);
+    var possition = _UserService.employeeRepository.GetEmployeeInfoPossition(user.Id);
+}
 
-@if (possition == true)
+@if (possition == 4)
 {
     <span class="right badge badge-success">تایید شده </span>
 }
-@if (possition == false)
+@if (possition == 3)
 {
     <span class="right badge badge-danger">تایید نشده </span>
 }
-@if (possition == null)
+@if (possition == 1)
 {
     <span class="right badge badge-warning">تکمیل نشده  </span>
+}
+@if (possition == 2)
+{
+    <span class="right badge badge-info">در انتظار برسی    </span>
 }

@@ -37,6 +37,12 @@ namespace Presentation.Areas.Supporter.Controllers
         public async Task<IActionResult> Index()
         {
             var user =await _userManager.FindByNameAsync(User.Identity.Name);
+            var Employee = _context.employeeRepository.GetEmployeeDocument(user.Id);
+         
+            ViewBag.Possition = Employee.PossitionId;
+            
+
+
 
             return View(user);
         }
