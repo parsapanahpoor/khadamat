@@ -20,6 +20,6 @@ namespace DataAccess.Design_Pattern.Repositories
         Models.Entities.User.User GetUserByForgotPasswordCode(string Code);
         void DeleteUserAvatar(User user);
         bool? GetEmployeeAcceptedPossition(string username);
-
+        User UpdateUserAvatar(User user, EditUserInAdminPanel userEdited);
     }
 }

@@ -83,6 +83,33 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetAll().Any(p => p.UserName == username);
         }
 
+        public User UpdateUserAvatar(User user, EditUserInAdminPanel userEdited)
+        {
+            if (userEdited.UserAvatar != null)
+            {
+                if (user.UserAvatar != "Defult.jpg")
+                {
+
+                    string deleteimagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/UserAvatar", user.UserAvatar);
+                    if (File.Exists(deleteimagePath))
+                    {
+                        File.Delete(deleteimagePath);
+                    }
+
+                }
+                user.UserAvatar = NameGenerator.GenerateUniqCode() + Path.GetExtension(userEdited.UserAvatar.FileName);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/UserAvatar", user.UserAvatar);
+
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    userEdited.UserAvatar.CopyTo(stream);
+                }
+
+            }
+
+            return user;
+        }
+
     }
 
 }

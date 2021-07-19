@@ -260,10 +260,10 @@ namespace Presentation.Areas.Admin.Controllers
             user.Email = userEdited.Email;
 
 
+            var updateduser = _context.userRepository.UpdateUserAvatar(user , userEdited);
 
 
-
-            var result = await _userManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(updateduser);
             _context.SaveChangesDB();
 
 
