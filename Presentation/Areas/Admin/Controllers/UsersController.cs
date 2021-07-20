@@ -53,7 +53,7 @@ namespace Presentation.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> EmployeeList()
+        public async Task<ActionResult> EmployeeList(bool update = false)
         {
 
             var usersid = await _userManager.GetUsersInRoleAsync("Employee");
@@ -69,7 +69,10 @@ namespace Presentation.Areas.Admin.Controllers
                             IsAccepted = u.IsAccepted
                         }).ToList();
 
-
+            if (update == true)
+            {
+                ViewBag.Update = true;
+            }
             return View(model);
         }
         public async Task<ActionResult> UsersIndex()
@@ -260,7 +263,7 @@ namespace Presentation.Areas.Admin.Controllers
             user.Email = userEdited.Email;
 
 
-            var updateduser = _context.userRepository.UpdateUserAvatar(user , userEdited);
+            var updateduser = _context.userRepository.UpdateUserAvatar(user, userEdited);
 
 
             var result = await _userManager.UpdateAsync(updateduser);
@@ -290,7 +293,7 @@ namespace Presentation.Areas.Admin.Controllers
             var result = await _userManager.UpdateAsync(user);
 
             _context.userRepository.DeleteUserAvatar(user);
-           
+
             _context.SaveChangesDB();
 
             return Redirect("/Admin/Users/Index?Delete=true");
@@ -320,14 +323,25 @@ namespace Presentation.Areas.Admin.Controllers
             if (id == 1)
             {
                 user.IsAccepted = false;
+               var info =  _context.employeeRepository.GetEmployeeDocument(Userid);
+                if (info != null)
+                {
+                    info.PossitionId = 3;
+                }
 
             }
             if (id == 2)
             {
                 user.IsAccepted = true;
+                var info = _context.employeeRepository.GetEmployeeDocument(Userid);
+                if (info != null)
+                {
+                    info.PossitionId = 4;
+                }
 
             }
             var result = await _userManager.UpdateAsync(user);
+            _context.SaveChangesDB();
             return RedirectToAction(nameof(EmployeeList));
         }
 

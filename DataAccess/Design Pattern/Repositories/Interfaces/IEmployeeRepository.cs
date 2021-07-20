@@ -16,6 +16,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         EmployeeDocuments GetEmployeeDocument(string userid);
         void UpdateEmployeeDocumentFromEmployeePanel(EmployeeDocuments employee, IFormFile Picture, IFormFile Certificate);
         int GetEmployeeInfoPossition(string userid);
+        void UpdateEmployeeInfoFromAdminPanel(EmployeeDocuments employee);
         
     }
 }

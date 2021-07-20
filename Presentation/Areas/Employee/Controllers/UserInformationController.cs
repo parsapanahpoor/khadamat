@@ -46,16 +46,7 @@ namespace Presentation.Areas.Employee.Controllers
         {
             if (ModelState.IsValid)
             {
-                //if (employee.EmployeeCertificate == null)
-                //{
-                //    ModelState.AddModelError("", "تصویر اجاره نامه ی خود را وارد کنید  ");
-                //    return View(employee);
-                //}
-                //if (employee.PersonalPicture == null)
-                //{
-                //    ModelState.AddModelError("", "تصویر 3*4 خود را وارد کنید  ");
-                //    return View(employee);
-                //}
+            
                 if (employee.BankAccountNumber == null)
                 {
                     ModelState.AddModelError("", "شماره حساب خود را وارد کنید  ");
@@ -68,7 +59,7 @@ namespace Presentation.Areas.Employee.Controllers
                 }
 
                 var user = await _userManager.FindByIdAsync(employee.Userid);
-                user.IsAccepted = false;
+                user.IsAccepted = null;
                 var task = await  _userManager.UpdateAsync(user);
 
 

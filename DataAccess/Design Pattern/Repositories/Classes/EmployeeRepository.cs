@@ -40,7 +40,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         public EmployeeDocuments GetEmployeeDocument(string userid)
         {
             return GetAll(p => p.Userid == userid)
-                        .Single();
+                        .FirstOrDefault();
         }
 
         public int GetEmployeeInfoPossition(string userid)
@@ -97,6 +97,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
             Update(employee);
 
+        }
+
+        public void UpdateEmployeeInfoFromAdminPanel(EmployeeDocuments employee)
+        {
+            Update(employee);
         }
     }
 }

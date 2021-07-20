@@ -13,9 +13,24 @@
 
 
 <div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> لیست تمام کاربران </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">لیست تمام کاربران </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
     @if (ViewBag.Create == true)
     {
-        <div class="col-md-5">
+        <div class="col-md-12">
             <div class="card bg-success-gradient">
                 <div class="card-header">
                     <h3 class="card-title"> ثبت با موفقیت </h3>
@@ -42,7 +57,7 @@
     }
     @if (ViewBag.Edit == true)
     {
-        <div class="col-md-5">
+        <div class="col-md-12">
             <div class="card bg-primary-gradient">
                 <div class="card-header">
                     <h3 class="card-title">ویرایش موفقیت آمیز  </h3>
@@ -69,7 +84,7 @@
     }
     @if (ViewBag.Delete == true)
     {
-        <div class="col-md-5">
+        <div class="col-md-12">
             <div class="card bg-danger-gradient">
                 <div class="card-header">
                     <h3 class="card-title">حذف موفق </h3>
@@ -95,22 +110,6 @@
             setTimeout(function () { document.getElementById("DeleteBtn").click(); }, delay);</script>
     }
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1> لیست تمام کاربران </h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-left">
-                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
-                        <li class="breadcrumb-item active">لیست تمام کاربران </li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -140,7 +139,7 @@
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.5px;" aria-label="موبایل : activate to sort column ascending">موبایل </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">وضعیت</th>
-                                        
+
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 420.6px;" aria-label=" activate to sort column ascending"></th>
                                         </tr>
                                     </thead>
@@ -148,49 +147,49 @@
 
                                         @foreach (var item in Model)
                                         {
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">
-                                                <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.UserAvatar" alt="message user image">
-                                            </td>
-                                            <td>@item.UserName</td>
-                                            <td>@item.PhoneNumber</td>
-                                            @if (item.IsActive)
-                                            {
-                                                <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=1" class="btn btn-success btn-sm" style="color:white;">فعال</a></td>
-                                            }
-                                            @if (!item.IsActive)
-                                            {
-                                                <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">غیر فعال</a></td>
-                                            }
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">
+                                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.UserAvatar" alt="message user image">
+                                                </td>
+                                                <td>@item.UserName</td>
+                                                <td>@item.PhoneNumber</td>
+                                                @if (item.IsActive)
+                                                {
+                                                    <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=1" class="btn btn-success btn-sm" style="color:white;">فعال</a></td>
+                                                }
+                                                @if (!item.IsActive)
+                                                {
+                                                    <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">غیر فعال</a></td>
+                                                }
 
 
-                                            <td>
+                                                <td>
 
-                                                <a class="btn btn-warning btn-sm waves-effect" asp-action="Edit" asp-area="Admin" asp-controller="Users" asp-route-id="@item.Id">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                    ویرایش
-                                                </a>
+                                                    <a class="btn btn-warning btn-sm waves-effect" asp-action="Edit" asp-area="Admin" asp-controller="Users" asp-route-id="@item.Id">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                        ویرایش
+                                                    </a>
 
-                                                <a class="btn btn-info btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Detail=true">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                    اطلاعات
-                                                </a>
+                                                    <a class="btn btn-info btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Detail=true">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                        اطلاعات
+                                                    </a>
 
-                                                <a class="btn btn-danger btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Delete=true">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                    حذف
-                                                </a>
+                                                    <a class="btn btn-danger btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Delete=true">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        حذف
+                                                    </a>
 
-                                                <a class="btn btn-warning btn-sm waves-effect" asp-controller="Users" asp-action="AddUserToRole" asp-route-id="@item.Id" asp-area="Admin">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                    افزودن  نقش
-                                                </a>
-                                                <a class="btn btn-danger btn-sm waves-effect" asp-controller="Users" asp-action="RemoveUserFromRole" asp-route-id="@item.Id" asp-area="Admin">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                    حذف نقش
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                    <a class="btn btn-warning btn-sm waves-effect" asp-controller="Users" asp-action="AddUserToRole" asp-route-id="@item.Id" asp-area="Admin">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        افزودن  نقش
+                                                    </a>
+                                                    <a class="btn btn-danger btn-sm waves-effect" asp-controller="Users" asp-action="RemoveUserFromRole" asp-route-id="@item.Id" asp-area="Admin">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        حذف نقش
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
 

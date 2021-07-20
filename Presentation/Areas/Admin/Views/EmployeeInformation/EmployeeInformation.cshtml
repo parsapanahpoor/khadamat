@@ -1,10 +1,17 @@
 ﻿@model Models.Entities.User.EmployeeDocuments
 @{
     ViewData["Title"] = "اطلاعات خدمت رسان ";
-    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
 }
 
 
+<head>
+    <style>
+
+        .hiddenn {
+            display: none;
+        }
+    </style>
+</head>
 
 <div class="content-wrapper" style="min-height: 539px;">
     <section class="content-header">
@@ -25,63 +32,16 @@
 
     <section class="content">
         <div class="container-fluid">
-            <form asp-action="EmployeeDocument" asp-controller="UserInformation" asp-area="Employee" method="post" enctype="multipart/form-data">
+            <form asp-action="EmployeeInformation" asp-controller="EmployeeInformation" asp-area="Admin" method="post" enctype="multipart/form-data">
                 <div style="color: darkred;" asp-validation-summary="ModelOnly"></div>
 
                 <div class="row">
 
                     <input type="hidden" asp-for="Userid" />
-                    <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="Description" />
+                    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />
                     <input type="hidden" asp-for="EmployeeCertificate" />
                     <input type="hidden" asp-for="PersonalPicture" />
                     <input type="hidden" asp-for="PossitionId" />
-                    @if (Model.PossitionId == 3)
-                    {
-                        <div class="col-md-12">
-                            <div class="card bg-danger-gradient">
-                                <div class="card-header">
-                                    <h3 class="card-title">مدارک ارسالی شما تایید نگردیده  </h3>
-                                </div>
-                                <div class="card-body">
-                                    پیام تیم پشتیبانی به شما :   @Model.Description
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                    }
-                    @if (Model.PossitionId == 4)
-                    {
-                        <div class="col-md-12">
-                            <div class="card bg-success-gradient">
-                                <div class="card-header">
-                                    <h3 class="card-title">مدارک تایید شده  </h3>
-                                </div>
-                                <div class="card-body">
-                                    @User.Identity.Name عزیز مدارک ارسالی شما توسط تیم پشتیبانی تایید گردیده
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                    }
-
-                    @if (Model.PossitionId == 2)
-                    {
-                        <div class="col-md-12">
-                            <div class="card bg-primary-gradient">
-                                <div class="card-header">
-                                    <h3 class="card-title">در انتظار برسی   </h3>
-                                </div>
-                                <div class="card-body">
-                                    @User.Identity.Name عزیز مدارک ارسالی شما برای تیم پشتیبانی ارسال شده و منتظر تایید است 
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                    }
                     <div class="col-md-6">
                         <!-- Horizontal Form -->
                         <div class="card card-primary">
@@ -92,21 +52,14 @@
                             <!-- form start -->
                             <div class="form-horizontal">
                                 <div class="card-body row">
-                                    @if (Model.PersonalPicture == null)
-                                    {
-                                        <img style="margin:auto; width:342px; height:250px" id="imgAvatar" class="img-responsive rounded" src="~/Images/EmployeeDocuments/Defult.jpg" alt="upload_img">
-
-                                    }
-                                    else
-                                    {
+                                 
                                         <img style="margin:auto; width:342px; height:250px" id="imgAvatar" class="img-responsive rounded" src="~/Images/EmployeeDocuments/@Model.PersonalPicture" alt="upload_img">
 
-                                    }
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="Picture" id="Picture">
+                                            @*<input type="file" class="custom-file-input" name="Picture" id="Picture">*@
                                             <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
                                         </div>
 
@@ -129,22 +82,15 @@
                             <div class="form-horizontal">
                                 <div class="card-body row">
 
-                                    @if (Model.EmployeeCertificate == null)
-                                    {
-                                        <img style="margin:auto; width:342px; height:250px" id="imgEmployee" class="img-responsive rounded" src="~/Images/EmployeeDocuments/EmployeeCertificate.jpg" alt="upload_img">
-
-                                    }
-                                    else
-                                    {
+                                
                                         <img style="margin:auto; width:342px; height:250px" id="imgEmployee" class="img-responsive rounded" src="~/Images/EmployeeDocuments/@Model.EmployeeCertificate" alt="upload_img">
 
-                                    }
 
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="Certificate" id="Certificate">
+                                            @*<input type="file" class="custom-file-input" name="Certificate" id="Certificate">*@
                                             <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
                                         </div>
 
@@ -169,18 +115,48 @@
                                 <div class="card-body col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">شماره حساب بانکی  </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" asp-for="BankAccountNumber" placeholder="شماره حساب  را وارد کنید">
+                                        <input type="text" readonly class="form-control" id="exampleInputEmail1" asp-for="BankAccountNumber" placeholder="شماره حساب  را وارد کنید">
                                     </div>
 
                                 </div>
                                 <div class="card-body col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"> شماره تلفن ثابت </label>
-                                        <input type="text" class="form-control" asp-for="HomePhoneNumber" id="exampleInputEmail1" placeholder="شماره تلفن ثابت  را وارد کنید">
+                                        <input type="text" readonly class="form-control" asp-for="HomePhoneNumber" id="exampleInputEmail1" placeholder="شماره تلفن ثابت  را وارد کنید">
                                     </div>
 
                                 </div>
+
+
                             </div>
+
+                            <div class="row">
+                                <div class="card-body col-md-12">
+                                    <label>  نتیجه ی برسی   </label>
+                                    <select id="VideoType" name="PossId" class="form-control" onchange="ChangeSelect()">
+                                        <option selected>نتیجه ی برسی خود را اعلام کنید </option>
+                                        <option value="@false">تایید نشده  </option>
+                                        <option value="@true">تایید شده </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
+                                <div id="Aparat" class="hiddenn card-body col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> علت عدم پذیرش  </label>
+                                        <input type="text" class="form-control" asp-for="Description" id="exampleInputEmail1" placeholder="علت عدم پذیرش مدارک خدمت رسان را بیان کنید ">
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">ارسال</button>
                             </div>
@@ -200,8 +176,33 @@
 
 @section Scripts
 {
+
     <script>
-        
+
+        function ChangeSelect() {
+
+            let e = document.getElementById("VideoType");
+            let value = e.options[e.selectedIndex].value;
+
+
+            if (value == "@false") {
+
+                document.getElementById("Aparat").classList.remove('hiddenn');
+
+
+            }
+
+            else {
+
+                document.getElementById("Aparat").classList.add('hiddenn');
+
+            }
+
+        }
+
+    </script>
+    <script>
+
         function readURL1(input) {
 
             if (input.files && input.files[0]) {
@@ -217,7 +218,7 @@
         $("#Picture").change(function () {
             readURL1(this);
         });
-       </script>
+    </script>
 
 
     <script>

@@ -49,7 +49,7 @@
                         </div>
                         <!-- /.card -->
                     </div>
-             
+
                 }
 
                 @if (ViewBag.Possition == 2)
@@ -68,18 +68,44 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;">
-                                ضمن تشکر از ارسال مدارک شما خواهشمندیم منتظر اعلام نتیجه ی برسی توسط تیم پشتیبانی باشید  
+                                ضمن تشکر از ارسال مدارک شما خواهشمندیم منتظر اعلام نتیجه ی برسی توسط تیم پشتیبانی باشید
                             </div>
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
                     </div>
-              
+
                     <script>
                         // Your delay in milliseconds
                         var delay = 5000;
                         setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
                 }
+                @if (ViewBag.Possition == 3)
+                {
+                    <div class="col-md-12">
+                        <div class="card card-danger">
+                            <div class="card-header">
+                                <h3 class="card-title"> حساب کاربری شما تایید نگردیده </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body" style="display: block;">
+                                کاربر محترم ! مدارک ارسالی شما توسط پشتیبان برسی شده و متاسفانه تایید نگردیده
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+
+                }
+
+         
 
             </div>
         </div><!-- /.container-fluid -->
