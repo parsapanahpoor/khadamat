@@ -32,7 +32,8 @@ namespace Presentation.Areas.Employee.Controllers
 
         }
         #endregion
-       
+
+        #region EditUser
         public async Task<IActionResult> EditUser()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -94,6 +95,54 @@ namespace Presentation.Areas.Employee.Controllers
 
             return View();
         }
+        #endregion
+
+        #region ResetPassword
+
+        public async Task<IActionResult> ResetPassword()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+                return View("~/Views/Shared/_404.cshtml");
+
+            var Tokenn = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+
+            ResetPassword reset = new ResetPassword()
+            {
+
+                userid = user.Id,
+                Token = Tokenn
+            };
+
+
+            return View(reset);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPassword reset)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var user = await _userManager.FindByIdAsync(reset.userid);
+
+                if (user == null)
+                    return View("~/Views/Shared/_404.cshtml");
+
+                var result = _userManager.ResetPasswordAsync(user, reset.Token, reset.Password);
+
+                _context.SaveChangesDB();
+
+                return Redirect("/LogOut");
+
+            }
+
+            return View();
+        }
+
+        #endregion
 
     }
 }
