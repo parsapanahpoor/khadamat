@@ -1,0 +1,67 @@
+﻿
+@model Models.Entities.User.User
+@{
+    ViewData["Title"] = "داشبورد  خدمت گیرنده  ";
+
+}
+
+
+<div class="content-wrapper" style="min-height: 713.234px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">داشبورد  خدمت گیرنده </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="#">خانه</a></li>
+                        <li class="breadcrumb-item active">داشبورد خدمت گیرنده   </li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                @if (ViewBag.Edit == true)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-primary-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title">ویرایش موفقیت آمیز  </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                ویرایش کاربر با موفقیت ثبت گردید
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <script>
+                        // Your delay in milliseconds
+                        var delay = 5000;
+                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+                }
+
+ 
+
+
+
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>

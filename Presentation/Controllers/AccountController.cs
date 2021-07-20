@@ -332,7 +332,7 @@ namespace Presentation.Controllers
             if (User.IsInRole("User"))
             {
 
-                return Redirect("/User/Home/Index");
+                return Redirect("/Users/Home/Index");
 
             }
             if (User.IsInRole("Employee"))
