@@ -27,6 +27,34 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+                @if (ViewBag.Edit == true)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-primary-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title">ویرایش موفقیت آمیز  </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                ویرایش کاربر با موفقیت ثبت گردید
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <script>
+                        // Your delay in milliseconds
+                        var delay = 5000;
+                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+                }
+
                 @if (ViewBag.Possition == 1)
                 {
                     <div class="col-md-12">
@@ -105,7 +133,7 @@
 
                 }
 
-         
+
 
             </div>
         </div><!-- /.container-fluid -->
