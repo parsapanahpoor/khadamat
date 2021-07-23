@@ -48,16 +48,16 @@ namespace Presentation.Areas.Employee.Controllers
             if (ModelState.IsValid)
             {
             
-                if (employee.BankAccountNumber == null)
-                {
-                    ModelState.AddModelError("", "شماره حساب خود را وارد کنید  ");
-                    return View(employee);
-                }
-                if (employee.HomePhoneNumber == null)
-                {
-                    ModelState.AddModelError("", "شماره تلفن ثابت خود را وارد کنید  ");
-                    return View(employee);
-                }
+                //if (employee.BankAccountNumber == null)
+                //{
+                //    ModelState.AddModelError("", "شماره حساب خود را وارد کنید  ");
+                //    return View(employee);
+                //}
+                //if (employee.HomePhoneNumber == null)
+                //{
+                //    ModelState.AddModelError("", "شماره تلفن ثابت خود را وارد کنید  ");
+                //    return View(employee);
+                //}
 
                 var user = await _userManager.FindByIdAsync(employee.Userid);
                 user.IsAccepted = null;

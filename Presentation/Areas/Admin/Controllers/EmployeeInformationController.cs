@@ -29,7 +29,7 @@ namespace Presentation.Areas.Admin.Controllers
         }
         #endregion
 
-        public async Task<IActionResult> EmployeeInformation(string id)
+        public IActionResult EmployeeInformation(string id)
         {
             if (id == null)
             {
