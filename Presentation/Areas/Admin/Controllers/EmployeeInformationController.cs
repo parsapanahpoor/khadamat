@@ -50,8 +50,16 @@ namespace Presentation.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EmployeeInformation(EmployeeDocuments employee, bool PossId)
         {
+
+            if (PossId != true && PossId != false)
+            {
+                ModelState.AddModelError("", "لطفا نتیجه ی برسی خود را وارد کنید    ");
+                return View(employee);
+            }
+
             if (ModelState.IsValid)
             {
+    
                 if (PossId == true)
                 {
                     employee.PossitionId = 4;
@@ -71,14 +79,13 @@ namespace Presentation.Areas.Admin.Controllers
                 }
                 _context.employeeRepository.UpdateEmployeeInfoFromAdminPanel(employee);
 
-
-
-
                 _context.SaveChangesDB();
                 return Redirect("/Admin/Users/EmployeeList?Update=true");
             }
 
-            return View();
+            ViewBag.Id = employee.Id;
+            ModelState.AddModelError("", "مشکلی در درج اطلاعات رخ داده است لطفا صحت فیلد هارا برسی کنید     ");
+            return View(employee);
         }
 
     }

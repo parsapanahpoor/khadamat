@@ -38,13 +38,13 @@ namespace Models.Entities.User
         public long? CertificateCode { get; set; }
 
         [Display(Name = "  تاریخ تولد      ")]
-        public DateTime? BirthDay { get; set; }
+        public DateTime BirthDay { get; set; }
 
         [Display(Name = "  کد ملی       ")]
         public long? PersonalCode { get; set; }
 
         [Display(Name = "   تاریخ صدور شناسنامه       ")]
-        public DateTime? PersonalCodeDate { get; set; }
+        public DateTime PersonalCodeDate { get; set; }
 
         [Display(Name = "   محل صدور شناسنامه       ")]
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]

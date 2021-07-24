@@ -29,7 +29,9 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             {
 
                 Userid = userid,
-                PossitionId = 1
+                PossitionId = 1,
+                PersonalCodeDate = DateTime.Now , 
+                BirthDay = DateTime.Now
                 
 
             };

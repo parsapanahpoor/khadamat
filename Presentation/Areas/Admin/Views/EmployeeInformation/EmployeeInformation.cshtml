@@ -1,4 +1,5 @@
 ﻿@model Models.Entities.User.EmployeeDocuments
+@using Utilities.Convertors
 @{
     ViewData["Title"] = "اطلاعات خدمت رسان ";
 }
@@ -42,6 +43,8 @@
                     <input type="hidden" asp-for="EmployeeCertificate" />
                     <input type="hidden" asp-for="PersonalPicture" />
                     <input type="hidden" asp-for="PossitionId" />
+                    <input type="hidden" asp-for="BirthDay" />
+                    <input type="hidden" asp-for="PersonalCodeDate" />
                     <div class="col-md-6">
                         <!-- Horizontal Form -->
                         <div class="card card-primary">
@@ -52,8 +55,17 @@
                             <!-- form start -->
                             <div class="form-horizontal">
                                 <div class="card-body row">
-                                 
+
+                                    @if (Model.PersonalPicture == null)
+                                    {
+                                        <img style="margin:auto; width:342px; height:250px" id="imgAvatar" class="img-responsive rounded" src="~/Images/EmployeeDocuments/Defult.jpg" alt="upload_img">
+
+                                    }
+                                    else
+                                    {
                                         <img style="margin:auto; width:342px; height:250px" id="imgAvatar" class="img-responsive rounded" src="~/Images/EmployeeDocuments/@Model.PersonalPicture" alt="upload_img">
+
+                                    }
 
                                 </div>
                                 <div class="form-group">
@@ -82,8 +94,17 @@
                             <div class="form-horizontal">
                                 <div class="card-body row">
 
-                                
+                                    @if (Model.EmployeeCertificate == null)
+                                    {
+                                        <img style="margin:auto; width:342px; height:250px" id="imgEmployee" class="img-responsive rounded" src="~/Images/EmployeeDocuments/EmployeeCertificate.jpg" alt="upload_img">
+
+                                    }
+                                    else
+                                    {
                                         <img style="margin:auto; width:342px; height:250px" id="imgEmployee" class="img-responsive rounded" src="~/Images/EmployeeDocuments/@Model.EmployeeCertificate" alt="upload_img">
+
+                                    }
+
 
 
                                 </div>
@@ -102,31 +123,315 @@
                         </div>
                     </div>
 
+
                     <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title"> اطلاعات حساب بانکی </h3>
+                                <h3 class="card-title"> اطلاعات شخصی </h3>
                             </div>
-                            <!-- /.card-header -->
-                            <!-- form start -->
+
+
+                            <div class="row">
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> نام و نام خانوادگی    </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" asp-for="FamilyName" placeholder="نام و نام خانوادگی را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">  نام پدر  </label>
+                                        <input type="text" class="form-control" asp-for="FatherName" id="exampleInputEmail1" placeholder="نام پدر را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">  شماره شناسنامه    </label>
+                                        <input type="text" class="form-control" asp-for="CertificateCode" id="exampleInputEmail1" placeholder="شماره شناسنامه را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   کدملی     </label>
+                                        <input type="text" class="form-control" asp-for="PersonalCode" id="exampleInputEmail1" placeholder="کدملی را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   تاریخ تولد      </label>
+                                        <input type="text" class="form-control"  id="BirthDayeDate" value="@Model.BirthDay.ToShamsi()" placeholder="تاریخ تولد را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   تاریخ صدور شناسنامه      </label>
+                                        <input type="text" class="form-control"  value="@Model.PersonalCodeDate.ToShamsi()" id="PersonalCodeCreateDate" placeholder="تاریخ صدور شناسنامه را وارد کنید">
+                                    </div>
+
+                                </div>
+
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   محل صدور شناسنامه      </label>
+                                        <input type="text" class="form-control" asp-for="PersonalCodeLocation" id="exampleInputEmail1" placeholder="محل صدور شناسنامه را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   محل تولد       </label>
+                                        <input type="text" class="form-control" asp-for="BirthdayLocation" id="exampleInputEmail1" placeholder="محل تولد شناسنامه را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   دین(مذهب )       </label>
+                                        <input type="text" class="form-control" asp-for="Religion" id="exampleInputEmail1" placeholder="مذهب خود را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   وضعیت تاهل        </label>
+                                        <div class="row">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="MariatalStatus" value="true"
+                                                       @((Model.MaritalStatus == true) ? "checked" : "")>
+                                                <label class="form-check-label"> مجرد </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="MaritalStatus" value="false"
+                                                       @((Model.MaritalStatus == false) ? "checked" : "")>
+                                                <label class="form-check-label"> متاهل </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title"> وضعیت سلامت   </h3>
+                            </div>
+                            <div class="row">
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   سلامت وضعیت روحی و جسمانی         </label>
+                                        <div class="row">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="HealthStatus" value="true"
+                                                       @((Model.HealthStatus == true) ? "checked" : "")>
+                                                <label class="form-check-label"> بله  </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="HealthStatus" value="false"
+                                                       @((Model.HealthStatus == false) ? "checked" : "")>
+                                                <label class="form-check-label"> خیر  </label>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">
+                                            درصورت خیر فیلد زیر را پر کنید
+                                        </label>
+                                        <input type="text" class="form-control" asp-for="HealthStatusDescription" id="exampleInputEmail1" placeholder="">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title"> وضعیت  خدمت نظام وظیفه     </h3>
+                            </div>
+                            <div class="row">
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   خمت نظام وظیفه          </label>
+                                        <div class="row">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="MilitaryService" value="true"
+                                                       @((Model.MilitaryService == true) ? "checked" : "")>
+                                                <label class="form-check-label"> انجام داده   </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="MilitaryService" value="false"
+                                                       @((Model.MilitaryService == false) ? "checked" : "")>
+                                                <label class="form-check-label"> معاف از خدمت   </label>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">
+                                            درصورت معافیت  فیلد زیر را پر کنید
+                                        </label>
+                                        <input type="text" class="form-control" asp-for="MilitaryServiceDesCription" id="exampleInputEmail1" placeholder="">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+
+                            <div class="card-header">
+                                <h3 class="card-title">  سوابق تحصیلی  و آموزشی  </h3>
+                            </div>
 
                             <div class="row">
                                 <div class="card-body col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">شماره حساب بانکی  </label>
+                                        <label for="exampleInputEmail1"> آخرین مدرک تحصیلی     </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" asp-for="LastEducationalCertificate" placeholder="آخرین مدرک تحصیلی  را وارد کنید">
                                     </div>
 
                                 </div>
                                 <div class="card-body col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1"> شماره تلفن ثابت </label>
+                                        <label for="exampleInputEmail1"> رشته ی تحصیلی      </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" asp-for="FieldOfStudy" placeholder="رشته ی تحصیلی   را وارد کنید">
                                     </div>
 
                                 </div>
-
-
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+
+                            <div class="card-header">
+                                <h3 class="card-title">  تجربیات شغلی   </h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="card-body col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> نام آخرین محل فعالیت      </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" asp-for="LastWorkExperience" placeholder="نام آخرین محل فعالیت  را وارد کنید">
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> سمت شغلی       </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" asp-for="LastWorkExperience" placeholder="سمت شغلی    را وارد کنید">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title"> سابقه ی کیفری     </h3>
+                            </div>
+                            <div class="row">
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   آیا سابقه ی کیفری دارید ؟         </label>
+                                        <div class="row">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="HistoryOfDetention" value="true"
+                                                       @((Model.HistoryOfDetention == true) ? "checked" : "")>
+                                                <label class="form-check-label"> بله    </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="HistoryOfDetention" value="false"
+                                                       @((Model.HistoryOfDetention == false) ? "checked" : "")>
+                                                <label class="form-check-label"> خیر    </label>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">
+                                            اگر سابقه ی کیفری دارید دلیل آن را ذکر کنید
+                                        </label>
+                                        <input type="text" class="form-control" asp-for="HistoryOfDetentionDescription" id="exampleInputEmail1" placeholder="">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title"> تعهد نامه       </h3>
+                            </div>
+                            <div class="row">
+                                <div class="card-body col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">   بدینوسیله صحت کلیه ی اطلاعات مندرج در این فرم را تایید می نمایم          </label>
+                                        <div class="row">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="Obligation" value="true"
+                                                       @((Model.Obligation == true) ? "checked" : "")>
+                                                <label class="form-check-label"> بله    </label>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title"> نظر پشتیبانی  </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+
 
                             <div class="row">
                                 <div class="card-body col-md-12">
@@ -235,6 +540,8 @@
 
         $("#Certificate").change(function () {
             readURL2(this);
-        });</script>
+        });
+    </script>
 
+  
 }
