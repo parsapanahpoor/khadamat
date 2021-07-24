@@ -1,4 +1,5 @@
 ﻿using DataAccess.Design_Pattern.GenericRepositories;
+using Microsoft.AspNetCore.Http;
 using Models.Entities.Works;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,10 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
     public interface IJobCatgeoryRepository : IGernericRepository<JobCategory>
     {
 
-
+        List<JobCategory> GetAllJobsCategories();
+        void AddJobCategory(JobCategory jobCategory , IFormFile JobPic);
+        JobCategory GetJobCatgeoriesById(int id);
+        void UpdateJobCaategory(JobCategory jobCategory , IFormFile JobPic);
+        void DeleteJobCategory(JobCategory jobCategory);
     }
 }
