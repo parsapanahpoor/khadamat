@@ -22,6 +22,7 @@ namespace DataContext.Context
 
         public DbSet<EmployeeDocuments> employeeDocument { get; set; }
         public DbSet<EmployeeInformationPossition> employeeInformationPossitions { get; set; }
+        public DbSet<UserSelectedJob> UserSelectedJobs { get; set; }
 
         #endregion
         #region Jobs
@@ -43,8 +44,7 @@ namespace DataContext.Context
             modelBuilder.Entity<User>()
            .HasQueryFilter(u => !u.IsDelete);
 
-            modelBuilder.Entity<JobCategory>()
-           .HasQueryFilter(u => !u.IsDelete);
+
 
             modelBuilder.Entity<EmployeeDocuments>()
              .HasOne(a => a.User)
@@ -52,11 +52,15 @@ namespace DataContext.Context
              .HasForeignKey<EmployeeDocuments>(c => c.Userid);
 
 
+
+
             modelBuilder.Entity<EmployeeDocuments>()
              .HasOne(a => a.EmployeeInformationPossition)
              .WithOne(a => a.EmployeeDocuments)
              .HasForeignKey<EmployeeDocuments>(c => c.PossitionId);
 
+            modelBuilder.Entity<JobCategory>()
+           .HasQueryFilter(u => !u.IsDelete);
 
 
 

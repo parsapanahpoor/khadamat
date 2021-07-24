@@ -18,7 +18,8 @@ namespace DataAccess.Design_Pattern.UnitOfWork
             _db = db;
             userRepository = new UserRepository(_db);
             jobCategoryRepository = new JobCategoryRepository(_db);
-
+            employeeRepository = new EmployeeRepository(_db);
+            userSelectedJobRepository = new UserSelectedJobRepository(_db);
 
         }
 
@@ -28,6 +29,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         public UserRepository userRepository { get; private set; }
         public EmployeeRepository employeeRepository { get; private set; }
         public JobCategoryRepository jobCategoryRepository { get; private set; }
+        public UserSelectedJobRepository userSelectedJobRepository { get; private set; }
 
 
 

@@ -43,6 +43,7 @@ namespace Models.Entities.User
         #region Relations
 
         public virtual EmployeeDocuments EmployeeDocuments { get; set; }
+        public virtual List<UserSelectedJob> UserSelected { get; set; }
 
         #endregion
 

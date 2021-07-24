@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210724121014_UpdteEmployeeDocumentForUserid")]
+    partial class UpdteEmployeeDocumentForUserid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,6 +278,28 @@ namespace DataContext.Migrations
                     b.ToTable("employeeInformationPossitions");
                 });
 
+            modelBuilder.Entity("Models.Entities.User.JobCategorySelected", b =>
+                {
+                    b.Property<int>("JobCategorySelectedID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("JobCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Userid")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("JobCategorySelectedID");
+
+                    b.HasIndex("JobCategoryId");
+
+                    b.HasIndex("Userid");
+
+                    b.ToTable("JobCategorySelected");
+                });
+
             modelBuilder.Entity("Models.Entities.User.User", b =>
                 {
                     b.Property<string>("Id")
@@ -363,28 +387,6 @@ namespace DataContext.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Models.Entities.User.UserSelectedJob", b =>
-                {
-                    b.Property<int>("JobCategorySelectedID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("JobCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Userid")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("JobCategorySelectedID");
-
-                    b.HasIndex("JobCategoryId");
-
-                    b.HasIndex("Userid");
-
-                    b.ToTable("UserSelectedJobs");
                 });
 
             modelBuilder.Entity("Models.Entities.Works.JobCategory", b =>
@@ -487,16 +489,16 @@ namespace DataContext.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Models.Entities.User.UserSelectedJob", b =>
+            modelBuilder.Entity("Models.Entities.User.JobCategorySelected", b =>
                 {
                     b.HasOne("Models.Entities.Works.JobCategory", "JobCategory")
-                        .WithMany("UserSelected")
+                        .WithMany("JobCategorySelected")
                         .HasForeignKey("JobCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Models.Entities.User.User", "User")
-                        .WithMany("UserSelected")
+                        .WithMany("JobCategorySelecteds")
                         .HasForeignKey("Userid");
 
                     b.Navigation("JobCategory");
@@ -513,12 +515,12 @@ namespace DataContext.Migrations
                 {
                     b.Navigation("EmployeeDocuments");
 
-                    b.Navigation("UserSelected");
+                    b.Navigation("JobCategorySelecteds");
                 });
 
             modelBuilder.Entity("Models.Entities.Works.JobCategory", b =>
                 {
-                    b.Navigation("UserSelected");
+                    b.Navigation("JobCategorySelected");
                 });
 #pragma warning restore 612, 618
         }

@@ -38,7 +38,9 @@ namespace Presentation.Areas.Supporter.Controllers
         {
             var user =await _userManager.FindByNameAsync(User.Identity.Name);
             var Employee = _context.employeeRepository.GetEmployeeDocument(user.Id);
-         
+
+       
+
             ViewBag.Possition = Employee.PossitionId;
 
             if (Edit == true)

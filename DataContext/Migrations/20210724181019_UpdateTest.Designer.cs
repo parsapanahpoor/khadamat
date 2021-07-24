@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210724181019_UpdateTest")]
+    partial class UpdateTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -365,28 +367,6 @@ namespace DataContext.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Models.Entities.User.UserSelectedJob", b =>
-                {
-                    b.Property<int>("JobCategorySelectedID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("JobCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Userid")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("JobCategorySelectedID");
-
-                    b.HasIndex("JobCategoryId");
-
-                    b.HasIndex("Userid");
-
-                    b.ToTable("UserSelectedJobs");
-                });
-
             modelBuilder.Entity("Models.Entities.Works.JobCategory", b =>
                 {
                     b.Property<int>("JobCategoryId")
@@ -487,23 +467,6 @@ namespace DataContext.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Models.Entities.User.UserSelectedJob", b =>
-                {
-                    b.HasOne("Models.Entities.Works.JobCategory", "JobCategory")
-                        .WithMany("UserSelected")
-                        .HasForeignKey("JobCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.User.User", "User")
-                        .WithMany("UserSelected")
-                        .HasForeignKey("Userid");
-
-                    b.Navigation("JobCategory");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Models.Entities.User.EmployeeInformationPossition", b =>
                 {
                     b.Navigation("EmployeeDocuments");
@@ -512,13 +475,6 @@ namespace DataContext.Migrations
             modelBuilder.Entity("Models.Entities.User.User", b =>
                 {
                     b.Navigation("EmployeeDocuments");
-
-                    b.Navigation("UserSelected");
-                });
-
-            modelBuilder.Entity("Models.Entities.Works.JobCategory", b =>
-                {
-                    b.Navigation("UserSelected");
                 });
 #pragma warning restore 612, 618
         }

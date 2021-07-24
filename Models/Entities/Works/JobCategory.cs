@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Entities.User;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Models.Entities.Works
 
         #region Relations
 
-        //public virtual List<VideoSelectedCategory> VideoSelectedCategory { get; set; }
+        public virtual List<UserSelectedJob> UserSelected { get; set; }
 
         #endregion
     }
