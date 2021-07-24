@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities.User;
+using Models.Entities.Works;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,11 @@ namespace DataContext.Context
         public DbSet<EmployeeInformationPossition> employeeInformationPossitions { get; set; }
 
         #endregion
+        #region Jobs
 
+        public DbSet<JobCategory> jobCategories { get; set; }
+
+        #endregion
 
         #region OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +43,8 @@ namespace DataContext.Context
             modelBuilder.Entity<User>()
            .HasQueryFilter(u => !u.IsDelete);
 
+            modelBuilder.Entity<JobCategory>()
+           .HasQueryFilter(u => !u.IsDelete);
 
             modelBuilder.Entity<EmployeeDocuments>()
              .HasOne(a => a.User)
@@ -49,6 +56,8 @@ namespace DataContext.Context
              .HasOne(a => a.EmployeeInformationPossition)
              .WithOne(a => a.EmployeeDocuments)
              .HasForeignKey<EmployeeDocuments>(c => c.PossitionId);
+
+
 
 
             base.OnModelCreating(modelBuilder);
