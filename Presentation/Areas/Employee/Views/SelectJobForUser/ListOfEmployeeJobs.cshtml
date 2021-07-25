@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Models.Entities.User.UserSelectedJob>
+@{
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+}
+
+<div class="content-wrapper" style="min-height: 805px;">
+    @if (ViewBag.Add == true)
+    {
+        <div class="col-md-12">
+            <div class="card bg-success-gradient">
+                <div class="card-header">
+                    <h3 class="card-title"> ثبت با موفقیت </h3>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    ثبت کاربر جدید با موفقیت انجام شده است
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <script>
+            // Your delay in milliseconds
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+    }
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>گروه های خدمات   </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                        <li class="breadcrumb-item active">گروه خدمات  </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6">
+                        <!-- Widget: user widget style 1 -->
+                        <div class="card card-widget widget-user">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header text-white" style="background: url('/Admin_Panel/dist/img/photo1.png') center center;">
+                                <h3 class="widget-user-username"> @item.JobCategory.CategoryTitle</h3>
+                                <h5 class="widget-user-desc"> درصد کمیسیون :  @item.JobCategory.Percent%</h5>
+                            </div>
+                            <div class="widget-user-image">
+                                <img style="width:100px;height:140px" class="img-circle" src="/Images/EmployeeResumeForJobs/@item.UserAvatar" alt="User Avatar">
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-sm-4 border-left">
+                                        <div class="description-block">
+                                            <h5 class="description-header">
+
+                                                <a class="btn btn-primary btn-md waves-effect" href="/Admin/Sliders/Edit?id=5">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    ویرایش
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4 border-left">
+                                        <div class="description-block">
+                                            <h5 class="description-header"></h5>
+                                            <span class="description-text"> </span>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4">
+                                        <div class="description-block">
+                                            <h5 class="description-header">
+                                                <a class="btn btn-danger btn-md waves-effect" href="/Admin/Sliders/Edit?id=5">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    حذف
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                        </div>
+                        <!-- /.widget-user -->
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>
+</div>

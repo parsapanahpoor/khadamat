@@ -49,7 +49,13 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         }
 
-    public bool IsExistUserSelectedJob(string userid)
+        public List<UserSelectedJob> GetUserSelectedJobByUserid(string userid)
+        {
+            return GetAll(includeProperties: "JobCategory")
+                                .Where(p=>p.Userid == userid).ToList();
+        }
+
+        public bool IsExistUserSelectedJob(string userid)
     {
         return GetAll().Any(p => p.Userid == userid);
     }

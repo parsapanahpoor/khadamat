@@ -30,6 +30,26 @@ namespace Presentation.Areas.Employee.Controllers
             return View(_context.jobCategoryRepository.GetAllJobsCategories());
         }
 
+        public async Task<IActionResult> ListOfEmployeeJobs(bool Add = false)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+
+            var UserJobs = _context.userSelectedJobRepository.GetUserSelectedJobByUserid(user.Id);
+
+            if (Add == true)
+            {
+                ViewBag.Add = true;
+            }
+
+            return View(UserJobs);
+        }
+
+
         public async Task<IActionResult> EmployeeResume(int Jobid)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -54,7 +74,7 @@ namespace Presentation.Areas.Employee.Controllers
                 _context.userSelectedJobRepository.AddJobToUser(userSelectedJob , UserAvatarFile);
                 _context.SaveChangesDB();
 
-                return Redirect("/Employee/Home/Index");
+                return Redirect("/Employee/SelectJobForUser/ListOfEmployeeJobs?Add=True");
             }
 
             ViewBag.job = _context.jobCategoryRepository.GetJobCatgeoriesById(userSelectedJob.JobCategoryId);
@@ -68,5 +88,7 @@ namespace Presentation.Areas.Employee.Controllers
 
             });
         }
+
+        
     }
 }
