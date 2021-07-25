@@ -30,7 +30,7 @@ namespace Presentation.Areas.Employee.Controllers
             return View(_context.jobCategoryRepository.GetAllJobsCategories());
         }
 
-        public async Task<IActionResult> ListOfEmployeeJobs(bool Add = false)
+        public async Task<IActionResult> ListOfEmployeeJobs(bool Add = false, bool Edit = false, bool Delete = false)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -45,7 +45,14 @@ namespace Presentation.Areas.Employee.Controllers
             {
                 ViewBag.Add = true;
             }
-
+            if (Edit == true)
+            {
+                ViewBag.Edit = true;
+            }
+           if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
             return View(UserJobs);
         }
 
@@ -57,21 +64,21 @@ namespace Presentation.Areas.Employee.Controllers
             ViewBag.job = _context.jobCategoryRepository.GetJobCatgeoriesById(Jobid);
 
             return View(new UserSelectedJob()
-            { 
-            
-                JobCategoryId = Jobid ,
+            {
+
+                JobCategoryId = Jobid,
                 Userid = user.Id
 
-            
+
             });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EmployeeResume(UserSelectedJob userSelectedJob , IFormFile UserAvatarFile)
+        public async Task<IActionResult> EmployeeResume(UserSelectedJob userSelectedJob, IFormFile UserAvatarFile)
         {
             if (ModelState.IsValid)
             {
-                _context.userSelectedJobRepository.AddJobToUser(userSelectedJob , UserAvatarFile);
+                _context.userSelectedJobRepository.AddJobToUser(userSelectedJob, UserAvatarFile);
                 _context.SaveChangesDB();
 
                 return Redirect("/Employee/SelectJobForUser/ListOfEmployeeJobs?Add=True");
@@ -89,6 +96,61 @@ namespace Presentation.Areas.Employee.Controllers
             });
         }
 
-        
+        public IActionResult EditEmployeeResume(int? id , bool Delete = false)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+
+            var job = _context.userSelectedJobRepository.GetUserselectedJobByJobID((int)id);
+
+            if (job == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true; 
+
+            }
+
+            return View(job);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditEmployeeResume(UserSelectedJob userSelectedJob , IFormFile UserAvatarFile)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.userSelectedJobRepository.UpdateUserSelectedJob(userSelectedJob, UserAvatarFile);
+                _context.SaveChangesDB();
+
+                return Redirect("/Employee/SelectJobForUser/ListOfEmployeeJobs?Edit=True");
+
+            }
+
+
+            return View(userSelectedJob);
+        }
+
+        public IActionResult DeleteUserSelectedJob(int id)
+        {
+
+            var job = _context.userSelectedJobRepository.GetUserselectedJobByJobID(id);
+            if (job == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+            _context.userSelectedJobRepository.DeleteUserSelectedJob(job);
+            _context.SaveChangesDB();
+
+
+
+            return Redirect("/Employee/SelectJobForUser/ListOfEmployeeJobs?Delete=True");
+        }
     }
 }

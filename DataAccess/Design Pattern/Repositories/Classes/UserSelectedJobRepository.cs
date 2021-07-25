@@ -22,7 +22,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
-        public void AddJobToUser(UserSelectedJob userSelectedJob , IFormFile UserAvatarFile)
+        public void AddJobToUser(UserSelectedJob userSelectedJob, IFormFile UserAvatarFile)
         {
             UserSelectedJob job = new UserSelectedJob()
             {
@@ -31,7 +31,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 ResumeDescription = userSelectedJob.ResumeDescription,
                 UserAvatar = "Defult.jpg"
 
-        };
+            };
 
             if (UserAvatarFile != null)
             {
@@ -49,15 +49,67 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         }
 
+        public void DeleteUserSelectedJob(UserSelectedJob userSelectedJob)
+        {
+
+                if (userSelectedJob.UserAvatar != "Defult.jpg")
+                {
+
+                    string deleteimagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/EmployeeResumeForJobs", userSelectedJob.UserAvatar);
+                    if (File.Exists(deleteimagePath))
+                    {
+                        File.Delete(deleteimagePath);
+                    }
+
+                }
+   
+
+
+            Delete(userSelectedJob);
+        }
+
+        public UserSelectedJob GetUserselectedJobByJobID(int jobid)
+        {
+            return GetAll(includeProperties: "JobCategory")
+                            .Where(p => p.JobCategorySelectedID == jobid).First();
+        }
+
         public List<UserSelectedJob> GetUserSelectedJobByUserid(string userid)
         {
             return GetAll(includeProperties: "JobCategory")
-                                .Where(p=>p.Userid == userid).ToList();
+                                .Where(p => p.Userid == userid).ToList();
         }
 
         public bool IsExistUserSelectedJob(string userid)
-    {
-        return GetAll().Any(p => p.Userid == userid);
+        {
+            return GetAll().Any(p => p.Userid == userid);
+        }
+
+        public void UpdateUserSelectedJob(UserSelectedJob userSelectedJob, IFormFile UserAvatarFile)
+        {
+            if (UserAvatarFile != null)
+            {
+                if (userSelectedJob.UserAvatar != "Defult.jpg")
+                {
+
+                    string deleteimagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/EmployeeResumeForJobs", userSelectedJob.UserAvatar);
+                    if (File.Exists(deleteimagePath))
+                    {
+                        File.Delete(deleteimagePath);
+                    }
+
+                }
+                userSelectedJob.UserAvatar = NameGenerator.GenerateUniqCode() + Path.GetExtension(UserAvatarFile.FileName);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/EmployeeResumeForJobs", userSelectedJob.UserAvatar);
+
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    UserAvatarFile.CopyTo(stream);
+                }
+
+            }
+
+            Update(userSelectedJob);
+        }
     }
-}
 }

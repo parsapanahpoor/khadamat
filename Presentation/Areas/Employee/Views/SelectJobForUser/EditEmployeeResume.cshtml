@@ -1,0 +1,162 @@
+﻿@model Models.Entities.User.UserSelectedJob
+
+@{
+
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+}
+
+<div class="content-wrapper" style="min-height: 805px;">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>ویرایش رزومه   </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                        <li class="breadcrumb-item active">ویرایش رزومه  </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <form asp-action="EditEmployeeResume" asp-controller="SelectJobForUser" asp-area="Employee" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="@Model.JobCategoryId" />
+        <input type="hidden" asp-for="@Model.Userid" />
+        <input type="hidden" asp-for="@Model.UserAvatar" />
+        <input type="hidden" asp-for="@Model.JobCategorySelectedID" />
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline" style="height:450px;">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img style="margin-top:60px" class="profile-user-img img-fluid img-circle" src="~/Images/JobsLogo/@Model.JobCategory.JobLogo" alt="User profile picture">
+                                </div>
+
+                                <h3 style="margin-top:30px" class="profile-username text-center">@Model.JobCategory.CategoryTitle </h3>
+
+
+                                <ul class="list-group list-group-unbordered mb-3" style="margin-top:30px">
+                                    <li class="list-group-item">
+                                        <b> @Model.JobCategory.CategoryTitle</b> <a class="float-right">نام خدمت :  </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>@Model.JobCategory.Percent% </b> <a class="float-right">درصد کمیسیون :  </a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                            <!-- /.card-body -->
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-3">
+
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline" style="height:450px;">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img style="height:200px;width:200px; margin-top:30px" id="imgAvatar" class="profile-user-img img-fluid img-circle" src="~/Images/EmployeeResumeForJobs/@Model.UserAvatar" alt="User profile picture">
+                                </div>
+
+                                <h3 style="margin-top:30px;" class="profile-username text-center">@User.Identity.Name</h3>
+
+
+
+
+                                <div class="form-group" style="margin-top:40px;">
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="UserAvatarFile" name="UserAvatarFile">
+                                            <label class="custom-file-label" for="UserAvatarFile">انتخاب فایل</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="card card-primary card-outline" style="min-height:450px;">
+                            <div class="card-body box-profile">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">رزومه کامل </label>
+                                    <textarea type="email" asp-for="ResumeDescription" class="form-control" id="LongDescription" placeholder="رزومه  را وارد کنید"></textarea>
+                                    <span asp-validation-for="ResumeDescription" class="text-danger"></span>
+
+                                </div>
+                                <div class="card-footer">
+                                    @if (ViewBag.Delete == true)
+                                    {
+                                        <a href="/Employee/SelectJobForUser/DeleteUserSelectedJob?id=@Model.JobCategorySelectedID" class="btn btn-danger">حذف </a>
+
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-success">ثبت </button>
+
+                                    }
+                                    <a asp-action="ListOfEmployeeJobs" asp-controller="SelectJobForUser" asp-area="Employee" class="btn btn-primary">بازگشت  </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>
+
+
+
+
+
+@section Scripts
+{
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgAvatar').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#UserAvatarFile").change(function () {
+            readURL(this);
+        });</script>
+
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('ResumeDescription', {
+            customConfig: '/js/Config.js'
+        });</script>
+}
