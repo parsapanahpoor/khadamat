@@ -39,7 +39,10 @@ namespace Presentation.Areas.Supporter.Controllers
             var user =await _userManager.FindByNameAsync(User.Identity.Name);
             var Employee = _context.employeeRepository.GetEmployeeDocument(user.Id);
 
-       
+            if (!_context.userSelectedJobRepository.IsExistUserSelectedJob(user.Id))
+            {
+                ViewBag.UserSelectedJob = true;
+            }
 
             ViewBag.Possition = Employee.PossitionId;
 

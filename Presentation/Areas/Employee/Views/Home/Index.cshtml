@@ -133,6 +133,34 @@
 
                 }
 
+                @if (Model.IsAccepted == true)
+                {
+                    @if (ViewBag.UserSelectedJob == true)
+                    {
+                        <div class="col-md-12">
+                            <div class="card card-warning">
+                                <div class="card-header">
+                                    <h3 class="card-title"> دسته ی فعالیت خود را انتخاب کنید  </h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-widget="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <!-- /.card-tools -->
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body" style="display: block;">
+                                    کاربر محترم لطفا دسته ای که می خواهید در آن فعالیت کنید را انتخاب کنید 
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+
+                    }
+
+                }
 
             </div>
         </div><!-- /.container-fluid -->

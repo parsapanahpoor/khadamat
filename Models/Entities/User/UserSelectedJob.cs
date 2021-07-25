@@ -16,6 +16,13 @@ namespace Models.Entities.User
         public string Userid { get; set; }
         public int JobCategoryId { get; set; }
 
+        [Display(Name = "آواتار")]
+        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+        public string UserAvatar { get; set; }
+
+        [Display(Name = "شرح کامل رزومه ")]
+        public string ResumeDescription { get; set; }
+
         #region Relations
 
         [ForeignKey("Userid")]

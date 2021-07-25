@@ -1,4 +1,5 @@
 ﻿using DataAccess.Design_Pattern.GenericRepositories;
+using Microsoft.AspNetCore.Http;
 using Models.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public  interface IUserSelectedJobRepository : IGernericRepository<UserSelectedJob>
     {
+        bool IsExistUserSelectedJob(string userid);
+        void AddJobToUser(UserSelectedJob userSelectedJob , IFormFile UserAvatarFile);
     }
 }
