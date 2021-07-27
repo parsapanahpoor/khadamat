@@ -5,147 +5,176 @@
     Models.Entities.Works.JobCategory job = ViewBag.Job as Models.Entities.Works.JobCategory;
 }
 
-<div class="content-wrapper" style="min-height: 805px;">
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>ارسال رزومه   </h1>
+@if (ViewBag.IsExist == true)
+{<div class="content-wrapper" style="min-height: 805px;">
+
+        <div class="col-md-12">
+            <div class="card bg-danger-gradient">
+                <div class="card-header">
+                    <h3 class="card-title"> خطا </h3>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-left">
-                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
-                        <li class="breadcrumb-item active">ارسال رزومه  </li>
-                    </ol>
+                <div class="card-body">
+                    کاربر محترم شما از قبل در این دسته بندی خدمتی را ثبت کرده اید 
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-    <form asp-action="EmployeeResume" asp-controller="SelectJobForUser" asp-area="Employee" method="post" enctype="multipart/form-data">
-        <input type="hidden" asp-for="@Model.JobCategoryId" />
-        <input type="hidden" asp-for="@Model.Userid" />
+        </div>
 
-        <!-- Main content -->
-        <section class="content">
+
+    </div>
+}
+
+@if (ViewBag.IsExist == null)
+{
+    <div class="content-wrapper" style="min-height: 805px;">
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
             <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>ارسال رزومه   </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-left">
+                            <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                            <li class="breadcrumb-item active">ارسال رزومه  </li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <form asp-action="EmployeeResume" asp-controller="SelectJobForUser" asp-area="Employee" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="@Model.JobCategoryId" />
+            <input type="hidden" asp-for="@Model.Userid" />
 
-                <div class="row">
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
 
-                    <div class="col-md-3">
+                    <div class="row">
 
-                        <!-- Profile Image -->
-                        <div class="card card-primary card-outline" style="height:450px;">
-                            <div class="card-body box-profile">
-                                <div class="text-center">
-                                    <img style="margin-top:60px" class="profile-user-img img-fluid img-circle" src="~/Images/JobsLogo/@job.JobLogo" alt="User profile picture">
+                        <div class="col-md-3">
+
+                            <!-- Profile Image -->
+                            <div class="card card-primary card-outline" style="height:450px;">
+                                <div class="card-body box-profile">
+                                    <div class="text-center">
+                                        <img style="margin-top:60px" class="profile-user-img img-fluid img-circle" src="~/Images/JobsLogo/@job.JobLogo" alt="User profile picture">
+                                    </div>
+
+                                    <h3 style="margin-top:30px" class="profile-username text-center">@job.CategoryTitle </h3>
+
+
+                                    <ul class="list-group list-group-unbordered mb-3" style="margin-top:30px">
+                                        <li class="list-group-item">
+                                            <b> @job.CategoryTitle</b> <a class="float-right">نام خدمت :  </a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>@job.Percent% </b> <a class="float-right">درصد کمیسیون :  </a>
+                                        </li>
+
+                                    </ul>
+
                                 </div>
 
-                                <h3 style="margin-top:30px" class="profile-username text-center">@job.CategoryTitle </h3>
-
-
-                                <ul class="list-group list-group-unbordered mb-3" style="margin-top:30px">
-                                    <li class="list-group-item">
-                                        <b> @job.CategoryTitle</b> <a class="float-right">نام خدمت :  </a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>@job.Percent% </b> <a class="float-right">درصد کمیسیون :  </a>
-                                    </li>
-
-                                </ul>
-
+                                <!-- /.card-body -->
                             </div>
 
-                            <!-- /.card-body -->
                         </div>
 
-                    </div>
 
 
+                        <div class="col-md-3">
 
-                    <div class="col-md-3">
+                            <!-- Profile Image -->
+                            <div class="card card-primary card-outline" style="height:450px;">
+                                <div class="card-body box-profile">
+                                    <div class="text-center">
+                                        <img style="height:200px;width:200px; margin-top:30px" id="imgAvatar" class="profile-user-img img-fluid img-circle" src="~/Images/EmployeeResumeForJobs/Defult.jpg" alt="User profile picture">
+                                    </div>
 
-                        <!-- Profile Image -->
-                        <div class="card card-primary card-outline" style="height:450px;">
-                            <div class="card-body box-profile">
-                                <div class="text-center">
-                                    <img style="height:200px;width:200px; margin-top:30px" id="imgAvatar" class="profile-user-img img-fluid img-circle" src="~/Images/EmployeeResumeForJobs/Defult.jpg" alt="User profile picture">
-                                </div>
-
-                                <h3 style="margin-top:30px;" class="profile-username text-center">@User.Identity.Name</h3>
+                                    <h3 style="margin-top:30px;" class="profile-username text-center">@User.Identity.Name</h3>
 
 
 
 
-                                <div class="form-group" style="margin-top:40px;">
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="UserAvatarFile" name="UserAvatarFile">
-                                            <label class="custom-file-label" for="UserAvatarFile">انتخاب فایل</label>
+                                    <div class="form-group" style="margin-top:40px;">
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="UserAvatarFile" name="UserAvatarFile">
+                                                <label class="custom-file-label" for="UserAvatarFile">انتخاب فایل</label>
+                                            </div>
+
                                         </div>
-
                                     </div>
                                 </div>
+                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card-body -->
+
                         </div>
+                        <div class="col-md-6">
 
-                    </div>
-                    <div class="col-md-6">
+                            <div class="card card-primary card-outline" style="min-height:450px;">
+                                <div class="card-body box-profile">
 
-                        <div class="card card-primary card-outline" style="min-height:450px;">
-                            <div class="card-body box-profile">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">رزومه کامل </label>
+                                        <textarea type="email" asp-for="ResumeDescription" class="form-control" id="LongDescription" placeholder="رزومه  را وارد کنید"></textarea>
+                                        <span asp-validation-for="ResumeDescription" class="text-danger"></span>
 
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">رزومه کامل </label>
-                                    <textarea type="email" asp-for="ResumeDescription" class="form-control" id="LongDescription" placeholder="رزومه  را وارد کنید"></textarea>
-                                    <span asp-validation-for="ResumeDescription" class="text-danger"></span>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-success">ثبت </button>
+                                        <a asp-action="JobsList" asp-controller="SelectJobForUser" asp-area="Employee" class="btn btn-primary">بازگشت  </a>
+                                    </div>
 
                                 </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-success">ثبت </button>
-                                    <a asp-action="JobsList" asp-controller="SelectJobForUser" asp-area="Employee" class="btn btn-primary">بازگشت  </a>
-                                </div>
-
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-                </div>
-        </section>
+            </section>
         </form>
-</div>
+    </div>
 
 
 
 
 
-@section Scripts
+    @section Scripts
 {
-    <script>
-        function readURL(input) {
+        <script>
+            function readURL(input) {
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('#imgAvatar').attr('src', e.target.result);
+                    reader.onload = function (e) {
+                        $('#imgAvatar').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
                 }
-
-                reader.readAsDataURL(input.files[0]);
             }
-        }
 
-        $("#UserAvatarFile").change(function () {
-            readURL(this);
-        });</script>
+            $("#UserAvatarFile").change(function () {
+                readURL(this);
+            });</script>
 
 
-    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('ResumeDescription', {
-            customConfig: '/js/Config.js'
-        });</script>
+        <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace('ResumeDescription', {
+                customConfig: '/js/Config.js'
+            });</script>
+    }
 }
+

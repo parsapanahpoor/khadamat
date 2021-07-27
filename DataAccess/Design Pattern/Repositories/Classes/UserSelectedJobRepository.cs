@@ -68,6 +68,13 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Delete(userSelectedJob);
         }
 
+        public List<UserSelectedJob> GetListOfEmployeeThatHaveThisJob(int id)
+        {
+            return GetAll(includeProperties: "User,JobCategory")
+                            .Where(p => p.JobCategoryId == id)
+                            .ToList();
+        }
+
         public UserSelectedJob GetUserselectedJobByJobID(int jobid)
         {
             return GetAll(includeProperties: "JobCategory")
@@ -80,9 +87,22 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                                 .Where(p => p.Userid == userid).ToList();
         }
 
+        public List<int> GetUserSelectedJobIDJobByUserid(string userid)
+        {
+
+            return GetAll(includeProperties: "JobCategory")
+                                .Where(p => p.Userid == userid).Select(p=>p.JobCategoryId)
+                                                .ToList();
+        }
+
         public bool IsExistUserSelectedJob(string userid)
         {
             return GetAll().Any(p => p.Userid == userid);
+        }
+
+        public bool IsExistUserWithCurrentJob(int jobid, string userid)
+        {
+            return GetAll(p => p.JobCategoryId == jobid && p.Userid == userid).Any();
         }
 
         public void UpdateUserSelectedJob(UserSelectedJob userSelectedJob, IFormFile UserAvatarFile)

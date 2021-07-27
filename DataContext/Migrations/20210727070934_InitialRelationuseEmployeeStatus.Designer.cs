@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210727070934_InitialRelationuseEmployeeStatus")]
+    partial class InitialRelationuseEmployeeStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,7 +317,7 @@ namespace DataContext.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("EmployeeStatusID")
+                    b.Property<int?>("EmployeeStatusID")
                         .HasColumnType("int");
 
                     b.Property<string>("ForgotPasswordCode")
@@ -373,7 +375,9 @@ namespace DataContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeStatusID");
+                    b.HasIndex("EmployeeStatusID")
+                        .IsUnique()
+                        .HasFilter("[EmployeeStatusID] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -518,10 +522,8 @@ namespace DataContext.Migrations
             modelBuilder.Entity("Models.Entities.User.User", b =>
                 {
                     b.HasOne("Models.Entities.User.EmployeeStatus", "EmployeeStatus")
-                        .WithMany("User")
-                        .HasForeignKey("EmployeeStatusID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .WithOne("User")
+                        .HasForeignKey("Models.Entities.User.User", "EmployeeStatusID");
 
                     b.Navigation("EmployeeStatus");
                 });

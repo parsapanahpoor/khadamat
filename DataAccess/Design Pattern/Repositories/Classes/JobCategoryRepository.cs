@@ -67,6 +67,17 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetAll(p => p.JobCategoryId == id).First();
         }
 
+        public string GetJobCatgeoryNameById(int id)
+        {
+            return GetAll(p => p.JobCategoryId == id).Select(p=>p.CategoryTitle)
+                                        .First();
+        }
+
+        public List<JobCategory> GetSubGroupOfJobCategorie(int id)
+        {
+            return GetAll(p => p.ParentId == id).ToList();
+        }
+
         public void UpdateJobCaategory(JobCategory jobCategory, IFormFile JobPic)
         {
             if (JobPic != null)

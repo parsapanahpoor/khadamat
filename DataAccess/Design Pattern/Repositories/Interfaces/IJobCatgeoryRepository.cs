@@ -15,7 +15,9 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         List<JobCategory> GetAllJobsCategories();
         void AddJobCategory(JobCategory jobCategory , IFormFile JobPic);
         JobCategory GetJobCatgeoriesById(int id);
+        string GetJobCatgeoryNameById(int id);
         void UpdateJobCaategory(JobCategory jobCategory , IFormFile JobPic);
         void DeleteJobCategory(JobCategory jobCategory);
+        List<JobCategory> GetSubGroupOfJobCategorie(int id);
     }
 }

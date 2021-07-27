@@ -1,0 +1,63 @@
+﻿@model List<Models.Entities.User.UserSelectedJob>
+
+@{
+    ViewData["Title"] = " انتخاب خدمت رسان   ";
+}
+
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <div class="content-header">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4">
+                            <!-- Widget: user widget style 1 -->
+                            <div class="card card-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <div class="widget-user-header text-white" style="background: url('/Admin_Panel/dist/img/images.jpg') center center; ">
+                                    <h3 class="widget-user-username"> @item.User.UserName</h3>
+                                    <h5 class="widget-user-desc"> @item.JobCategory.CategoryTitle</h5>
+                                </div>
+                                <div class="widget-user-image">
+                                    <img style="" class="img-circle" src="/Images/EmployeeResumeForJobs/@item.UserAvatar" alt="User Avatar">
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 border-left">
+                                            <div class="description-block">
+                                                <h5 class="description-header">۳,۲۰۰</h5>
+                                                <span class="description-text">فروش</span>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-4 border-left">
+                                            <div class="description-block">
+                                                <h5 class="description-header">۱۳,۰۰۰</h5>
+                                                <span class="description-text">دنبال کننده</span>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-4">
+                                            <div class="description-block">
+                                                <h5 class="description-header">۳۵</h5>
+                                                <span class="description-text">محصولات</span>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                            </div>
+                            <!-- /.widget-user -->
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

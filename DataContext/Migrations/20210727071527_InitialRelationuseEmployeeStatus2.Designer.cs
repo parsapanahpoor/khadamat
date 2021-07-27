@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210727071527_InitialRelationuseEmployeeStatus2")]
+    partial class InitialRelationuseEmployeeStatus2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,7 +317,7 @@ namespace DataContext.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("EmployeeStatusID")
+                    b.Property<int?>("EmployeeStatusID")
                         .HasColumnType("int");
 
                     b.Property<string>("ForgotPasswordCode")
@@ -519,9 +521,7 @@ namespace DataContext.Migrations
                 {
                     b.HasOne("Models.Entities.User.EmployeeStatus", "EmployeeStatus")
                         .WithMany("User")
-                        .HasForeignKey("EmployeeStatusID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeStatusID");
 
                     b.Navigation("EmployeeStatus");
                 });

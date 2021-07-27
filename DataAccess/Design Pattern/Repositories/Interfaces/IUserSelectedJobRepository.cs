@@ -14,8 +14,11 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         bool IsExistUserSelectedJob(string userid);
         void AddJobToUser(UserSelectedJob userSelectedJob , IFormFile UserAvatarFile);
         List<UserSelectedJob> GetUserSelectedJobByUserid(string userid);
+        List<int> GetUserSelectedJobIDJobByUserid(string userid);
         UserSelectedJob GetUserselectedJobByJobID(int jobid);
         void UpdateUserSelectedJob(UserSelectedJob userSelectedJob , IFormFile UserAvatarFile);
         void DeleteUserSelectedJob(UserSelectedJob userSelectedJob);
+        bool IsExistUserWithCurrentJob(int jobid , string userid);
+        List<UserSelectedJob> GetListOfEmployeeThatHaveThisJob(int id );
     }
 }

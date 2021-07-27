@@ -25,8 +25,13 @@ namespace Presentation.Areas.Employee.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public IActionResult JobsList()
+        public async Task<IActionResult> JobsList()
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+              ViewBag.UserJobs = _context.userSelectedJobRepository.GetUserSelectedJobIDJobByUserid(user.Id);
+            
+
             return View(_context.jobCategoryRepository.GetAllJobsCategories());
         }
 
@@ -61,15 +66,17 @@ namespace Presentation.Areas.Employee.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
+            if (_context.userSelectedJobRepository.IsExistUserWithCurrentJob(Jobid , user.Id))
+            {
+                ViewBag.IsExist = true;
+            }
+
             ViewBag.job = _context.jobCategoryRepository.GetJobCatgeoriesById(Jobid);
 
             return View(new UserSelectedJob()
             {
-
                 JobCategoryId = Jobid,
                 Userid = user.Id
-
-
             });
         }
         [HttpPost]

@@ -2,6 +2,7 @@
 @{
     Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
 
+    List<int> UsersJob = ViewBag.UserJobs as List<int>;
 }
 
 @section Styls
@@ -82,9 +83,20 @@
 
                                                                     @subGroup.CategoryTitle - @subGroup.Percent%
 
-                                                                    <a class="btn btn-primary btn-sm waves-effect" href="@Url.Action("EmployeeResume", new { Jobid = subGroup.JobCategoryId })">
-                                                                        انتخاب و ارسال رزومه  
-                                                                    </a>
+                                                                    @if (UsersJob.Contains(subGroup.JobCategoryId))
+                                                                    { 
+                                                                        <a class="btn btn-danger btn-sm waves-effect" style="color:white" >
+                                                                            انتخاب شده توسط شما 
+                                                                        </a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a class="btn btn-primary btn-sm waves-effect" href="@Url.Action("EmployeeResume", new { Jobid = subGroup.JobCategoryId })">
+                                                                            انتخاب و ارسال رزومه
+                                                                        </a>
+                                                                    }
+
+
 
 
 

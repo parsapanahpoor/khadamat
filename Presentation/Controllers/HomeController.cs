@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess.Design_Pattern.UnitOfWork;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Presentation.Models;
 using System;
@@ -11,15 +12,17 @@ namespace Presentation.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUnitOfWork context)
         {
-            _logger = logger;
+            _context = context;
+
         }
 
-        public IActionResult Index(bool Register = false , bool Login = false , bool EmployeeRegister = false
-                                        , bool ConfirmEmail = false , bool ForgotPassword = false)
+
+        public IActionResult Index(bool Register = false, bool Login = false, bool EmployeeRegister = false
+                                        , bool ConfirmEmail = false, bool ForgotPassword = false)
         {
             if (Register == true)
             {
@@ -36,24 +39,37 @@ namespace Presentation.Controllers
             if (ConfirmEmail == true)
             {
                 ViewBag.ConfirmEmail = true;
-            } 
+            }
             if (ForgotPassword == true)
             {
                 ViewBag.ForgotPassword = true;
             }
 
-            return View();
+
+
+            return View(_context.jobCategoryRepository.GetAllJobsCategories());
         }
 
-        public IActionResult Privacy()
+
+        public IActionResult SubGruopCategories(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+
+            return View(_context.jobCategoryRepository.GetSubGroupOfJobCategorie((int)id));
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult ShowListOfEmployeesThatHaveThisJob(int? id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            var model = _context.userSelectedJobRepository.GetListOfEmployeeThatHaveThisJob((int)id);
+
+            return View(model);
         }
     }
 }

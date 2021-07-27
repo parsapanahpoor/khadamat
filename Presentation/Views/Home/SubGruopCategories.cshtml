@@ -1,0 +1,43 @@
+﻿@model List<Models.Entities.Works.JobCategory>
+
+@{
+    ViewData["Title"] = " انتخاب خدمت  ";
+}
+
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <div class="content-header">
+
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-6">
+                            <a href="/Home/ShowListOfEmployeesThatHaveThisJob/@item.JobCategoryId">
+                                <div class="card card-widget widget-user">
+                                    <div class="widget-user-header bg-info-active">
+                                        <h3 class="widget-user-username">@item.CategoryTitle </h3>
+                                    </div>
+                                    <div class="widget-user-image">
+                                        <img class="img-circle elevation-2" src="/Images/JobsLogo/@item.JobLogo" alt="User Avatar">
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </div>
+
+                    }
+
+
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
