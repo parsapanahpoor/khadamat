@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Models.Entities.EmployeeReservation;
 using Models.Entities.User;
 using Models.Entities.Works;
 using System;
@@ -29,6 +30,13 @@ namespace DataContext.Context
         #region Jobs
 
         public DbSet<JobCategory> jobCategories { get; set; }
+
+        #endregion
+        #region Reservation
+
+        public DbSet<HourReservation> HourReservation { get; set; }
+        public DbSet<DataReservation> DataReservation { get; set; }
+        public DbSet<ReservationStatus> ReservationStatus { get; set; }
 
         #endregion
 

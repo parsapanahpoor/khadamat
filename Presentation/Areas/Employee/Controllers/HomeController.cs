@@ -50,7 +50,6 @@ namespace Presentation.Areas.Supporter.Controllers
             {
                 ViewBag.Edit = true;
             }
-
             if (status == 1)
             {
                 ViewBag.Status = 1;

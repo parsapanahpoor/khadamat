@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Models.Entities.EmployeeReservation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -49,6 +50,8 @@ namespace Models.Entities.User
         public virtual EmployeeDocuments EmployeeDocuments { get; set; }
         public virtual List<UserSelectedJob> UserSelected { get; set; }
         public EmployeeStatus EmployeeStatus { get; set; }
+        public List<HourReservation> HourReservation { get; set; }
+        public List<DataReservation> DataReservation { get; set; }
 
         #endregion
 
