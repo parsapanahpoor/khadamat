@@ -14,6 +14,7 @@ namespace DataAccess.ViewModels
         public string UserAvatar { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsActive { get; set; }
+        public int Status { get; set; }
         public bool? IsAccepted { get; set; }
     }
 
@@ -39,7 +40,7 @@ namespace DataAccess.ViewModels
 
         public string PhoneNumber { get; set; }
 
- 
+        public int Status { get; set; }
 
         public IFormFile UserAvatar { get; set; }
 

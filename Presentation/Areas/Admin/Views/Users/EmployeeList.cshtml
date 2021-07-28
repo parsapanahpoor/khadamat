@@ -49,7 +49,34 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        ویرایش اطلاعات خدمت رسان با موفقیت صورت پذیرفت 
+                        ویرایش اطلاعات خدمت رسان با موفقیت صورت پذیرفت
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <script>
+                // Your delay in milliseconds
+                var delay = 5000;
+                setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+        }
+        @if (ViewBag.Delete == true)
+        {
+            <div class="col-md-12">
+                <div class="card bg-danger">
+                    <div class="card-header">
+                        <h3 class="card-title"> حذف با موفقیت صورت گرفت  </h3>
+
+                        <div class="card-tools">
+                            <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        حذف   با موفقیت صورت پذیرفت
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -85,8 +112,9 @@
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.5px;" aria-label="موبایل : activate to sort column ascending">موبایل </th>
 
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">وضعیت</th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">احراز</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">وضعیت </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">شرایط</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">اهراز </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 420.6px;" aria-label=" activate to sort column ascending"></th>
                                         </tr>
                                     </thead>
@@ -100,13 +128,30 @@
                                                 </td>
                                                 <td>@item.UserName</td>
                                                 <td>@item.PhoneNumber</td>
+                                                <td>
+
+                                                    @if (item.Status == 1)
+                                                    {
+                                                        <a class="btn btn-danger btn-sm" style="color:white;"> آفلاین     </a>
+                                                    }
+                                                    @if (item.Status == 2)
+                                                    {
+                                                        <a class="btn btn-success btn-sm" style="color:white;"> آنلاین     </a>
+                                                    }
+                                                    @if (item.Status == 3)
+                                                    {
+                                                        <a class="btn btn-primary btn-sm" style="color:white;"> در حال کار       </a>
+                                                    }
+
+                                                </td>
+
                                                 @if (item.IsActive)
                                                 {
-                                                    <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=1" class="btn btn-success btn-sm" style="color:white;">فعال</a></td>
+                                                    <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=1&&Employee=True" class="btn btn-success btn-sm" style="color:white;">فعال</a></td>
                                                 }
                                                 @if (!item.IsActive)
                                                 {
-                                                    <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=2" class="btn btn-danger btn-sm" style="color:white;">غیر فعال</a></td>
+                                                    <td><a href="/Admin/Users/LockUser?Userid=@item.Id&&id=2&&Employee=True" class="btn btn-danger btn-sm" style="color:white;">غیر فعال</a></td>
                                                 }
                                                 @if (item.IsAccepted == true)
                                                 {
@@ -123,30 +168,26 @@
                                                 }
                                                 <td>
 
-                                                    <a class="btn btn-warning btn-sm waves-effect" asp-action="Edit" asp-area="Admin" asp-controller="Users" asp-route-id="@item.Id">
+                                                    <a class="right badge badge-primary" href="/Admin/Users/Edit?id=@item.Id&&Employee=true">
                                                         <i class="glyphicon glyphicon-edit"></i>
                                                         ویرایش
                                                     </a>
 
-                                                    <a class="btn btn-info btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Detail=true">
-                                                        <i class="glyphicon glyphicon-edit"></i>
-                                                        اطلاعات
-                                                    </a>
 
-                                                    <a class="btn btn-danger btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Delete=true">
+                                                    <a class="right badge badge-danger" href="/Admin/Users/Edit?Id=@item.Id&&Employee=true&&Delete=true">
                                                         <i class="glyphicon glyphicon-trash"></i>
                                                         حذف
                                                     </a>
 
-                                                    <a class="btn btn-warning btn-sm waves-effect" asp-controller="Users" asp-action="AddUserToRole" asp-route-id="@item.Id" asp-area="Admin">
+                                                    <a class="right badge badge-success" href="/Admin/Users/AddUserToRole?Id=@item.Id&&Employee=true" >
                                                         <i class="glyphicon glyphicon-trash"></i>
                                                         افزودن  نقش
                                                     </a>
-                                                    <a class="btn btn-danger btn-sm waves-effect" asp-controller="Users" asp-action="RemoveUserFromRole" asp-route-id="@item.Id" asp-area="Admin">
+                                                    <a class="right badge badge-danger" href="/Admin/Users/RemoveUserFromRole?Id=@item.Id&&Employee=true" >
                                                         <i class="glyphicon glyphicon-trash"></i>
                                                         حذف نقش
                                                     </a>
-                                                    <a class="btn btn-primary btn-sm waves-effect" asp-controller="EmployeeInformation" asp-action="EmployeeInformation" asp-route-id="@item.Id" asp-area="Admin">
+                                                    <a class="right badge badge-warning" asp-controller="EmployeeInformation" asp-action="EmployeeInformation" asp-route-id="@item.Id" asp-area="Admin">
                                                         <i class="glyphicon glyphicon-trash"></i>
                                                         برسی مدارک
                                                     </a>

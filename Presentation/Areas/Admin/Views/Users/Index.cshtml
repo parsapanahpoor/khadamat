@@ -165,15 +165,12 @@
 
                                                 <td>
 
-                                                    <a class="btn btn-warning btn-sm waves-effect" asp-action="Edit" asp-area="Admin" asp-controller="Users" asp-route-id="@item.Id">
+                                                    <a class="btn btn-primary btn-sm waves-effect" asp-action="Edit" asp-area="Admin" asp-controller="Users" asp-route-id="@item.Id">
                                                         <i class="glyphicon glyphicon-edit"></i>
                                                         ویرایش
                                                     </a>
 
-                                                    <a class="btn btn-info btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Detail=true">
-                                                        <i class="glyphicon glyphicon-edit"></i>
-                                                        اطلاعات
-                                                    </a>
+                                                 
 
                                                     <a class="btn btn-danger btn-sm waves-effect" href="/Admin/Users/Edit?Id=@item.Id&&Delete=true">
                                                         <i class="glyphicon glyphicon-trash"></i>

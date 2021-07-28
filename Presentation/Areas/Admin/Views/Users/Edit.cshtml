@@ -23,7 +23,22 @@
         <div style="color: darkred;" asp-validation-summary="ModelOnly"></div>
 
         <input type="hidden" asp-for="Id" />
-        @*<input type="hidden" asp-for="AvatarName" />*@
+        @if (ViewBag.Employee == true)
+        {
+            <input type="hidden" name="Employee" value="true" />
+        }
+        @if (ViewBag.UserPage == true)
+        {
+            <input type="hidden" name="UserPage" value="true" />
+        }
+        @if (ViewBag.Admin == true)
+        {
+            <input type="hidden" name="Admin" value="true" />
+        }
+        @if (ViewBag.Supporter == true)
+        {
+            <input type="hidden" name="Supporter" value="true" />
+        }
 
         <section class="content">
             <div class="container-fluid">
@@ -59,26 +74,118 @@
                                         <span asp-validation-for="Email" class="text-danger"></span>
 
                                     </div>
-                           
+                                    @if (ViewBag.Employee == true)
+                                    {
 
+                                        <div class="form-group">
+                                            <label>وضعیت  </label>
+                                            <select class="form-control" asp-for="Status">
+                                                @if (Model.Status == 1)
+                                                {
+                                                    <option value="1" selected> آفلاین  </option>
+                                                    <option value="2"> آنلاین </option>
+                                                    <option value="3"> در حال انجام کار  </option>
+                                                }
+                                                @if (Model.Status == 2)
+                                                {
+                                                    <option value="1"> آفلاین  </option>
+                                                    <option value="2" selected> آنلاین </option>
+                                                    <option value="3"> در حال انجام کار  </option>
+                                                }
+                                                @if (Model.Status == 3)
+                                                {
+                                                    <option value="1"> آفلاین  </option>
+                                                    <option value="2"> آنلاین </option>
+                                                    <option value="3" selected> در حال انجام کار  </option>
+                                                }
+
+
+
+                                            </select>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group" style="display:none;">
+                                            <label>وضعیت  </label>
+                                            <select class="form-control" asp-for="Status">
+                                                @if (Model.Status == 1)
+                                                {
+                                                    <option value="1" selected> آفلاین  </option>
+                                                    <option value="2"> آنلاین </option>
+                                                    <option value="3"> در حال انجام کار  </option>
+                                                }
+                                                @if (Model.Status == 2)
+                                                {
+                                                    <option value="1"> آفلاین  </option>
+                                                    <option value="2" selected> آنلاین </option>
+                                                    <option value="3"> در حال انجام کار  </option>
+                                                }
+                                                @if (Model.Status == 3)
+                                                {
+                                                    <option value="1"> آفلاین  </option>
+                                                    <option value="2"> آنلاین </option>
+                                                    <option value="3" selected> در حال انجام کار  </option>
+                                                }
+
+
+
+                                            </select>
+                                        </div>
+                                    }
 
                                 </div>
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                    @if (ViewData["Detail"] != null)
-                                    {
 
-                                    }
-                                    @if (ViewData["Delete"] != null)
+                                    @if (ViewData["Delete"] != null && ViewBag.Employee != true && ViewBag.UserPage != true && ViewBag.Admin != true && ViewBag.Supporter != true)
                                     {
-
                                         <a asp-route-id="@Model.Id" asp-action="Delete" asp-controller="Users" asp-area="Admin" class="btn btn-danger">حذف</a>
-
                                         <a asp-action="Index" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
-
                                     }
-                                    else
+                                    @if (ViewBag.Employee == true && ViewData["Delete"] == null)
+                                    {
+                                        <button type="submit" class="btn btn-success">تایید </button>
+                                        <a asp-action="EmployeeList" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
+                                    }
+                                    @if (ViewBag.Employee == true && ViewData["Delete"] != null)
+                                    {
+                                        <a href="/Admin/Users/Delete?id=@Model.Id&&Employee=true" class="btn btn-danger">حذف</a>
+                                        <a asp-action="EmployeeList" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
+                                    }
+                                    @if (ViewBag.UserPage == true && ViewData["Delete"] == null)
+                                    {
+                                        <button type="submit" class="btn btn-success">تایید </button>
+                                        <a asp-action="UsersIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
+                                    }
+                                    @if (ViewBag.UserPage == true && ViewData["Delete"] != null)
+                                    {
+                                        <a href="/Admin/Users/Delete?id=@Model.Id&&UserPage=true" class="btn btn-danger">حذف</a>
+                                        <a asp-action="UsersIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
+                                    }
+                                    @if (ViewBag.Admin == true && ViewData["Delete"] == null)
+                                    {
+                                        <button type="submit" class="btn btn-success">تایید </button>
+                                        <a asp-action="AdminsIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
+                                    }
+                                    @if (ViewBag.Admin == true && ViewData["Delete"] != null)
+                                    {
+                                        <a href="/Admin/Users/Delete?id=@Model.Id&&Admin=true" class="btn btn-danger">حذف</a>
+                                        <a asp-action="AdminsIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
+                                    }
+                                    @if (ViewBag.Supporter == true && ViewData["Delete"] == null)
+                                    {
+                                        <button type="submit" class="btn btn-success">تایید </button>
+                                        <a asp-action="SupportersIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
+                                    }
+                                    @if (ViewBag.Supporter == true && ViewData["Delete"] != null)
+                                    {
+                                        <a href="/Admin/Users/Delete?id=@Model.Id&&Supporter=true" class="btn btn-danger">حذف</a>
+                                        <a asp-action="SupportersIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
+                                    }
+                                    @if (ViewBag.Employee != true && ViewBag.UserPage != true && ViewBag.Admin != true && ViewBag.Supporter != true && ViewData["Delete"] == null)
                                     {
                                         <button type="submit" class="btn btn-success">تایید </button>
                                         <a asp-action="Index" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
@@ -100,7 +207,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">  تصویر  </h3>
                             </div>
-     
+
                             <div class="form-horizontal">
                                 <div class="card-body row">
                                     <img style="margin:auto; width:342px" id="imgAvatar" class="img-responsive rounded" src="~/Images/UserAvatar/@Model.AvatarName" alt="upload_img">
@@ -117,7 +224,7 @@
 
                             </div>
                         </div>
-             
+
 
 
                     </div>

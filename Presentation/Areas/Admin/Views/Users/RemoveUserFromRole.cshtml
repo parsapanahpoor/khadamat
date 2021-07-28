@@ -23,8 +23,22 @@
         <div style="color: darkred;" asp-validation-summary="ModelOnly"></div>
 
         <input type="hidden" asp-for="UserId" />
-        @*<input type="hidden" asp-for="AvatarName" />*@
-
+        @if (ViewBag.Employee == true)
+        {
+            <input type="hidden" name="Employee" value="true" />
+        }
+        @if (ViewBag.UserPage == true)
+        {
+            <input type="hidden" name="UserPage" value="true" />
+        }
+        @if (ViewBag.Admin == true)
+        {
+            <input type="hidden" name="Admin" value="true" />
+        }
+        @if (ViewBag.Supporter == true)
+        {
+            <input type="hidden" name="Supporter" value="true" />
+        }
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -46,25 +60,68 @@
 
                                         @for (int i = 0; i < Model.UserRoles.Count; i++)
                                         {
-                                        <br />
-                                        <input class="form-check-input" type="checkbox" asp-for="@Model.UserRoles[i].IsSelected" />
-                                        <label class="form-check-label" style="margin-right: 30px;">@Model.UserRoles[i].RoleName</label>
+                                            <br />
+                                            <input class="form-check-input" type="checkbox" asp-for="@Model.UserRoles[i].IsSelected" />
+                                            <label class="form-check-label" style="margin-right: 30px;">@Model.UserRoles[i].RoleName</label>
 
-                                        <input type="hidden" asp-for="@Model.UserRoles[i].RoleName" />
+                                            <input type="hidden" asp-for="@Model.UserRoles[i].RoleName" />
                                         }
                                     </div>
 
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-danger">حذف </button>
-                                        <a asp-action="Index" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت  </a>
-                                    </div>
 
-                                </div>                            <!-- /.card-footer -->
+                                    @if (ViewBag.Employee == true)
+                                    {
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-danger">حذف </button>
+                                            <a asp-action="EmployeeList" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت  </a>
+                                        </div>
+                                    }
+
+                                    @if (ViewBag.UserPage == true)
+                                    {
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-danger">حذف </button>
+                                            <a asp-action="UsersIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت  </a>
+                                        </div>
+                                    }
+
+                                    @if (ViewBag.Admin == true)
+                                    {
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-danger">حذف </button>
+                                            <a asp-action="AdminsIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت  </a>
+                                        </div>
+                                    }
+
+                                    @if (ViewBag.Supporter == true)
+                                    {
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-danger">حذف </button>
+                                            <a asp-action="SupportersIndex" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت  </a>
+                                        </div>
+                                    }
+
+                                    @if (ViewBag.Employee != true && ViewBag.UserPage != true && ViewBag.Admin != true && ViewBag.Supporter != true)
+                                    {
+                       
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-danger">حذف </button>
+                                            <a asp-action="Index" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت  </a>
+                                        </div>
+
+                                    }
+
+
+                       
+
+                                </div>                      
                             </div>
                         </div>
-                        <!-- /.card -->
-                        <!-- general form elements disabled -->
-                        <!-- /.card -->
+                
 
 
 

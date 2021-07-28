@@ -53,7 +53,7 @@ namespace Presentation.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> EmployeeList(bool update = false)
+        public async Task<ActionResult> EmployeeList(bool update = false, bool Delete = false)
         {
 
             var usersid = await _userManager.GetUsersInRoleAsync("Employee");
@@ -66,16 +66,21 @@ namespace Presentation.Areas.Admin.Controllers
                             PhoneNumber = u.PhoneNumber,
                             UserAvatar = u.UserAvatar,
                             IsActive = u.IsActive,
-                            IsAccepted = u.IsAccepted
+                            IsAccepted = u.IsAccepted,
+                            Status = u.EmployeeStatusID
                         }).ToList();
 
             if (update == true)
             {
                 ViewBag.Update = true;
             }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
             return View(model);
         }
-        public async Task<ActionResult> UsersIndex()
+        public async Task<ActionResult> UsersIndex(bool update = false, bool Delete = false)
         {
             var usersid = await _userManager.GetUsersInRoleAsync("User");
             var model = usersid
@@ -89,11 +94,19 @@ namespace Presentation.Areas.Admin.Controllers
                             IsActive = u.IsActive,
                         }).ToList();
 
+            if (update == true)
+            {
+                ViewBag.Update = true;
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
 
             return View(model);
         }
 
-        public async Task<IActionResult> AdminsIndex()
+        public async Task<IActionResult> AdminsIndex(bool update = false, bool Delete = false)
         {
 
             var usersid = await _userManager.GetUsersInRoleAsync("Admin");
@@ -108,10 +121,18 @@ namespace Presentation.Areas.Admin.Controllers
                             IsActive = u.IsActive,
                         }).ToList();
 
+            if (update == true)
+            {
+                ViewBag.Update = true;
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
 
             return View(model);
         }
-        public async Task<ActionResult> SupportersIndex()
+        public async Task<ActionResult> SupportersIndex(bool update = false, bool Delete = false)
         {
 
             var usersid = await _userManager.GetUsersInRoleAsync("Support");
@@ -127,6 +148,14 @@ namespace Presentation.Areas.Admin.Controllers
 
                         }).ToList();
 
+            if (update == true)
+            {
+                ViewBag.Update = true;
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
 
             return View(model);
         }
@@ -172,6 +201,7 @@ namespace Presentation.Areas.Admin.Controllers
                     IsDelete = false,
                     IsAccepted = true,
                     ActiveCode = RandomNumberGenerator.GetNumber(),
+                    EmployeeStatusID = 1
 
                 };
 
@@ -215,7 +245,10 @@ namespace Presentation.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(string id, bool Detail = false, bool Delete = false)
+        public async Task<ActionResult> Edit(string id, bool Delete = false, bool Employee = false
+                           , bool UserPage = false, bool Admin = false, bool Supporter = false
+
+            )
         {
             if (string.IsNullOrEmpty(id)) return NotFound();
             var user = await _userManager.FindByIdAsync(id);
@@ -228,7 +261,8 @@ namespace Presentation.Areas.Admin.Controllers
                 Email = user.Email,
                 UserName = user.UserName,
                 Id = user.Id,
-                AvatarName = user.UserAvatar
+                AvatarName = user.UserAvatar,
+                Status = user.EmployeeStatusID
 
 
 
@@ -236,10 +270,29 @@ namespace Presentation.Areas.Admin.Controllers
             if (user == null) return NotFound();
 
 
-            if (Detail == true)
+            if (Employee == true)
             {
 
-                ViewData["Detail"] = true;
+
+                ViewBag.Employee = true;
+
+            }
+            if (UserPage == true)
+            {
+
+                ViewBag.UserPage = true;
+
+            }
+            if (Admin == true)
+            {
+
+                ViewBag.Admin = true;
+
+            }
+            if (Supporter == true)
+            {
+
+                ViewBag.Supporter = true;
 
             }
             if (Delete == true)
@@ -248,12 +301,16 @@ namespace Presentation.Areas.Admin.Controllers
                 ViewData["Delete"] = true;
 
             }
+
             return View(editUser);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, EditUserInAdminPanel userEdited)
+        public async Task<IActionResult> Edit(string id, EditUserInAdminPanel userEdited, bool Employee = false,
+                     bool UserPage = false, bool Admin = false, bool Supporter = false
+
+            )
         {
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(userEdited.UserName)) return NotFound();
             var user = await _userManager.FindByIdAsync(id);
@@ -261,6 +318,7 @@ namespace Presentation.Areas.Admin.Controllers
             user.UserName = userEdited.UserName;
             user.PhoneNumber = userEdited.PhoneNumber;
             user.Email = userEdited.Email;
+            user.EmployeeStatusID = userEdited.Status;
 
 
             var updateduser = _context.userRepository.UpdateUserAvatar(user, userEdited);
@@ -270,7 +328,33 @@ namespace Presentation.Areas.Admin.Controllers
             _context.SaveChangesDB();
 
 
-            if (result.Succeeded) return Redirect("/Admin/Users/Index?Edit=true");
+            if (result.Succeeded)
+            {
+                if (Employee == true)
+                {
+                    return Redirect("/Admin/Users/EmployeeList?Update=true");
+
+                }
+                if (UserPage == true)
+                {
+                    return Redirect("/Admin/Users/UsersIndex?Update=true");
+
+                }
+                if (Admin == true)
+                {
+                    return Redirect("/Admin/Users/AdminsIndex?Update=true");
+
+                }
+                if (Supporter == true)
+                {
+                    return Redirect("/Admin/Users/SupportersIndex?Update=true");
+
+                }
+
+                return Redirect("/Admin/Users/Index?Edit=true");
+
+            }
+
 
 
             foreach (var error in result.Errors)
@@ -284,7 +368,7 @@ namespace Presentation.Areas.Admin.Controllers
 
 
 
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, bool Employee = false, bool UserPage = false, bool Admin = false, bool Supporter = false)
         {
             var user = await _userManager.FindByIdAsync(id);
 
@@ -296,10 +380,33 @@ namespace Presentation.Areas.Admin.Controllers
 
             _context.SaveChangesDB();
 
+            if (Employee == true)
+            {
+                return Redirect("/Admin/Users/EmployeeList?Delete=true");
+
+            }
+            if (UserPage == true)
+            {
+                return Redirect("/Admin/Users/UsersIndex?Delete=true");
+
+            }
+            if (Admin == true)
+            {
+                return Redirect("/Admin/Users/AdminsIndex?Delete=true");
+
+            }
+            if (Supporter == true)
+            {
+                return Redirect("/Admin/Users/SupportersIndex?Delete=true");
+
+            }
+
             return Redirect("/Admin/Users/Index?Delete=true");
         }
 
-        public async Task<IActionResult> LockUser(string Userid, int id)
+        public async Task<IActionResult> LockUser(string Userid, int id, bool Employee = false
+               , bool UserPage = false, bool Admin = false, bool Supporter = false
+            )
         {
             var user = await _userManager.FindByIdAsync(Userid);
 
@@ -314,6 +421,27 @@ namespace Presentation.Areas.Admin.Controllers
 
             }
             var result = await _userManager.UpdateAsync(user);
+            if (Employee == true)
+            {
+                return RedirectToAction(nameof(EmployeeList));
+
+            }
+            if (UserPage == true)
+            {
+                return RedirectToAction(nameof(UsersIndex));
+
+            }
+            if (Admin == true)
+            {
+                return RedirectToAction(nameof(AdminsIndex));
+
+            }
+            if (Supporter == true)
+            {
+                return RedirectToAction(nameof(SupportersIndex));
+
+            }
+
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> AcceptkUser(string Userid, int id)
@@ -323,7 +451,7 @@ namespace Presentation.Areas.Admin.Controllers
             if (id == 1)
             {
                 user.IsAccepted = false;
-               var info =  _context.employeeRepository.GetEmployeeDocument(Userid);
+                var info = _context.employeeRepository.GetEmployeeDocument(Userid);
                 if (info != null)
                 {
                     info.PossitionId = 3;
@@ -351,7 +479,7 @@ namespace Presentation.Areas.Admin.Controllers
         [Area("Admin")]
 
         [HttpGet]
-        public async Task<IActionResult> AddUserToRole(string id)
+        public async Task<IActionResult> AddUserToRole(string id, bool Employee = false, bool UserPage = false, bool Admin = false, bool Supporter = false)
         {
             if (string.IsNullOrEmpty(id)) return NotFound();
 
@@ -371,12 +499,41 @@ namespace Presentation.Areas.Admin.Controllers
                 }
             }
 
+
+            if (Employee == true)
+            {
+
+
+                ViewBag.Employee = true;
+
+            }
+            if (UserPage == true)
+            {
+
+                ViewBag.UserPage = true;
+
+            }
+            if (Admin == true)
+            {
+
+                ViewBag.Admin = true;
+
+            }
+            if (Supporter == true)
+            {
+
+                ViewBag.Supporter = true;
+
+            }
+          
+
+
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddUserToRole(AddUserToRoleViewModel model)
+        public async Task<IActionResult> AddUserToRole(AddUserToRoleViewModel model, bool Employee = false, bool UserPage = false, bool Admin = false, bool Supporter = false)
         {
             if (model == null) return NotFound();
             var user = await _userManager.FindByIdAsync(model.UserId);
@@ -386,7 +543,33 @@ namespace Presentation.Areas.Admin.Controllers
                 .ToList();
             var result = await _userManager.AddToRolesAsync(user, requestRoles);
 
-            if (result.Succeeded) return RedirectToAction("index");
+            if (result.Succeeded)
+            {
+
+                if (Employee == true)
+                {
+                    return Redirect("/Admin/Users/EmployeeList?Update=true");
+
+                }
+                if (UserPage == true)
+                {
+                    return Redirect("/Admin/Users/UsersIndex?Update=true");
+
+                }
+                if (Admin == true)
+                {
+                    return Redirect("/Admin/Users/AdminsIndex?Update=true");
+
+                }
+                if (Supporter == true)
+                {
+                    return Redirect("/Admin/Users/SupportersIndex?Update=true");
+
+                }
+
+                return RedirectToAction("index");
+            }
+
 
             foreach (var error in result.Errors)
             {
@@ -397,7 +580,7 @@ namespace Presentation.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> RemoveUserFromRole(string id)
+        public async Task<IActionResult> RemoveUserFromRole(string id, bool Employee = false, bool UserPage = false, bool Admin = false, bool Supporter = false)
         {
             if (string.IsNullOrEmpty(id)) return NotFound();
             var user = await _userManager.FindByIdAsync(id);
@@ -416,11 +599,38 @@ namespace Presentation.Areas.Admin.Controllers
                 }
             }
 
+
+            if (Employee == true)
+            {
+
+
+                ViewBag.Employee = true;
+
+            }
+            if (UserPage == true)
+            {
+
+                ViewBag.UserPage = true;
+
+            }
+            if (Admin == true)
+            {
+
+                ViewBag.Admin = true;
+
+            }
+            if (Supporter == true)
+            {
+
+                ViewBag.Supporter = true;
+
+            }
+
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> RemoveUserFromRole(AddUserToRoleViewModel model)
+        public async Task<IActionResult> RemoveUserFromRole(AddUserToRoleViewModel model, bool Employee = false, bool UserPage = false, bool Admin = false, bool Supporter = false)
         {
             if (model == null) return NotFound();
             var user = await _userManager.FindByIdAsync(model.UserId);
@@ -430,8 +640,33 @@ namespace Presentation.Areas.Admin.Controllers
                 .ToList();
             var result = await _userManager.RemoveFromRolesAsync(user, requestRoles);
 
-            if (result.Succeeded) return RedirectToAction("index");
 
+            if (result.Succeeded)
+            {
+
+                if (Employee == true)
+                {
+                    return Redirect("/Admin/Users/EmployeeList?Delete=true");
+
+                }
+                if (UserPage == true)
+                {
+                    return Redirect("/Admin/Users/UsersIndex?Delete=true");
+
+                }
+                if (Admin == true)
+                {
+                    return Redirect("/Admin/Users/AdminsIndex?Delete=true");
+
+                }
+                if (Supporter == true)
+                {
+                    return Redirect("/Admin/Users/SupportersIndex?Delete=true");
+
+                }
+
+                return RedirectToAction("index");
+            }
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);

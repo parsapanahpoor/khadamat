@@ -79,7 +79,8 @@ namespace Presentation.Controllers
                     IsAccepted = true,
                     ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
                     UserAvatar =  "Defult.jpg" , 
-                    ActiveCode = RandomNumberGenerator.GetNumber()
+                    ActiveCode = RandomNumberGenerator.GetNumber(),
+                    EmployeeStatusID = 1
 
                 };
 
@@ -164,6 +165,7 @@ namespace Presentation.Controllers
                     ForgotPasswordCode = RandomNumberGenerator.GetNumber(),
                     UserAvatar = "Defult.jpg",
                     ActiveCode = RandomNumberGenerator.GetNumber(),
+                    EmployeeStatusID = 2
 
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
