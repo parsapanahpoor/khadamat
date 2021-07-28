@@ -67,6 +67,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetAll(p => p.UserName == username).Select(p => p.Id).First();
         }
 
+        public int GetUserOnlineStatus(string username)
+        {
+            return GetAll(p => p.UserName == username)
+                        .Select(p => p.EmployeeStatusID).First();
+        }
+
         public bool IsExistEmail(string email)
         {
             return GetAll().Any(p => p.Email == email);

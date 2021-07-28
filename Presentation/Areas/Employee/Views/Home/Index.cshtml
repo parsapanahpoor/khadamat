@@ -54,7 +54,6 @@
                         var delay = 5000;
                         setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
                 }
-
                 @if (ViewBag.Possition == 1)
                 {
                     <div class="col-md-12">
@@ -79,7 +78,6 @@
                     </div>
 
                 }
-
                 @if (ViewBag.Possition == 2)
                 {
                     <div class="col-md-12">
@@ -132,7 +130,6 @@
                     </div>
 
                 }
-
                 @if (Model.IsAccepted == true)
                 {
                     @if (ViewBag.UserSelectedJob == true)
@@ -151,7 +148,7 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body" style="display: block;">
-                                    کاربر محترم لطفا دسته ای که می خواهید در آن فعالیت کنید را انتخاب کنید 
+                                    کاربر محترم لطفا دسته ای که می خواهید در آن فعالیت کنید را انتخاب کنید
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -161,6 +158,91 @@
                     }
 
                 }
+                @if (ViewBag.Status == 1)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-danger-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title">وضعیت آفلاین   </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                کاربر محترم وضعیت شما به آفلاین تغییر کرده
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <script>
+                        // Your delay in milliseconds
+                        var delay = 5000;
+                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+
+                }
+                @if (ViewBag.Status == 2)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-success-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title">وضعیت آنلاین    </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                کاربر محترم وضعیت شما به آنلاین تغییر کرده
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <script>
+                        // Your delay in milliseconds
+                        var delay = 5000;
+                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+
+                }
+                @if (ViewBag.Status == 3)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-primary-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title">وضعیت درحال کار     </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                کاربر محترم وضعیت شما به درحال کار  تغییر کرده
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <script>
+                        // Your delay in milliseconds
+                        var delay = 5000;
+                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+
+                }
+
 
             </div>
         </div><!-- /.container-fluid -->

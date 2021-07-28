@@ -2,14 +2,36 @@
 @using DataAccess.Design_Pattern.UnitOfWork
 @inject IUnitOfWork _UserService
 @using DataAccess.ViewModels
-@{ SideBarUserPanelViewModel user = _UserService.userRepository.GetSideBarUserPanelData(User.Identity.Name); }
+@{ 
 
-<!-- Sidebar user panel (optional) -->
+    SideBarUserPanelViewModel user = _UserService.userRepository.GetSideBarUserPanelData(User.Identity.Name);
+
+    int UserStatusID = _UserService.userRepository.GetUserOnlineStatus(User.Identity.Name);
+}
+
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
     <div class="image">
         <img src="/Images/UserAvatar/@user.ImageName" style="height:85px;width:85px;" class="img-circle elevation-2" alt="User Image">
     </div>
     <div class="info">
         <a href="#" style="margin-top:20px;" class="d-block">@user.UserName</a>
+
+        @if (UserStatusID == 1)
+        {
+    <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=2&&username=@User.Identity.Name">
+        <span class="right badge badge-danger"> آفلاین  </span>
+    </a>}
+        @if (UserStatusID == 2)
+        {
+    <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=3&&username=@User.Identity.Name">
+        <span class="right badge badge-success"> آنلاین  </span>
+    </a>}
+        @if (UserStatusID == 3)
+        {
+    <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=1&&username=@User.Identity.Name">
+        <span class="right badge badge-primary"> درحال کار  </span>
+    </a>}
+
+
     </div>
 </div>

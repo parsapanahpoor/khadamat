@@ -34,7 +34,7 @@ namespace Presentation.Areas.Supporter.Controllers
         #endregion
 
 
-        public async Task<IActionResult> Index(bool Edit = false)
+        public async Task<IActionResult> Index(int? status , bool Edit = false  )
         {
             var user =await _userManager.FindByNameAsync(User.Identity.Name);
             var Employee = _context.employeeRepository.GetEmployeeDocument(user.Id);
@@ -51,6 +51,20 @@ namespace Presentation.Areas.Supporter.Controllers
                 ViewBag.Edit = true;
             }
 
+            if (status == 1)
+            {
+                ViewBag.Status = 1;
+            }
+            if (status == 2)
+            {
+                ViewBag.Status = 2;
+
+            }
+            if (status == 3)
+            {
+                ViewBag.Status = 3;
+
+            }
 
             return View(user);
         }
