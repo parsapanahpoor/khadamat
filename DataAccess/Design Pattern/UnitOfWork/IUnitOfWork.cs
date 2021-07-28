@@ -15,6 +15,8 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         EmployeeRepository employeeRepository { get; }
         JobCategoryRepository jobCategoryRepository { get; }
         UserSelectedJobRepository userSelectedJobRepository { get; }
+        DataReservationRepository dataReservationRepository { get; }
+        HourReservationRepository hourReservationRepository { get; }
 
         #endregion
 
