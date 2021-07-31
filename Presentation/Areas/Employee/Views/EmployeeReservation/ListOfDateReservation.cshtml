@@ -113,7 +113,7 @@
             setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
     }
 
- 
+
     <section class="content">
         <div class="row">
             <div class="col-12">
@@ -148,39 +148,46 @@
 
                                         @foreach (var item in Model)
                                         {
-                                        <tr role="row" class="odd">
-                                            <td>@item.StartHourReservation</td>
-                                            <td>@item.EndHourReservation</td>
-                                            <td>
-                                                @if (item.ReservationStatusID == 1)
-                                                {
+                                            <tr role="row" class="odd">
+                                                <td>@item.StartHourReservation</td>
+                                                <td>@item.EndHourReservation</td>
+                                                <td>
+                                                    @if (item.ReservationStatusID == 1)
+                                                    {
 
-                                                    <a class="btn btn-success btn-sm" style="color:white">
-                                                        @item.ReservationStatus.PersianStatus
-                                                    </a>
-                                                }
-                                                @if (item.ReservationStatusID == 2)
-                                                {
-                                                    <a class="btn btn-danger btn-sm" style="color:white">
-                                                        @item.ReservationStatus.PersianStatus
-                                                    </a>
-                                                }
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-sm waves-effect"
-                                                   style="color:white;">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                    ویرایش
-                                                </a>
-                                                <a class="btn btn-danger btn-sm waves-effect"
-                                                   style="color:white;">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                    حذف
-                                                </a>
+                                                        <a class="btn btn-success btn-sm" style="color:white">
+                                                            @item.ReservationStatus.PersianStatus
+                                                        </a>
+                                                    }
+                                                    @if (item.ReservationStatusID == 2)
+                                                    {
+                                                        <a class="btn btn-dark btn-sm" style="color:white">
+                                                            @item.ReservationStatus.PersianStatus
+                                                        </a>
+                                                    }
+                                                </td>
+                                                <td>
                                               
-                                             
-                                            </td>
-                                        </tr>
+                                                    @if (item.ReservationStatusID == 2)
+                                                    {
+                                                        <a class="btn btn-outline-primary btn-sm waves-effect"
+                                                           asp-action="UpdateHourReservation" asp-controller="EmployeeReservation" asp-area="Employee" asp-route-id="@item.HourReservationID"
+                                                           >
+                                                            <i class="glyphicon glyphicon-edit"></i>
+                                                            ویرایش
+                                                        </a>
+                                                        <a class="btn btn-outline-danger btn-sm waves-effect"
+                                                           href="/Employee/EmployeeReservation/UpdateHourReservation?id=@item.HourReservationID&&Delete=true"
+                                                           >
+                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                            حذف
+                                                        </a>
+                                                    }
+
+
+
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
 

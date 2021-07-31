@@ -14,5 +14,9 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 
         bool AddHourReservationFromEmployeePanel(AddHourReservationFromEmployeeVM addHourReservation , string EmployeeId);
         List<HourReservation> GetEmployeeHourReservationByDateHourReservationID(int id);
+        HourReservation GetHourReservation(int id);
+        bool UpdateHourReservationFromEmployee(HourReservation hourReservation);
+        void DeleteHourReservationFromEmployeePanel(HourReservation hourReservation);
+
     }
 }

@@ -39,7 +39,9 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                     Description = null , 
                     ReservationStatusID = 2 , 
                     DataReservationID = addHourReservation.DataReservationID,
-                    EmployeeID = EmployeeId
+                    EmployeeID = EmployeeId,
+                    StartHourReservationInt = StartHourInt,
+                    EndHourReservationInt = EndtHourInt
                 };
                 Add(hour);
                 return true;
@@ -52,11 +54,49 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         }
 
+        public void DeleteHourReservationFromEmployeePanel(HourReservation hourReservation)
+        {
+            if (hourReservation.ReservationStatusID == 2)
+            {
+                Delete(hourReservation);
+            }
+        }
+
         public List<HourReservation> GetEmployeeHourReservationByDateHourReservationID(int id)
         {
             return GetAll(includeProperties: "ReservationStatus")
                             .Where(p=>p.DataReservationID == id).ToList();
                         
+        }
+
+        public HourReservation GetHourReservation(int id)
+        {
+            return GetById(id);
+        }
+
+        public bool UpdateHourReservationFromEmployee(HourReservation hourReservation)
+        {
+            string StartHourString = hourReservation.StartHourReservation.Remove(2, 1);
+            string EndHourString = hourReservation.EndHourReservation.Remove(2, 1);
+
+            int StartHourInt = Convert.ToInt32(StartHourString);
+            int EndtHourInt = Convert.ToInt32(EndHourString);
+
+            int WorkTime = Math.Abs(EndtHourInt - StartHourInt);
+
+            if (WorkTime >= 200 && WorkTime <= 2200)
+            {
+                hourReservation.StartHourReservationInt = StartHourInt;
+                hourReservation.EndHourReservationInt = EndtHourInt ;
+
+                Update(hourReservation);
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
         }
     }
 }

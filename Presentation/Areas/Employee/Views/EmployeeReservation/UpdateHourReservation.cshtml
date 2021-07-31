@@ -1,0 +1,120 @@
+﻿@model Models.Entities.EmployeeReservation.HourReservation
+
+@{
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+    ViewData["Title"] = "ویرایش  ساعت ";}
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> ویرایش  ساعت </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">ویرایش  ساعت </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <form asp-action="UpdateHourReservation" asp-controller="EmployeeReservation" asp-area="Employee" method="post" enctype="multipart/form-data">
+                @if (ViewBag.Error != null)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-danger-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title"> خطا </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                ساعت کاری نمی تواند کمتر از 2 ساعت باشد
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+
+                }
+
+
+                <input type="hidden" asp-for="DataReservationID" />
+                <input type="hidden" asp-for="HourReservationID" />
+                <input type="hidden" asp-for="Description" />
+                <input type="hidden" asp-for="ReservationStatusID" />
+                <input type="hidden" asp-for="EmployeeID" />
+                <input type="hidden" asp-for="EndHourReservationInt" />
+                <input type="hidden" asp-for="StartHourReservationInt" />
+
+                <div class="row">
+                </div>
+                <div class="col-md-12">
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">  ثبت ساعت  </h3>
+                        </div>
+
+                        <div class="form-horizontal ">
+                            <div class="row">
+                                <div class="card-body row">
+                                    <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">   ساعت شروع        </label>
+                                            <input type="text" class="form-control" asp-for="StartHourReservation" placeholder="ساعت شروع را وارد کنید">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="card-body row">
+                                    <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">   ساعت پایان         </label>
+                                            <input type="text" class="form-control" asp-for="EndHourReservation" placeholder="ساعت پایان را وارد کنید">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @if (ViewBag.Delete != null)
+                                {
+                                    <a  class="btn btn-danger" href="/Employee/EmployeeReservation/DeleteHourReservation?id=@Model.HourReservationID">
+                                        حذف
+                                    </a>
+                                }
+                                else
+                                {
+                                <button type="submit" class="btn btn-success">ثبت </button>
+                                }
+                                <a href="/Employee/EmployeeReservation/ListOfDateReservation/@Model.DataReservationID" class="btn btn-primary">بازگشت </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</div>
+
+
+
+@section Scripts
+{
+
+}

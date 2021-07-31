@@ -205,7 +205,7 @@ namespace Presentation.Areas.Employee.Controllers
 
         #region HourReservation Part
 
-        public IActionResult ListOfDateReservation(int? id, bool Create = false)
+        public IActionResult ListOfDateReservation(int? id, bool Create = false , bool Edit = false , bool Delete = false)
         {
             if (id == null)
             {
@@ -223,6 +223,14 @@ namespace Presentation.Areas.Employee.Controllers
             {
                 ViewBag.Create = true;
             }
+            if (Edit == true)
+            {
+                ViewBag.Edit = true;
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
 
             ViewBag.DateReservation = id;
 
@@ -236,7 +244,6 @@ namespace Presentation.Areas.Employee.Controllers
                 return View("~/Views/Shared/_404.cshtml");
 
             }
-        
 
             ViewBag.Date = id;
 
@@ -270,7 +277,68 @@ namespace Presentation.Areas.Employee.Controllers
             return View(addHourReservation);
         }
 
+        public IActionResult UpdateHourReservation(int? id , bool Delete = false)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            HourReservation hour = _context.hourReservationRepository.GetHourReservation((int)id);
+ 
+            if (hour == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            if (hour.ReservationStatusID == 1)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
 
+            return View(hour);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateHourReservation(HourReservation hourReservation)
+        {
+            if (ModelState.IsValid)
+            {
+                bool result = _context.hourReservationRepository.UpdateHourReservationFromEmployee(hourReservation);
+                if (result == true)
+                {
+                    _context.SaveChangesDB();
+                    return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + hourReservation.DataReservationID + "&&Edit=true");
+
+                }
+                if (result == false)
+                {
+                    ViewBag.Error = true;
+                    return View(hourReservation);
+                }
+            }
+
+            return View(hourReservation);
+        }
+        public IActionResult DeleteHourReservation(int? id)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            HourReservation hour = _context.hourReservationRepository.GetHourReservation((int)id);
+            if (hour == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+
+            _context.hourReservationRepository.DeleteHourReservationFromEmployeePanel(hour);
+            _context.SaveChangesDB();
+
+            return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + hour.DataReservationID + "&&Delete=true");
+        }
         #endregion
     }
 }

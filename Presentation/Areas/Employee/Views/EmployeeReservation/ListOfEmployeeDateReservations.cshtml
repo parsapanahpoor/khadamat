@@ -139,6 +139,8 @@
 
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 300.317px;" aria-label="وضعیت: activate to sort column ascending">تاریخ</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 10.317px;" aria-label="وضعیت: activate to sort column ascending">تعداد ساعات </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 10.317px;" aria-label="وضعیت: activate to sort column ascending">ساعات رزرو شده  </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 420.6px;" aria-label=" activate to sort column ascending"></th>
                                         </tr>
@@ -147,45 +149,50 @@
 
                                         @foreach (var item in Model)
                                         {
-                                            <tr role="row" class="odd">
+                                        <tr role="row" class="odd">
 
 
 
 
-                                                <td>@item.ReservationDateTime.ToShamsi()</td>
+                                            <td>@item.ReservationDateTime.ToShamsi()</td>
+                                            <td>
+                                                <div class="btn btn-success btn-sm waves-effect">
+                                                    @item.HourReservation.Count()
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="btn btn-primary btn-sm waves-effect">
+                                                    @item.HourReservation.Count(p=>p.ReservationStatusID == 1)
+                                                </div>
+                                            </td>
+
+                                            <td>
+
+                                                <a class="btn btn-outline-primary btn-sm waves-effect"
+                                                   href="/Employee/EmployeeReservation/EditDateReservation?id=@item.DataReservationID"
+                                                   >
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    ویرایش
+                                                </a>
 
 
 
-                                                <td>
+                                                <a class="btn btn-outline-danger btn-sm waves-effect"
+                                                   href="/Employee/EmployeeReservation/EditDateReservation?id=@item.DataReservationID&&Delete=True"
+                                                  >
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                    حذف
+                                                </a>
 
-                                                    <a class="btn btn-primary btn-sm waves-effect"
-                                                       href="/Employee/EmployeeReservation/EditDateReservation?id=@item.DataReservationID"
-                                                       style="color:white;">
-                                                        <i class="glyphicon glyphicon-edit"></i>
-                                                        ویرایش
-                                                    </a>
+                                                <a class="btn btn-outline-success btn-sm waves-effect"
+                                                   href="/Employee/EmployeeReservation/ListOfDateReservation?id=@item.DataReservationID">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                    افزودن ساعت کاری
+                                                </a>
 
-
-
-                                                    <a class="btn btn-danger btn-sm waves-effect"
-                                                       href="/Employee/EmployeeReservation/EditDateReservation?id=@item.DataReservationID&&Delete=True"
-                                                       style="color:white;">
-                                                        <i class="glyphicon glyphicon-trash"></i>
-                                                        حذف
-                                                    </a>
-
-                                                    <a class="btn btn-success btn-sm waves-effect" style="color:white;"
-                                                       href="/Employee/EmployeeReservation/ListOfDateReservation?id=@item.DataReservationID"
-                                                       >
-                                                        <i class="glyphicon glyphicon-trash"></i>
-                                                        افزودن ساعت کاری 
-                                                    </a>
-                                                    <a class="btn btn-danger btn-sm waves-effect">
-                                                        <i class="glyphicon glyphicon-trash"></i>
-                                                        حذف نقش
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            </td>
+                                        </tr>
                                         }
                                     </tbody>
 
