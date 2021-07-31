@@ -20,10 +20,14 @@ namespace Models.Entities.EmployeeReservation
         public int HourReservationID { get; set; }
 
         [Display(Name = "ساعت شروع رزرو")]
-        public int StartHourReservation { get; set; }
+        [MaxLength(40)]
+        [Required]
+        public string StartHourReservation { get; set; }
 
         [Display(Name = "ساعت پایان رزرو")]
-        public int EndHourReservation { get; set; }
+        [MaxLength(40)]
+        [Required]
+        public string EndHourReservation { get; set; }
 
         [Display(Name = " توضیحات    ")]
         public string Description { get; set; }

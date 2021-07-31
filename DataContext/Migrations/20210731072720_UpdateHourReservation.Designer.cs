@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210731072720_UpdateHourReservation")]
+    partial class UpdateHourReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,7 +205,8 @@ namespace DataContext.Migrations
 
                     b.HasKey("HourReservationID");
 
-                    b.HasIndex("DataReservationID");
+                    b.HasIndex("DataReservationID")
+                        .IsUnique();
 
                     b.HasIndex("EmployeeID");
 
@@ -588,8 +591,8 @@ namespace DataContext.Migrations
             modelBuilder.Entity("Models.Entities.EmployeeReservation.HourReservation", b =>
                 {
                     b.HasOne("Models.Entities.EmployeeReservation.DataReservation", "DataReservation")
-                        .WithMany("HourReservation")
-                        .HasForeignKey("DataReservationID")
+                        .WithOne("HourReservation")
+                        .HasForeignKey("Models.Entities.EmployeeReservation.HourReservation", "DataReservationID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

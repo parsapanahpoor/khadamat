@@ -81,7 +81,7 @@ namespace Presentation.Areas.Employee.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EmployeeResume(UserSelectedJob userSelectedJob, IFormFile UserAvatarFile)
+        public IActionResult EmployeeResume(UserSelectedJob userSelectedJob, IFormFile UserAvatarFile)
         {
             if (ModelState.IsValid)
             {

@@ -476,7 +476,6 @@ namespace Presentation.Areas.Admin.Controllers
         #endregion
 
         #region RolesManager
-        [Area("Admin")]
 
         [HttpGet]
         public async Task<IActionResult> AddUserToRole(string id, bool Employee = false, bool UserPage = false, bool Admin = false, bool Supporter = false)

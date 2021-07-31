@@ -1,5 +1,6 @@
 ﻿using DataAccess.Design_Pattern.GenericRepositories;
 using DataAccess.Design_Pattern.Repositories.Interfaces;
+using DataAccess.ViewModels;
 using DataContext.Context;
 using Models.Entities.EmployeeReservation;
 using System;
@@ -19,7 +20,36 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
+        public void AddDataReservationFromEmployeePanel(DateTime date, string userid)
+        {
+            DataReservation dataReservation = new DataReservation()
+            {
+                EmployeeID = userid,
+                ReservationDateTime = (DateTime)date
+            };
 
+            Add(dataReservation);
+        }
 
+        public void DeleteDateReservation(DataReservation data)
+        {
+            Delete(data);
+        }
+
+        public DataReservation GetDataReservationById(int id)
+        {
+            return GetAll(p => p.DataReservationID == id).First();
+        }
+
+        public List<DataReservation> GetListOfEmployeeDataReservation(string userid)
+        {
+            return GetAll(includeProperties: "HourReservation")
+                        .OrderBy(p => p.DataReservationID).ToList();
+        }
+
+        public void UpdateDateReservationFromEmployeePanel(DataReservation data)
+        {
+            Update(data);
+        }
     }
 }

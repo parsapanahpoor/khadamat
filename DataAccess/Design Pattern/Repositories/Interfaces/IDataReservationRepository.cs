@@ -1,4 +1,5 @@
 ﻿using DataAccess.Design_Pattern.GenericRepositories;
+using DataAccess.ViewModels;
 using Models.Entities.EmployeeReservation;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,10 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public interface IDataReservationRepository : IGernericRepository<DataReservation>
     {
+        List<DataReservation> GetListOfEmployeeDataReservation(string userid);
+        void AddDataReservationFromEmployeePanel(DateTime date , string userid);
+        DataReservation GetDataReservationById(int id);
+        void UpdateDateReservationFromEmployeePanel(DataReservation data);
+        void DeleteDateReservation(DataReservation data);
     }
 }

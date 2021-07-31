@@ -1,10 +1,13 @@
 ﻿using DataAccess.Design_Pattern.UnitOfWork;
+using DataAccess.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Models.Entities.EmployeeReservation;
 using Models.Entities.User;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,7 +34,7 @@ namespace Presentation.Areas.Employee.Controllers
         }
         #endregion
 
-        public async Task<IActionResult> ChangeStatusByIconInPartial(int id , string username)
+        public async Task<IActionResult> ChangeStatusByIconInPartial(int id, string username)
         {
             var user = await _userManager.FindByNameAsync(username);
 
@@ -68,7 +71,206 @@ namespace Presentation.Areas.Employee.Controllers
             return View();
         }
 
+        #region DataReservation Part
 
 
+        public async Task<IActionResult> ListOfEmployeeDateReservations(bool Create = false, bool Edit = false, bool Delete = false)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var model = _context.dataReservationRepository.GetListOfEmployeeDataReservation(user.Id);
+
+            if (Create == true)
+            {
+                ViewBag.Create = true;
+            }
+            if (Edit == true)
+            {
+                ViewBag.Edit = true;
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
+
+            return View(model);
+        }
+
+        public IActionResult CreateDataReservation()
+        {
+
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateDataReservation(string ReservationDateTimeString)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+
+                string[] std = ReservationDateTimeString.Split('/');
+
+                DateTime eDateTime = new DateTime(int.Parse(std[0]),
+                    int.Parse(std[1]),
+                    int.Parse(std[2]),
+                    new PersianCalendar()
+                    );
+
+                DateTime DateTime = eDateTime;
+
+                _context.dataReservationRepository.AddDataReservationFromEmployeePanel(DateTime, user.Id);
+                _context.SaveChangesDB();
+
+                return Redirect("/Employee/EmployeeReservation/ListOfEmployeeDateReservations?Create=true");
+
+            }
+
+            return View();
+        }
+
+        public IActionResult EditDateReservation(int? id, bool Delete = false)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+
+            var model = _context.dataReservationRepository.GetDataReservationById((int)id);
+
+            if (model == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
+
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditDateReservation(DataReservation date, string ReservationDateTimeString)
+        {
+            if (ModelState.IsValid)
+            {
+                string[] std = ReservationDateTimeString.Split('/');
+
+                DateTime eDateTime = new DateTime(int.Parse(std[0]),
+                    int.Parse(std[1]),
+                    int.Parse(std[2]),
+                    new PersianCalendar()
+                    );
+
+                DateTime DateTime = eDateTime;
+
+                date.ReservationDateTime = DateTime;
+
+                _context.dataReservationRepository.UpdateDateReservationFromEmployeePanel(date);
+                _context.SaveChangesDB();
+
+                return Redirect("/Employee/EmployeeReservation/ListOfEmployeeDateReservations?Edit=true");
+            }
+
+            return View(date);
+        }
+
+        public IActionResult DeleteDateReservation(int? id)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+
+            DataReservation date = _context.dataReservationRepository.GetDataReservationById((int)id);
+
+            if (date == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+
+            _context.dataReservationRepository.DeleteDateReservation(date);
+            _context.SaveChangesDB();
+
+            return Redirect("/Employee/EmployeeReservation/ListOfEmployeeDateReservations?Delete=true");
+        }
+
+        #endregion
+
+        #region HourReservation Part
+
+        public IActionResult ListOfDateReservation(int? id, bool Create = false)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+
+            var model = _context.hourReservationRepository.GetEmployeeHourReservationByDateHourReservationID((int)id);
+
+            if (model == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+
+            if (Create == true)
+            {
+                ViewBag.Create = true;
+            }
+
+            ViewBag.DateReservation = id;
+
+            return View(model);
+        }
+
+        public IActionResult CreateHourReservation(int? id)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+
+            }
+        
+
+            ViewBag.Date = id;
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateHourReservation(AddHourReservationFromEmployeeVM addHourReservation)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                bool result = _context.hourReservationRepository.AddHourReservationFromEmployeePanel(addHourReservation, user.Id);
+
+                if (result == true)
+                {
+                    _context.SaveChangesDB();
+                    return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + addHourReservation.DataReservationID + "&&Create=true");
+
+                }
+                if (result == false)
+                {
+                    ViewBag.Error = true;
+                    ViewBag.Date = addHourReservation.DataReservationID;
+                    return View(addHourReservation);
+                }
+            }
+
+            ViewBag.Date = addHourReservation.DataReservationID;
+
+            return View(addHourReservation);
+        }
+
+
+        #endregion
     }
 }

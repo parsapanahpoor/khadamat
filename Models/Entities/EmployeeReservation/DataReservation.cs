@@ -30,7 +30,7 @@ namespace Models.Entities.EmployeeReservation
         #region Navigation Properties
 
         public User.User User { get; set; }
-        public HourReservation HourReservation { get; set; }
+        public List<HourReservation> HourReservation { get; set; }
 
         #endregion
     }

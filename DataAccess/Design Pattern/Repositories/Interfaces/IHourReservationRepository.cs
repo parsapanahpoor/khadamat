@@ -1,4 +1,5 @@
 ﻿using DataAccess.Design_Pattern.GenericRepositories;
+using DataAccess.ViewModels;
 using Models.Entities.EmployeeReservation;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,8 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public interface IHourReservationRepository : IGernericRepository<HourReservation>
     {
+
+        bool AddHourReservationFromEmployeePanel(AddHourReservationFromEmployeeVM addHourReservation , string EmployeeId);
+        List<HourReservation> GetEmployeeHourReservationByDateHourReservationID(int id);
     }
 }

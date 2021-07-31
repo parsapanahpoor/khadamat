@@ -1,0 +1,134 @@
+﻿@model Models.Entities.EmployeeReservation.DataReservation
+@using Utilities.Convertors
+@{
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+    ViewData["Title"] = "ویرایش  تاریخ";}
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                @if (ViewBag.Delete == true)
+                {
+                    <div class="col-sm-6">
+                        <h1> حذف  تاریخ </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-left">
+                            <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                            <li class="breadcrumb-item active">حذف  تاریخ </li>
+                        </ol>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-6">
+                        <h1> ویرایش  تاریخ </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-left">
+                            <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                            <li class="breadcrumb-item active">ویرایش  تاریخ </li>
+                        </ol>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <form asp-action="EditDateReservation" asp-controller="EmployeeReservation" asp-area="Employee" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="DataReservationID"/>
+                <input type="hidden" asp-for="ReservationDateTime"/>
+                <input type="hidden" asp-for="EmployeeID"/>
+
+                <div class="row">
+                </div>
+                <div class="col-md-12">
+                    @if (ViewBag.Delete == true)
+                    {
+
+                        <div class="card card-danger">
+                            <div class="card-header">
+                                <h3 class="card-title">  حذف تاریخ  </h3>
+                            </div>
+
+                            <div class="form-horizontal">
+                                <div class="card-body row">
+                                    <div class="card-body col-md-10">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">   تاریخ       </label>
+                                            <input type="text" class="form-control" name="ReservationDateTimeString" id="ReservationDateTimeString" value="@Model.ReservationDateTime.ToShamsi()" placeholder="تاریخ  را وارد کنید">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <a href="/Employee/EmployeeReservation/DeleteDateReservation?id=@Model.DataReservationID" class="btn btn-danger">حذف </a>
+                                    <a href="/Employee/EmployeeReservation/ListOfEmployeeDateReservations" class="btn btn-primary">بازگشت </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">  ویرایش تاریخ  </h3>
+                            </div>
+
+                            <div class="form-horizontal">
+                                <div class="card-body row">
+                                    <div class="card-body col-md-10">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">   تاریخ       </label>
+                                            <input type="text" class="form-control" name="ReservationDateTimeString" id="ReservationDateTimeString" value="@Model.ReservationDateTime.ToShamsi()" placeholder="تاریخ  را وارد کنید">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success">ثبت </button>
+                                    <a href="/Employee/EmployeeReservation/ListOfEmployeeDateReservations" class="btn btn-primary">بازگشت </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</div>
+
+
+
+@section Scripts
+{
+
+
+    <link href="https://cdn.kendostatic.com/2013.2.918/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://cdn.kendostatic.com/2013.2.918/styles/kendo.default.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="~/js/kendo.all.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            // create DatePicker from input HTML element
+            $("#ReservationDateTimeString").kendoDatePicker();
+
+        });
+    </script>
+
+
+}

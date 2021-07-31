@@ -1,0 +1,102 @@
+﻿@model DataAccess.ViewModels.AddHourReservationFromEmployeeVM
+
+@{
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+    ViewData["Title"] = "افزودن  ساعت ";}
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> افزودن  ساعت </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">افزودن  ساعت </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <form asp-action="CreateHourReservation" asp-controller="EmployeeReservation" asp-area="Employee" method="post" enctype="multipart/form-data">
+                @if (ViewBag.Error !=  null)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-danger-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title"> خطا </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                ساعت کاری نمی تواند کمتر از 2 ساعت باشد
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+
+                }
+
+                <input type="hidden" asp-for="DataReservationID" value="@ViewBag.Date" />
+                <div class="row">
+                </div>
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">  ثبت ساعت  </h3>
+                        </div>
+
+                        <div class="form-horizontal ">
+                            <div class="row">
+                                <div class="card-body row">
+                                    <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">   ساعت شروع        </label>
+                                            <input type="text" class="form-control" asp-for="StartHour" placeholder="ساعت شروع را وارد کنید">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="card-body row">
+                                    <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">   ساعت پایان         </label>
+                                            <input type="text" class="form-control" asp-for="EndHour" placeholder="ساعت پایان را وارد کنید">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success">ثبت </button>
+                                <a href="/Employee/EmployeeReservation/ListOfDateReservation/@ViewBag.Date" class="btn btn-primary">بازگشت </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</div>
+
+
+
+@section Scripts
+{
+
+}
