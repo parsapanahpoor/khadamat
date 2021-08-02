@@ -27,24 +27,33 @@
                                     <div class="row">
                                         <div class="col-sm-4 border-left">
                                             <div class="description-block">
-                                                <h5 class="description-header">۳,۲۰۰</h5>
-                                                <span class="description-text">فروش</span>
+                                                @if (item.User.EmployeeStatusID == 1)
+                                                {
+                                                    <span class="btn btn-danger">آفلاین  </span>
+                                                }
+                                                @if (item.User.EmployeeStatusID == 2)
+                                                {
+                                                    <span class="btn btn-success">آنلاین </span>
+                                                }
+                                                @if (item.User.EmployeeStatusID == 3)
+                                                {
+                                                    <span class="btn btn-primary">درحال کار </span>
+                                                }
+                                         
                                             </div>
                                             <!-- /.description-block -->
                                         </div>
                                         <!-- /.col -->
                                         <div class="col-sm-4 border-left">
                                             <div class="description-block">
-                                                <h5 class="description-header">۱۳,۰۰۰</h5>
-                                                <span class="description-text">دنبال کننده</span>
+                                     
                                             </div>
                                             <!-- /.description-block -->
                                         </div>
                                         <!-- /.col -->
                                         <div class="col-sm-4">
                                             <div class="description-block">
-                                                <h5 class="description-header">۳۵</h5>
-                                                <span class="description-text">محصولات</span>
+                                                <a href="/EmployeeReservation/ShowEmployeeInfoPage/@item.JobCategorySelectedID" class="btn btn-info" style="color:white;">مشاهده ی پروفایل </a>
                                             </div>
                                             <!-- /.description-block -->
                                         </div>

@@ -112,6 +112,62 @@
             var delay = 5000;
             setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
     }
+    @if (ViewBag.ErrorDelete == true)
+    {
+        <div class="col-md-12">
+            <div class="card bg-warning-gradient">
+                <div class="card-header">
+                    <h3 class="card-title"> حذف نا موفق  </h3>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    شما در این تاریخ ساعاتی را انتخاب کرده اید به همین علت نمی توانید این تاریخ را حذف کنید
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <script>
+            // Your delay in milliseconds
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+    }
+    @if (ViewBag.ErrorEdit == true)
+    {
+        <div class="col-md-12">
+            <div class="card bg-warning">
+                <div class="card-header">
+                    <h3 class="card-title"> ویرایش نا موفق  </h3>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    شما در این تاریخ ساعاتی را انتخاب کرده اید به همین علت نمی توانید این تاریخ را ویرایش کنید
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <script>
+            // Your delay in milliseconds
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+    }
+
+
 
     <!-- Content Header (Page header) -->
     <!-- Main content -->
@@ -149,50 +205,48 @@
 
                                         @foreach (var item in Model)
                                         {
-                                        <tr role="row" class="odd">
+                                            <tr role="row" class="odd">
 
 
 
 
-                                            <td>@item.ReservationDateTime.ToShamsi()</td>
-                                            <td>
-                                                <div class="btn btn-success btn-sm waves-effect">
-                                                    @item.HourReservation.Count()
-                                                </div>
-                                            </td>
+                                                <td>@item.ReservationDateTime.ToShamsi()</td>
+                                                <td>
+                                                    <div class="btn btn-success btn-sm waves-effect">
+                                                        @item.HourReservation.Count()
+                                                    </div>
+                                                </td>
 
-                                            <td>
-                                                <div class="btn btn-primary btn-sm waves-effect">
-                                                    @item.HourReservation.Count(p=>p.ReservationStatusID == 1)
-                                                </div>
-                                            </td>
+                                                <td>
+                                                    <div class="btn btn-primary btn-sm waves-effect">
+                                                        @item.HourReservation.Count(p => p.ReservationStatusID == 1)
+                                                    </div>
+                                                </td>
 
-                                            <td>
+                                                <td>
 
-                                                <a class="btn btn-outline-primary btn-sm waves-effect"
-                                                   href="/Employee/EmployeeReservation/EditDateReservation?id=@item.DataReservationID"
-                                                   >
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                    ویرایش
-                                                </a>
-
+                                                    <a class="btn btn-outline-primary btn-sm waves-effect"
+                                                       href="/Employee/EmployeeReservation/EditDateReservation?id=@item.DataReservationID">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                        ویرایش
+                                                    </a>
 
 
-                                                <a class="btn btn-outline-danger btn-sm waves-effect"
-                                                   href="/Employee/EmployeeReservation/EditDateReservation?id=@item.DataReservationID&&Delete=True"
-                                                  >
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                    حذف
-                                                </a>
 
-                                                <a class="btn btn-outline-success btn-sm waves-effect"
-                                                   href="/Employee/EmployeeReservation/ListOfDateReservation?id=@item.DataReservationID">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                    افزودن ساعت کاری
-                                                </a>
+                                                    <a class="btn btn-outline-danger btn-sm waves-effect"
+                                                       href="/Employee/EmployeeReservation/EditDateReservation?id=@item.DataReservationID&&Delete=True">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        حذف
+                                                    </a>
 
-                                            </td>
-                                        </tr>
+                                                    <a class="btn btn-outline-success btn-sm waves-effect"
+                                                       href="/Employee/EmployeeReservation/ListOfDateReservation?id=@item.DataReservationID">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        افزودن ساعت کاری
+                                                    </a>
+
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
 

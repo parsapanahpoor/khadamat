@@ -75,6 +75,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                             .ToList();
         }
 
+        public UserSelectedJob GetUserSelectedJobByID(int id)
+        {
+            return GetAll(includeProperties: "User,JobCategory")
+                            .First(p => p.JobCategorySelectedID == id);
+        }
+
         public UserSelectedJob GetUserselectedJobByJobID(int jobid)
         {
             return GetAll(includeProperties: "JobCategory")

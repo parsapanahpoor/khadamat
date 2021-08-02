@@ -74,7 +74,8 @@ namespace Presentation.Areas.Employee.Controllers
         #region DataReservation Part
 
 
-        public async Task<IActionResult> ListOfEmployeeDateReservations(bool Create = false, bool Edit = false, bool Delete = false)
+        public async Task<IActionResult> ListOfEmployeeDateReservations(bool Create = false, bool Edit = false, bool Delete = false
+                            , bool ErrorDelete = false, bool ErrorEdit = false)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var model = _context.dataReservationRepository.GetListOfEmployeeDataReservation(user.Id);
@@ -90,6 +91,14 @@ namespace Presentation.Areas.Employee.Controllers
             if (Delete == true)
             {
                 ViewBag.Delete = true;
+            }
+            if (ErrorDelete == true)
+            {
+                ViewBag.ErrorDelete = true;
+            }
+            if (ErrorEdit == true)
+            {
+                ViewBag.ErrorEdit = true;
             }
 
             return View(model);
@@ -145,6 +154,15 @@ namespace Presentation.Areas.Employee.Controllers
                 return View("~/Views/Shared/_404.cshtml");
 
             }
+
+            List<HourReservation> hourReservation = _context.hourReservationRepository
+                    .GetEmployeeHourReservationByDateHourReservationID((int)id);
+
+            if (hourReservation.Count() > 0)
+            {
+                return Redirect("/Employee/EmployeeReservation/ListOfEmployeeDateReservations?ErrorEdit=true");
+
+            }
             if (Delete == true)
             {
                 ViewBag.Delete = true;
@@ -188,10 +206,16 @@ namespace Presentation.Areas.Employee.Controllers
             }
 
             DataReservation date = _context.dataReservationRepository.GetDataReservationById((int)id);
-
             if (date == null)
             {
                 return View("~/Views/Shared/_404.cshtml");
+
+            }
+            List<HourReservation> hourReservation = _context.hourReservationRepository
+                      .GetEmployeeHourReservationByDateHourReservationID(date.DataReservationID);
+            if (hourReservation.Count() > 0)
+            {
+                return Redirect("/Employee/EmployeeReservation/ListOfEmployeeDateReservations?ErrorDelete=true");
 
             }
 
@@ -205,7 +229,7 @@ namespace Presentation.Areas.Employee.Controllers
 
         #region HourReservation Part
 
-        public IActionResult ListOfDateReservation(int? id, bool Create = false , bool Edit = false , bool Delete = false)
+        public IActionResult ListOfDateReservation(int? id, bool Create = false, bool Edit = false, bool Delete = false)
         {
             if (id == null)
             {
@@ -277,14 +301,14 @@ namespace Presentation.Areas.Employee.Controllers
             return View(addHourReservation);
         }
 
-        public IActionResult UpdateHourReservation(int? id , bool Delete = false)
+        public IActionResult UpdateHourReservation(int? id, bool Delete = false)
         {
             if (id == null)
             {
                 return View("~/Views/Shared/_404.cshtml");
             }
             HourReservation hour = _context.hourReservationRepository.GetHourReservation((int)id);
- 
+
             if (hour == null)
             {
                 return View("~/Views/Shared/_404.cshtml");

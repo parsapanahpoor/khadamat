@@ -23,6 +23,7 @@ namespace Models.Entities.User
 
 
         [Display(Name = "تاریخ ثبت نام")]
+        [DisplayFormat(DataFormatString ="{0 : yyyy/MM/dd}")]
         public DateTime RegisterDate { get; set; }
 
         [Display(Name = "آواتار")]

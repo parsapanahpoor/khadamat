@@ -20,5 +20,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void DeleteUserSelectedJob(UserSelectedJob userSelectedJob);
         bool IsExistUserWithCurrentJob(int jobid , string userid);
         List<UserSelectedJob> GetListOfEmployeeThatHaveThisJob(int id );
+        UserSelectedJob GetUserSelectedJobByID(int id);
     }
 }

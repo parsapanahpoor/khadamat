@@ -11,8 +11,10 @@ using Microsoft.Extensions.Hosting;
 using Models.Entities.User;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Utilities.Convertors;
 
 namespace Presentation
 {
@@ -27,6 +29,14 @@ namespace Presentation
 
         public void ConfigureServices(IServiceCollection services)
         {
+            #region PersianCalender
+
+            CultureInfo.DefaultThreadCurrentCulture
+              = CultureInfo.DefaultThreadCurrentUICulture
+              = PersianDateExtensionMethods.GetPersianCulture();
+
+            #endregion
+
             services.AddControllersWithViews();
 
             #region Context

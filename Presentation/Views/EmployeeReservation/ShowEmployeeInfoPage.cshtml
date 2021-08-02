@@ -1,0 +1,104 @@
+﻿@model Models.Entities.User.UserSelectedJob
+@using Utilities.Convertors
+@{
+    ViewData["Title"] = "صفحه ی " + Model.User.UserName;
+    Layout = "~/Views/Shared/_TestLayout.cshtml";
+}
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>پروفایل</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                        <li class="breadcrumb-item active">پروفایل کاربری</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-header">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img style="height:150px;width:100px" class="profile-user-img img-fluid img-circle" src="/Images/UserAvatar/@Model.User.UserAvatar" alt="User profile picture">
+                                </div>
+
+                                <h3 class="profile-username text-center">@Model.User.UserName</h3>
+
+                                <p class="text-muted text-center">@Model.JobCategory.CategoryTitle</p>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <a class="float-left">@Model.User.PhoneNumber</a>  <b>شماره موبایل  </b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a class="float-left">@Model.User.Email</a>  <b>ایمیل   </b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a class="float-left">@Model.User.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</a>  <b>تاریخ ثبت نام    </b>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header p-2">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active show" href="#activity" data-toggle="tab">فعالیت‌ها</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">ساعت رزرو  </a></li>
+                                </ul>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active show" id="activity">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm" src="/Images/EmployeeResumeForJobs/@Model.UserAvatar" alt="user image">
+                                                <span class="username">
+                                                    <a href="#">@Model.User.UserName </a>
+                                                </span>
+                                            </div>
+                                            <!-- /.user-block -->
+                                            <p>
+                                                @Html.Raw(Model.ResumeDescription)
+                                            </p>
+
+
+                                        </div>
+                      
+                                    </div>
+                                    <div class="tab-pane" id="timeline">
+                                    </div>
+                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
