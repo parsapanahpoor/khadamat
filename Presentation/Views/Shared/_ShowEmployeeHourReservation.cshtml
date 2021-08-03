@@ -1,0 +1,90 @@
+﻿@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@inject IUnitOfWork _context
+
+
+@if (Context.Request.Query["Houre"].ToString() != "empty")
+{
+    string HoureReserVationID = Context.Request.Query["Houre"].ToString();
+
+    bool IsExist = _context.hourReservationRepository
+        .IsExistHoureReservationWhiteDateReservationID(Convert.ToInt32(HoureReserVationID));
+
+    if (IsExist == true)
+    {
+
+        List<Models.Entities.EmployeeReservation.HourReservation>
+                                    hours = _context.hourReservationRepository
+                                    .GetEmployeeHourReservationByDateHourReservationID(Convert.ToInt32(HoureReserVationID));
+        Models.Entities.EmployeeReservation.DataReservation data = _context.dataReservationRepository
+                                    .GetDataReservationById(Convert.ToInt32(HoureReserVationID));
+
+        <div class="float-md-left col-md-12 mt-4">
+            <div class="card">
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab">ساعات موجود : @data.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy") </a></li>
+                    </ul>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active show" id="activity">
+                            <div class="post">
+                                @if (hours.Count() != 0)
+                                {
+                                    foreach (var item in hours)
+                                    {
+                                        <div class="btn btn-success">
+
+
+                                            @item.StartHourReservation
+
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="btn btn-outline-danger"> در این تاریخ ساعتی درج نشده است </p>
+                                }
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="float-md-left col-md-12 mt-4">
+            <div class="card">
+                <div class="card-header p-2">
+                
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active show" id="activity">
+                            <div class="post">
+                                <p class="btn btn-outline-danger"> در این تاریخ ساعتی درج نشده است </p>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+}
+

@@ -21,7 +21,7 @@ namespace Presentation.Controllers
         }
 
         #endregion
-        public IActionResult ShowEmployeeInfoPage(int? id)
+        public IActionResult ShowEmployeeInfoPage(int? id , string Houre = "empty")
         {
             if (id == null)
             {
@@ -32,7 +32,12 @@ namespace Presentation.Controllers
             {
                 return View("~/Views/Shared/_404.cshtml");
             }
-
+            ViewBag.ListOFEmployeeDateReservation = _context.dataReservationRepository
+                                                    .GetDateReservationByEmployeeId(userSelectedJob.Userid);
+            if (Houre != "empty")
+            {
+                ViewBag.Houre = true;
+            }
             return View(userSelectedJob);
         }
     }

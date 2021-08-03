@@ -74,6 +74,18 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetById(id);
         }
 
+        public bool IsExistHoureReservationWhiteDateReservationID(int id)
+        {
+            if (GetAll(p=>p.DataReservationID == id).Any())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool UpdateHourReservationFromEmployee(HourReservation hourReservation)
         {
             string StartHourString = hourReservation.StartHourReservation.Remove(2, 1);

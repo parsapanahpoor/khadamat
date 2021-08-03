@@ -44,7 +44,8 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         public List<DataReservation> GetDateReservationByEmployeeId(string EmployeeID)
         {
             return GetAll(includeProperties: "User,HourReservation")
-                            .Where(p => p.EmployeeID == EmployeeID).ToList();
+                            .Where(p => p.EmployeeID == EmployeeID)
+                                    .OrderBy(p=>p.ReservationDateTime).ToList();
         }
 
         public List<DataReservation> GetListOfEmployeeDataReservation(string userid)

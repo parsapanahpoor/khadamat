@@ -53,6 +53,7 @@ namespace Models.Entities.User
         public EmployeeStatus EmployeeStatus { get; set; }
         public List<HourReservation> HourReservation { get; set; }
         public List<DataReservation> DataReservation { get; set; }
+        public List<Location> Location { get; set; }
 
         #endregion
 

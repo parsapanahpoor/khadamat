@@ -25,6 +25,7 @@ namespace DataContext.Context
         public DbSet<EmployeeInformationPossition> employeeInformationPossitions { get; set; }
         public DbSet<UserSelectedJob> UserSelectedJobs { get; set; }
         public DbSet<EmployeeStatus> EmployeeStatuses { get; set; }
+        public DbSet<Location> locations { get; set; }
 
         #endregion
         #region Jobs

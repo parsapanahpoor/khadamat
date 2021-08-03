@@ -63,36 +63,78 @@
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active show" href="#activity" data-toggle="tab">فعالیت‌ها</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">ساعت رزرو  </a></li>
+                                    @if (ViewBag.Houre != null)
+                                    {
+                                        <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">فعالیت‌ها</a></li>
+                                        <li class="nav-item"><a class="nav-link active show" href="#timeline" data-toggle="tab">ساعت رزرو  </a></li>
+                                    }
+
+                                    else
+                                    {
+                                        <li class="nav-item"><a class="nav-link active show" href="#activity" data-toggle="tab">فعالیت‌ها</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">ساعت رزرو  </a></li>
+                                    }
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
-                                    <div class="tab-pane active show" id="activity">
-                                        <div class="post">
-                                            <div class="user-block">
-                                                <img class="img-circle img-bordered-sm" src="/Images/EmployeeResumeForJobs/@Model.UserAvatar" alt="user image">
-                                                <span class="username">
-                                                    <a href="#">@Model.User.UserName </a>
-                                                </span>
-                                            </div>
-                                            <!-- /.user-block -->
-                                            <p>
-                                                @Html.Raw(Model.ResumeDescription)
-                                            </p>
+                                    @if (ViewBag.Houre != null)
+                                    {
+                                        <div class="tab-pane " id="activity">
+                                            <div class="post">
+                                                <div class="user-block">
+                                                    <img class="img-circle img-bordered-sm" src="/Images/EmployeeResumeForJobs/@Model.UserAvatar" alt="user image">
+                                                    <span class="username">
+                                                        <a href="#">@Model.User.UserName </a>
+                                                    </span>
+                                                </div>
+                                                <!-- /.user-block -->
+                                                <p>
+                                                    @Html.Raw(Model.ResumeDescription)
+                                                </p>
 
+
+                                            </div>
 
                                         </div>
-                      
-                                    </div>
-                                    <div class="tab-pane" id="timeline">
-                                    </div>
-                              
+                                        <div class="tab-pane active show" id="timeline">
+                                            <partial name="_ShowListOfEmployeeDateReservation" model="ViewBag.ListOFEmployeeDateReservation" />
+                                            <partial name="_ShowEmployeeHourReservation" />
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="tab-pane active show" id="activity">
+                                            <div class="post">
+                                                <div class="user-block">
+                                                    <img class="img-circle img-bordered-sm" src="/Images/EmployeeResumeForJobs/@Model.UserAvatar" alt="user image">
+                                                    <span class="username">
+                                                        <a href="#">@Model.User.UserName </a>
+                                                    </span>
+                                                </div>
+                                                <!-- /.user-block -->
+                                                <p>
+                                                    @Html.Raw(Model.ResumeDescription)
+                                                </p>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane" id="timeline">
+                                            <partial name="_ShowListOfEmployeeDateReservation" model="ViewBag.ListOFEmployeeDateReservation" />
+
+                                        </div>
+
+                                    }
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
 
 
                 </div>

@@ -1,0 +1,10 @@
+﻿@model List<Models.Entities.EmployeeReservation.DataReservation>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+      
+        <a href="/EmployeeReservation/ShowEmployeeInfoPage?id=16&&Houre=@item.DataReservationID" class="btn btn-success mb-3 ml-3" style=""> @item.ReservationDateTime.ToString("(dddd)dd/ (MMMM)MM/ yyyy")</a>
+    }
+</div>
