@@ -1,4 +1,5 @@
 ﻿using DataAccess.Design_Pattern.UnitOfWork;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models.Entities.EmployeeReservation;
 using Models.Entities.User;
@@ -13,11 +14,19 @@ namespace Presentation.Controllers
     {
         #region Context
 
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IUnitOfWork _context;
 
-        public EmployeeReservationController(IUnitOfWork context)
+
+        public EmployeeReservationController(UserManager<User> userManager,
+            SignInManager<User> signInManager, IUnitOfWork context
+            )
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _context = context;
+
         }
 
         #endregion
@@ -39,6 +48,20 @@ namespace Presentation.Controllers
                 ViewBag.Houre = true;
             }
             return View(userSelectedJob);
+        }
+        public IActionResult ReservationEmployee(int? id)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            HourReservation houre = _context.hourReservationRepository.GetHoureReservationByID((int)id);
+            if (houre == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            //var user = _user
+            return View();
         }
     }
 }

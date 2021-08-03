@@ -69,6 +69,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                         
         }
 
+        public HourReservation GetHoureReservationByID(int id)
+        {
+            return GetAll(includeProperties: "User")
+                            .Where(p=>p.HourReservationID == id).First();
+        }
+
         public HourReservation GetHourReservation(int id)
         {
             return GetById(id);

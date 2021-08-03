@@ -22,6 +22,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
             userSelectedJobRepository = new UserSelectedJobRepository(_db);
             dataReservationRepository = new DataReservationRepository(_db);
             hourReservationRepository = new HourReservationRepository(_db);
+            locationAddressRepository = new LocationAddressRepository(_db);
 
         }
 
@@ -34,6 +35,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         public UserSelectedJobRepository userSelectedJobRepository { get; private set; }
         public DataReservationRepository dataReservationRepository { get; private set; }
         public HourReservationRepository hourReservationRepository { get; private set; }
+        public LocationAddressRepository locationAddressRepository { get; private set; }
 
 
         #endregion

@@ -1,0 +1,141 @@
+﻿@model Models.Entities.User.Location
+@{
+    ViewData["Title"] = "ویرایش نشانی ";
+    Layout = "~/Areas/Users/Views/Shared/_TestLayout.cshtml";
+}
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            @if (ViewBag.Delete != null)
+            {
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>حذف آدرس </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-left">
+                            <li class="breadcrumb-item"><a href="/User">خانه</a></li>
+                            <li class="breadcrumb-item active">حذف آدرس  </li>
+                        </ol>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>ویرایش آدرس </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-left">
+                            <li class="breadcrumb-item"><a href="/User">خانه</a></li>
+                            <li class="breadcrumb-item active">ویرایش آدرس  </li>
+                        </ol>
+                    </div>
+                </div>
+            }
+
+        </div><!-- /.container-fluid -->
+    </section>
+    <form asp-action="EditLocation" asp-controller="Account" asp-area="Users" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="UserID"  />
+        <input type="hidden" asp-for="LocationID"  />
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    @if (ViewBag.Delete != null)
+                    {
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="card card-danger">
+                                <div class="card-header">
+                                    <h3 class="card-title">اطلاعات آدرس     </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <div role="form" asp-action="Create" asp-controller="Users" asp-area="Admin">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> کدپستی  </label>
+                                            <input type="text" asp-for="PostalCode" class="form-control" id="exampleInputEmail1" placeholder="کدپستی را وارد کنید">
+                                            <span asp-validation-for="PostalCode" class="text-danger"></span>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> آدرس و نشانی   </label>
+                                            <input type="text" asp-for="LocationAddress" class="form-control" id="exampleInputEmail1" placeholder="آدرس و نشانی را وارد کنید">
+                                            <span asp-validation-for="LocationAddress" class="text-danger"></span>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                    <div class="card-footer">
+                                        <a href="/Users/Account/DeleteLocation/@Model.LocationID" class="btn btn-danger">حذف </a>
+                                        <a href="/Users/Account/LocationList" class="btn btn-primary">بازگشت  </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">اطلاعات آدرس     </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <div role="form" asp-action="Create" asp-controller="Users" asp-area="Admin">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> کدپستی  </label>
+                                            <input type="text" asp-for="PostalCode" class="form-control" id="exampleInputEmail1" placeholder="کدپستی را وارد کنید">
+                                            <span asp-validation-for="PostalCode" class="text-danger"></span>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> آدرس و نشانی   </label>
+                                            <input type="text" asp-for="LocationAddress" class="form-control" id="exampleInputEmail1" placeholder="آدرس و نشانی را وارد کنید">
+                                            <span asp-validation-for="LocationAddress" class="text-danger"></span>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">ثبت </button>
+                                        <a href="/Users/Account/LocationList" class="btn btn-primary">بازگشت  </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    }
+                    <!--/.col (left) -->
+                    <!-- right column -->
+                    <!--/.col (right) -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+    </form>
+
+
+</div>
+

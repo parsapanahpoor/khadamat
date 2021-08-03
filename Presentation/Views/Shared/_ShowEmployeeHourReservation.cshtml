@@ -37,12 +37,19 @@
                                 {
                                     foreach (var item in hours)
                                     {
-                                        <div class="btn btn-success">
+                                        if (item.ReservationStatusID == 1)
+                                        {
+                                            <div class="btn btn-danger">
+                                                @item.EndHourReservation  تا @item.StartHourReservation
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-success" href="/EmployeeReservation/ReservationEmployee/@item.HourReservationID">
+                                                @item.EndHourReservation  تا @item.StartHourReservation
+                                            </a>
+                                        }
 
-
-                                            @item.StartHourReservation
-
-                                        </div>
                                     }
                                 }
                                 else
@@ -66,7 +73,7 @@
         <div class="float-md-left col-md-12 mt-4">
             <div class="card">
                 <div class="card-header p-2">
-                
+
                 </div><!-- /.card-header -->
                 <div class="card-body">
                     <div class="tab-content">

@@ -38,6 +38,7 @@ namespace DataContext.Context
         public DbSet<HourReservation> HourReservation { get; set; }
         public DbSet<DataReservation> DataReservation { get; set; }
         public DbSet<ReservationStatus> ReservationStatus { get; set; }
+        public DbSet<UserReserveStatus> UserReserveStatus { get; set; }
 
         #endregion
 

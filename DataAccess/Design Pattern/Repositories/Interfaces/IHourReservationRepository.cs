@@ -18,6 +18,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         bool UpdateHourReservationFromEmployee(HourReservation hourReservation);
         void DeleteHourReservationFromEmployeePanel(HourReservation hourReservation);
         bool IsExistHoureReservationWhiteDateReservationID(int id);
+        HourReservation GetHoureReservationByID(int id);
 
     }
 }

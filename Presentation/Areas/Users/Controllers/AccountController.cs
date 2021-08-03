@@ -143,5 +143,104 @@ namespace Presentation.Areas.Users.Controllers
 
         #endregion
 
+        #region Location
+
+        public async Task<IActionResult> LocationList(bool Create = false, bool Edit = false , bool Delete =false)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            List<Location> Locations = _context.locationAddressRepository.GetUserLocations(user.Id);
+
+            if (Create == true)
+            {
+                ViewBag.Create = true;
+            }
+            if (Edit == true)
+            {
+                ViewBag.Edit = true;
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
+
+            return View(Locations);
+        }
+
+        public async Task<IActionResult> CreateLocation()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.Userid = user.Id;
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateLocation(Location location)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.locationAddressRepository.AddUserLocation(location);
+                _context.SaveChangesDB();
+
+                return Redirect("/Users/Account/LocationList?Create=true");
+            }
+
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.Userid = user.Id;
+
+            return View(location);
+        }
+
+        public IActionResult EditLocation(int? id , bool Delete = false)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            Location location = _context.locationAddressRepository.GetUserLocationById((int)id);
+            if (location == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
+
+            return View(location);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditLocation(Location location)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.locationAddressRepository.UpdateUserLocation(location);
+                _context.SaveChangesDB();
+
+                return Redirect("/Users/Account/LocationList?Edit=true");
+            }
+
+            return View(location);
+        }
+
+        public IActionResult DeleteLocation(int? id)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            Location location = _context.locationAddressRepository.GetUserLocationById((int)id);
+            if (location == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            _context.locationAddressRepository.DeleteUserLocation(location);
+            _context.SaveChangesDB();
+
+            return Redirect("/Users/Account/LocationList?Delete=true");
+        }
+        #endregion
     }
 }

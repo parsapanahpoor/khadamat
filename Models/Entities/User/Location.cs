@@ -26,6 +26,7 @@ namespace Models.Entities.User
         public string LocationAddress { get; set; }
 
         [Display(Name = "کد پستی ")]
+        [MaxLength(50)]
         public string PostalCode { get; set; }
 
         #region NAvigation Property

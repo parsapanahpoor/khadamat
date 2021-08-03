@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210803054803_UpdateLocationTbl")]
+    partial class UpdateLocationTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,26 +234,6 @@ namespace DataContext.Migrations
                     b.HasKey("ReservationStatusID");
 
                     b.ToTable("ReservationStatus");
-                });
-
-            modelBuilder.Entity("Models.Entities.EmployeeReservation.UserReserveStatus", b =>
-                {
-                    b.Property<int>("UserReservationStatus")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("StatusEnglishTitle")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("StatusPersianTitle")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("UserReservationStatus");
-
-                    b.ToTable("UserReserveStatus");
                 });
 
             modelBuilder.Entity("Models.Entities.User.EmployeeDocuments", b =>
