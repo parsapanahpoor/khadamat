@@ -26,11 +26,11 @@ namespace Models.Entities.EmployeeReservation
         [ForeignKey("User")]
         public string EmployeeID { get; set; }
 
-
         #region Navigation Properties
 
         public User.User User { get; set; }
         public List<HourReservation> HourReservation { get; set; }
+        public List<ReservationOrder> ReservationOrder { get; set; }
 
         #endregion
     }

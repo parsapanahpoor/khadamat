@@ -39,6 +39,7 @@ namespace Models.Entities.Works
         #region Relations
 
         public virtual List<UserSelectedJob> UserSelected { get; set; }
+        public virtual List<EmployeeReservation.ReservationOrder> ReservationOrder { get; set; }
 
         #endregion
     }

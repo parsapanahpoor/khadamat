@@ -27,6 +27,7 @@ namespace Models.Entities.EmployeeReservation
 
         #region Navigation Property
 
+        public List<ReservationOrder> ReservationOrders { get; set; }
 
         #endregion
     }

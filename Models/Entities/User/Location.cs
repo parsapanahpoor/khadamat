@@ -32,6 +32,7 @@ namespace Models.Entities.User
         #region NAvigation Property
 
         public User User { get; set; }
+        public List<EmployeeReservation.ReservationOrder> ReservationOrder { get; set; }
 
         #endregion
     }

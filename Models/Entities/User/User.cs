@@ -54,6 +54,8 @@ namespace Models.Entities.User
         public List<HourReservation> HourReservation { get; set; }
         public List<DataReservation> DataReservation { get; set; }
         public List<Location> Location { get; set; }
+        public List<ReservationOrder> ReservationOrderEmployee { get; set; }
+        public List<ReservationOrder> ReservationOrderUser { get; set; }
 
         #endregion
 

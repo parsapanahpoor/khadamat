@@ -39,6 +39,7 @@ namespace DataContext.Context
         public DbSet<DataReservation> DataReservation { get; set; }
         public DbSet<ReservationStatus> ReservationStatus { get; set; }
         public DbSet<UserReserveStatus> UserReserveStatus { get; set; }
+        public DbSet<ReservationOrder> ReservationOrders { get; set; }
 
         #endregion
 
@@ -55,15 +56,22 @@ namespace DataContext.Context
             modelBuilder.Entity<User>()
            .HasQueryFilter(u => !u.IsDelete);
 
-     
+
 
             modelBuilder.Entity<EmployeeDocuments>()
              .HasOne(a => a.User)
              .WithOne(a => a.EmployeeDocuments)
              .HasForeignKey<EmployeeDocuments>(c => c.Userid);
 
+            modelBuilder.Entity<ReservationOrder>()
+            .HasOne(x => x.Employee)
+            .WithMany(x => x.ReservationOrderEmployee)
+            .HasForeignKey(x => x.EmployeeID);
 
-
+            modelBuilder.Entity<ReservationOrder>()
+             .HasOne(x => x.User)
+             .WithMany(x => x.ReservationOrderUser)
+             .HasForeignKey(x => x.UserID);
 
             modelBuilder.Entity<EmployeeDocuments>()
              .HasOne(a => a.EmployeeInformationPossition)
