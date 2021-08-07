@@ -16,7 +16,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         Location GetUserLocationById(int id );
         void UpdateUserLocation(Location location);
         void DeleteUserLocation(Location location);
-
+        void AddLocationBeforeReserve(String Userid , string Location , string PostalCode);
     }
     
 }

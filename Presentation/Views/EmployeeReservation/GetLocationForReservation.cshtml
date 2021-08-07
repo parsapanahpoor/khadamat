@@ -1,8 +1,103 @@
-﻿@model Models.Entities.User.Location
+﻿@model List<Models.Entities.User.Location>
 @{
     ViewData["Title"] = "انتخاب آدرس";
     Layout = "~/Views/Shared/_TestLayout.cshtml";
 }
 
-<h1>GetLocationForReservation</h1>
 
+
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> انتخاب آدرس </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                        <li class="breadcrumb-item active"> انتخاب آدرس </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-header">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+
+
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">آدرس و نشانی  </h3>
+                            </div>
+
+                            <form method="post" asp-action="GetLocationForReservation" asp-controller="EmployeeReservation" role="form">
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputEmail1"> آدرس و نشانی  </label>
+                                            <textarea type="text"  class="form-control" name="Location" id="exampleInputEmail1"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputEmail1"> کدپستی  </label>
+                                            <input type="text" class="form-control" name="postalCode" id="exampleInputEmail1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">ارسال</button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">آدرس و نشانی  </h3>
+                            </div>
+
+                                            <div class="card-body p-0">
+                                                <table class="table table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th style="width: 10px">#</th>
+                                                            <th>آدرس </th>
+                                                            <th>کدپستی  </th>
+                                                            <th style="width: 60px">انتخاب </th>
+                                                        </tr>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.LocationID.</td>
+                                                                <td>@item.LocationAddress  </td>
+                                                                <td>@item.PostalCode  </td>
+                                                                <td>
+                                                                    <a href="/EmployeeReservation/SubmitReservationRequest?LocationId=@item.LocationID" class="btn btn-outline-success">انتخاب </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

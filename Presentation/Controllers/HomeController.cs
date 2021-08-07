@@ -22,7 +22,7 @@ namespace Presentation.Controllers
 
 
         public IActionResult Index(bool Register = false, bool Login = false, bool EmployeeRegister = false
-                                        , bool ConfirmEmail = false, bool ForgotPassword = false)
+                                        , bool ConfirmEmail = false, bool ForgotPassword = false, bool AddReservation = false)
         {
             if (Register == true)
             {
@@ -44,8 +44,10 @@ namespace Presentation.Controllers
             {
                 ViewBag.ForgotPassword = true;
             }
-
-
+            if (AddReservation == true)
+            {
+                ViewBag.AddReservation = true;
+            }
 
             return View(_context.jobCategoryRepository.GetAllJobsCategories());
         }

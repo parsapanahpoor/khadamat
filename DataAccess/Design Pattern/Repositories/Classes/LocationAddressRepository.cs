@@ -19,6 +19,20 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
+        public void AddLocationBeforeReserve(string Userid, string Location, string PostalCode)
+        {
+            Location loc = new Location()
+            { 
+            
+                UserID = Userid,
+                LocationAddress = Location,
+                PostalCode = PostalCode
+            
+            };
+
+            Add(loc);
+        }
+
         public void AddUserLocation(Location lcoation)
         {
             Location loc = new Location()

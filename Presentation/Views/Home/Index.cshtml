@@ -23,9 +23,9 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                      
+
                         ثبت کاربر   جدید   با موفقیت انجام شده است
-                        جهت فعال سازی بر روی لینک ارسال شده کلیک کنید 
+                        جهت فعال سازی بر روی لینک ارسال شده کلیک کنید
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -57,6 +57,36 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         ورود @User.Identity.Name با موفقیت انجام شده است
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <script>
+                // Your delay in milliseconds
+                var delay = 8000;
+                setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);
+            </script>
+        }
+        @if (ViewBag.AddReservation == true)
+        {
+            <div class="col-md-12">
+                <div class="card bg-info-gradient">
+                    <div class="card-header">
+                        <h3 class="card-title"> ثبت با موفقیت   </h3>
+
+                        <div class="card-tools">
+                            <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+
+
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        ثبت خدمت با موفقیت انجام شده است 
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -104,7 +134,7 @@
         @if (ViewBag.ConfirmEmail == true)
         {
             <div class="col-md-12">
-                <div class="card bg-success-gradient" >
+                <div class="card bg-success-gradient">
                     <div class="card-header">
                         <h3 class="card-title"> ثبت نام  موفقیت  </h3>
 
@@ -120,8 +150,8 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         ثبت نام اولیه با موفقیت انجام شده است .
-                        حساب کاربری شما فعال گردیده است 
-            
+                        حساب کاربری شما فعال گردیده است
+
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -136,7 +166,7 @@
         @if (ViewBag.ForgotPassword == true)
         {
             <div class="col-md-12">
-                <div class="card bg-success-gradient" >
+                <div class="card bg-success-gradient">
                     <div class="card-header">
                         <h3 class="card-title"> بازیابی کلمه ی عبور با موفقیت  </h3>
 
@@ -151,8 +181,8 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                    
-                        کلمه ی عبور شما با موفقیت بازیابی گردید 
+
+                        کلمه ی عبور شما با موفقیت بازیابی گردید
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -170,31 +200,31 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    @foreach (var item in Model.Where(p=>p.ParentId == null))
+                    @foreach (var item in Model.Where(p => p.ParentId == null))
                     {
-                    <div class="col-md-6">
-                        <a href="/Home/SubGruopCategories/@item.JobCategoryId">
-                            <!-- Widget: user widget style 1 -->
-                            <div class="card card-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <div class="widget-user-header bg-info-active">
-                                    <h3 class="widget-user-username">@item.CategoryTitle </h3>
-                                </div>
-                                <div class="widget-user-image">
-                                    <img class="img-circle elevation-2" src="/Images/JobsLogo/@item.JobLogo" alt="User Avatar">
-                                </div>
-                                <div class="card-footer">
-                                    <div class="row">
-
-                                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <a href="/Home/SubGruopCategories/@item.JobCategoryId">
+                                <!-- Widget: user widget style 1 -->
+                                <div class="card card-widget widget-user">
+                                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                                    <div class="widget-user-header bg-info-active">
+                                        <h3 class="widget-user-username">@item.CategoryTitle </h3>
                                     </div>
-                                    <!-- /.row -->
-                                </div>
+                                    <div class="widget-user-image">
+                                        <img class="img-circle elevation-2" src="/Images/JobsLogo/@item.JobLogo" alt="User Avatar">
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
 
-                            </div>
-                            <!-- /.widget-user -->
-                        </a>
-                    </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <!-- /.row -->
+                                    </div>
+
+                                </div>
+                                <!-- /.widget-user -->
+                            </a>
+                        </div>
 
                     }
 

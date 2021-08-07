@@ -113,8 +113,67 @@ namespace Presentation.Controllers
                 return View("~/Views/Shared/_404.cshtml");
             }
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            return View();
+            List<Location> Locations = _context.locationAddressRepository.GetUserLocations(user.Id);
+
+            return View(Locations);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GetLocationForReservation(string Location, string postalCode)
+        {
+            if (HttpContext.Session.GetComplexData<EmployeeReservationViewModel>("ReservationData") == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (ModelState.IsValid)
+            {
+                _context.locationAddressRepository.AddLocationBeforeReserve(user.Id , Location , postalCode);
+                _context.SaveChangesDB();
+
+                List<Location> Locationss = _context.locationAddressRepository.GetUserLocations(user.Id);
+
+                return View(Locationss);
+            }
+            List<Location> Locations = _context.locationAddressRepository.GetUserLocations(user.Id);
+
+
+            return View(Locations);
         }
 
+        public IActionResult SubmitReservationRequest(int? LocationId)
+        {
+            if (LocationId == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            if (HttpContext.Session.GetComplexData<EmployeeReservationViewModel>("ReservationData") == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+
+            EmployeeReservationViewModel reserve = HttpContext.Session.GetComplexData<EmployeeReservationViewModel>("ReservationData");
+            reserve.LocationID = (int)LocationId;
+
+            var hour = _context.hourReservationRepository.GetHoureReservationByID(reserve.HoureReservationID);
+            if (hour.ReservationStatusID == 1)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            hour.ReservationStatusID = 1;
+            _context.hourReservationRepository.UpdateHourReservationFromEmployee(hour);
+
+            ReservationOrder Reservation =  _context.reservaitionOrderRepository.AddRservationOrderFromSession(reserve);
+            _context.SaveChangesDB();
+
+
+            return Redirect("/Home/Index?AddReservation=true&&ReservationId="+ Reservation.ReservationOrderID);
+        }
+        public IActionResult ShowFactorOfReservation()
+        {
+
+
+            return View();
+        }
     }
 }
