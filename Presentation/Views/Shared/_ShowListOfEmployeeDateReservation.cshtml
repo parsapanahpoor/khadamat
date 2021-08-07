@@ -1,10 +1,18 @@
 ﻿@model List<Models.Entities.EmployeeReservation.DataReservation>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
+@{ 
+
+    int EmployeeInfo = Convert.ToInt32(Context.Request.Query["id"].ToString());
+
+}
+
 
 
 <div class="row">
     @foreach (var item in Model)
     {
-      
-        <a href="/EmployeeReservation/ShowEmployeeInfoPage?id=16&&Houre=@item.DataReservationID" class="btn btn-success mb-3 ml-3" style=""> @item.ReservationDateTime.ToString("(dddd)dd/ (MMMM)MM/ yyyy")</a>
+
+        <a href="/EmployeeReservation/ShowEmployeeInfoPage?id=@EmployeeInfo&&Houre=@item.DataReservationID" class="btn btn-success mb-3 ml-3" style=""> @item.ReservationDateTime.ToString("(dddd)dd/ (MMMM)MM/ yyyy")</a>
     }
 </div>

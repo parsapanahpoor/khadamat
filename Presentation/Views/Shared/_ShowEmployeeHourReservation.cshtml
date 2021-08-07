@@ -10,8 +10,10 @@
 {
     string HoureReserVationID = Context.Request.Query["Houre"].ToString();
 
+    int EmployeeInfo = Convert.ToInt32(Context.Request.Query["id"].ToString());
+
     bool IsExist = _context.hourReservationRepository
-        .IsExistHoureReservationWhiteDateReservationID(Convert.ToInt32(HoureReserVationID));
+                        .IsExistHoureReservationWhiteDateReservationID(Convert.ToInt32(HoureReserVationID));
 
     if (IsExist == true)
     {
@@ -45,7 +47,7 @@
                                         }
                                         else
                                         {
-                                            <a class="btn btn-success" href="/EmployeeReservation/ReservationEmployee/@item.HourReservationID">
+                                            <a class="btn btn-success" href="/EmployeeReservation/ReservationEmployee?Houre=@item.HourReservationID&&EmployeeInfo=@EmployeeInfo">
                                                 @item.EndHourReservation  تا @item.StartHourReservation
                                             </a>
                                         }

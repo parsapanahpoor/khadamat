@@ -28,5 +28,18 @@ namespace DataAccess.ViewModels
         [Required]
         public string EndHour { get; set; }
     }
+    public class EmployeeReservationViewModel
+    {
+        public int UserReservationStatus { get; set; }
+        public string EmployeeID { get; set; }
+        public string UserID { get; set; }
+        public int JobCategoryID { get; set; }
+        public int? LocationID { get; set; }
+        public int HoureReservationID { get; set; }
+        public int DateReservationID { get; set; }
+        public DateTime DateTimeReservation { get; set; }
+        public string Description { get; set; }
+
+    }
 
 }

@@ -23,10 +23,8 @@ namespace Models.Entities.EmployeeReservation
         [ForeignKey("UserReserveStatus")]
         public int UserReservationStatus { get; set; }
 
-        //[ForeignKey("User")]
         public string EmployeeID { get; set; }
 
-        //[ForeignKey("User")]
         public string UserID { get; set; }
 
         [ForeignKey("JobCategory")]

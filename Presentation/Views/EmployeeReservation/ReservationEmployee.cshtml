@@ -1,7 +1,158 @@
-﻿
+﻿@model DataAccess.ViewModels.EmployeeReservationViewModel
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<Models.Entities.User.User> _userManager
+
 @{
     ViewData["Title"] = "ثبت اطلاعات ";
     Layout = "~/Views/Shared/_TestLayout.cshtml";
+
+    Models.Entities.User.UserSelectedJob Employee = ViewBag.EmployeeInfo as Models.Entities.User.UserSelectedJob;
+    Models.Entities.EmployeeReservation.HourReservation Houre = ViewBag.HoureInfo as Models.Entities.EmployeeReservation.HourReservation;
+    Models.Entities.User.User user = await _userManager.FindByNameAsync(User.Identity.Name);
+
 }
 
 
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>ثبت اطلاعات </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                        <li class="breadcrumb-item active">ثبت اطلاعات </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-header">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-widget widget-user-2">
+                            <div class="widget-user-header bg-warning">
+                                <div class="widget-user-image">
+                                    <img style="width:100px;height:100px;" class="img-circle elevation-2" src="~/Images/UserAvatar/@Employee.User.UserAvatar" alt="User Avatar">
+                                </div>
+                                <h3 class="widget-user-username">اطلاعات خدمت رسان  </h3>
+                                <h5 class="widget-user-desc">@Employee.User.UserName </h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ‌شماره موبایل  <span class="float-left badge bg-primary">@Employee.User.PhoneNumber</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ایمیل <span class="float-left badge bg-info">@Employee.User.Email</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            تاریخ ثبت نام  <span class="float-left badge bg-success">@Employee.User.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-widget widget-user-2">
+                            <div class="widget-user-header bg-primary">
+                                <div class="widget-user-image">
+                                    <img style="width:100px;height:100px;" class="img-circle elevation-2" src="~/Images/UserAvatar/@user.UserAvatar" alt="User Avatar">
+                                </div>
+                                <h3 class="widget-user-username">اطلاعات مشتری  </h3>
+                                <h5 class="widget-user-desc">@user.UserName </h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ‌شماره موبایل  <span class="float-left badge bg-primary">@user.PhoneNumber</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ایمیل <span class="float-left badge bg-info">@user.Email</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            تاریخ ثبت نام  <span class="float-left badge bg-success">@user.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">اطلاعات رزرو  </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form method="post" asp-action="ReservationEmployee" asp-controller="EmployeeReservation" role="form">
+                                <input type="hidden" asp-for="EmployeeID"/>
+                                <input type="hidden" asp-for="UserID"/>
+                                <input type="hidden" asp-for="UserReservationStatus"/>
+                                <input type="hidden" asp-for="UserReservationStatus"/>
+                                <input type="hidden" asp-for="JobCategoryID"/>
+                                <input type="hidden" asp-for="HoureReservationID"/>
+                                <input type="hidden" asp-for="DateReservationID"/>
+                                <input type="hidden" asp-for="DateTimeReservation"/>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputEmail1"> تاریخ رزرو</label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Houre.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="exampleInputEmail1">  ساعت شروع کار </label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Houre.StartHourReservation">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="exampleInputEmail1">  ساعت پایان کار </label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Houre.EndHourReservation">
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputEmail1">  توضیحات تکمیلی  </label>
+                                            <textarea type="text"  class="form-control" asp-for="Description" id="exampleInputEmail1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">ارسال</button>
+                                </div>
+                            </form>
+                        </div>
+              
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+</div>

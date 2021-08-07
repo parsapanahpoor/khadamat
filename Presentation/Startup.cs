@@ -31,6 +31,12 @@ namespace Presentation
 
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Session
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+            #endregion
+
             #region PersianCalender
 
             CultureInfo.DefaultThreadCurrentCulture
@@ -68,7 +74,10 @@ namespace Presentation
 
             #endregion
 
+            #region HttpContext
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            #endregion
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -82,15 +91,12 @@ namespace Presentation
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseSession(); 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
-
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
