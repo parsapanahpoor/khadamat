@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210808134825_UpdateReservationOrder2")]
+    partial class UpdateReservationOrder2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,6 +227,12 @@ namespace DataContext.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("DataReservationID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DateReservationID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateTimeReservation")
                         .HasColumnType("datetime2");
 
@@ -233,6 +241,12 @@ namespace DataContext.Migrations
 
                     b.Property<string>("EmployeeID")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("HourReservationID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HoureReservationID")
+                        .HasColumnType("int");
 
                     b.Property<int>("JobCategoryID")
                         .HasColumnType("int");
@@ -248,7 +262,11 @@ namespace DataContext.Migrations
 
                     b.HasKey("ReservationOrderID");
 
+                    b.HasIndex("DataReservationID");
+
                     b.HasIndex("EmployeeID");
+
+                    b.HasIndex("HourReservationID");
 
                     b.HasIndex("JobCategoryID");
 
@@ -709,9 +727,17 @@ namespace DataContext.Migrations
 
             modelBuilder.Entity("Models.Entities.EmployeeReservation.ReservationOrder", b =>
                 {
+                    b.HasOne("Models.Entities.EmployeeReservation.DataReservation", "DataReservation")
+                        .WithMany("ReservationOrder")
+                        .HasForeignKey("DataReservationID");
+
                     b.HasOne("Models.Entities.User.User", "Employee")
                         .WithMany("ReservationOrderEmployee")
                         .HasForeignKey("EmployeeID");
+
+                    b.HasOne("Models.Entities.EmployeeReservation.HourReservation", "HourReservation")
+                        .WithMany("ReservationOrder")
+                        .HasForeignKey("HourReservationID");
 
                     b.HasOne("Models.Entities.Works.JobCategory", "JobCategory")
                         .WithMany("ReservationOrder")
@@ -735,7 +761,11 @@ namespace DataContext.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("DataReservation");
+
                     b.Navigation("Employee");
+
+                    b.Navigation("HourReservation");
 
                     b.Navigation("JobCategory");
 
@@ -807,6 +837,13 @@ namespace DataContext.Migrations
             modelBuilder.Entity("Models.Entities.EmployeeReservation.DataReservation", b =>
                 {
                     b.Navigation("HourReservation");
+
+                    b.Navigation("ReservationOrder");
+                });
+
+            modelBuilder.Entity("Models.Entities.EmployeeReservation.HourReservation", b =>
+                {
+                    b.Navigation("ReservationOrder");
                 });
 
             modelBuilder.Entity("Models.Entities.EmployeeReservation.ReservationStatus", b =>

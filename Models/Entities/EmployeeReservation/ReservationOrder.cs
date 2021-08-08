@@ -33,11 +33,11 @@ namespace Models.Entities.EmployeeReservation
         [ForeignKey("Location")]
         public int LocationID { get; set; }
 
-        [ForeignKey("HourReservation")]
-        public int HoureReservationID { get; set; }
+        //[Required(AllowEmptyStrings = true)]
+        //public int HoureReservationID { get; set; }
 
-        [ForeignKey("DataReservation")]
-        public int DateReservationID { get; set; }
+        //[Required(AllowEmptyStrings = true)]
+        //public int DateReservationID { get; set; }
 
         public DateTime DateTimeReservation { get; set; }
 
@@ -50,8 +50,8 @@ namespace Models.Entities.EmployeeReservation
         public User.User User { get; set; }
         public JobCategory  JobCategory { get; set; }
         public Location Location { get; set; }
-        public HourReservation HourReservation { get; set; }
-        public DataReservation DataReservation { get; set; }
+        //public HourReservation HourReservation { get; set; }
+        //public DataReservation DataReservation { get; set; }
 
         #endregion
     }

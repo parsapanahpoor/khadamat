@@ -169,11 +169,6 @@ namespace Presentation.Controllers
 
             return Redirect("/Home/Index?AddReservation=true&&ReservationId="+ Reservation.ReservationOrderID);
         }
-        public IActionResult ShowFactorOfReservation()
-        {
-
-
-            return View();
-        }
+ 
     }
 }

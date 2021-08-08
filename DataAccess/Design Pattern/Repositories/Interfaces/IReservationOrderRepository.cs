@@ -12,5 +12,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
     public interface IReservationOrderRepository : IGernericRepository<ReservationOrder>
     {
         ReservationOrder AddRservationOrderFromSession(EmployeeReservationViewModel reservationOrder);
+        ReservationOrder GetReservationOrderById(int id);
+        List<ReservationOrder> GetUserNetReservationOrderForShowInUserPanel(string userid);
     }
 }

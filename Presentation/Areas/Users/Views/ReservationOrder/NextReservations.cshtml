@@ -1,0 +1,159 @@
+﻿@model List<Models.Entities.EmployeeReservation.ReservationOrder>
+@{
+    ViewData["Title"] = "خدمات رزرو شده ";
+    Layout = "~/Areas/Users/Views/Shared/_TestLayout.cshtml";
+}
+
+section Styls
+    {
+
+<!-- DataTables -->
+<link rel="stylesheet" href="/Admin_Panel/plugins/datatables/dataTables.bootstrap4.css">
+
+}
+
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> لیست خدمات  </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Users">خانه</a></li>
+                        <li class="breadcrumb-item active">لیست خدمات </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+
+
+                <div class="card ">
+                    <div class="card-header">
+                        <div class="card-tools">
+                         
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="col-sm-12">
+                                <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
+                                    <thead>
+                                        <tr role="row">
+
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     وضعیت   </th>
+
+
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">تاریخ خدمت  </th>
+
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-label="وضعیت: activate to sort column ascending">تاریخ ثبت </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-label="وضعیت: activate to sort column ascending"> خدمت  </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr role="row" class="odd">
+
+                                            <td>
+
+                                                @if (item.UserReservationStatus == 1)
+                                                {
+                                                    <div class="btn btn-success">Online</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="btn btn-primary">Reservation</div>
+                                                }
+
+
+                                            </td>
+
+                                            @*<td>@item.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")</td>*@
+                                            <td>@item.DateTimeReservation.ToString("dddd dd/ MMMM MM/ yyyy")</td>
+                                            <td>@item.JobCategory.CategoryTitle</td>
+
+
+                                            <td>
+
+                                             
+
+
+
+                                                
+                                                <a class="btn btn-outline-primary btn-sm waves-effect" asp-controller="ReservationOrder" asp-action="OrderReservationInfo" asp-route-id="@item.ReservationOrderID" asp-area="Users">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                     جزییات 
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section> <!-- /.content -->
+</div>
+
+
+
+
+@section scripts{
+    <!-- ./wrapper -->
+
+    <script src="/Admin_Panel/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/Admin_Panel/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- SlimScroll -->
+    <!-- FastClick -->
+    <script src="/Admin_Panel/plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "language": {
+                    "paginate": {
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    }
+                },
+                "info": false,
+            });
+            $('#example2').DataTable({
+                "language": {
+                    "paginate": {
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    }
+                },
+                "info": false,
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "autoWidth": false
+            });
+        });</script>
+}
+
+

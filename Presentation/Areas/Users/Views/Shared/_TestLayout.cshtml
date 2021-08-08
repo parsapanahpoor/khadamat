@@ -85,7 +85,7 @@
                                 <a href="/Users" class="nav-link active">
                                     <i class="nav-icon fa fa-dashboard"></i>
                                     <p style="color:white">
-                                        داشبورد  مشتری 
+                                        داشبورد  مشتری
                                     </p>
                                 </a>
                             </li>
@@ -93,10 +93,65 @@
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-lock"></i>
                                     <p style="color:white">
-                                        اطلاعات کاربری 
+                                         تاریخچه ی خدمات 
                                         <i class="right fa fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a asp-area="Users" asp-controller="ReservationOrder" asp-action="NextReservations" class="nav-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>
+
+                                                خدمات آینده
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Users" asp-controller="ReservationOrder" asp-action="LocationList" class="nav-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>
+
+                                                خدمات گذشته
+                                            </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-lock"></i>
+                                    <p style="color:white">
+                                        اطلاعات کاربری
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a asp-area="Users" asp-controller="ReservationOrder" asp-action="NextReservations" class="nav-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>
+
+                                                خدمات آینده
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Users" asp-controller="ReservationOrder" asp-action="LocationList" class="nav-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>
+
+                                                خدمات گذشته
+                                            </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+
                                 <ul class="nav nav-treeview">
 
                                     <li class="nav-item">
@@ -113,7 +168,7 @@
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>
 
-                                                آدرس و نشانی 
+                                                آدرس و نشانی
                                             </p>
                                         </a>
                                     </li>
@@ -129,14 +184,14 @@
                                 </ul>
                             </li>
 
-                       
+
 
                             <li class="btn btn-danger" style="height:35px; margin-top:1px;">
                                 <a href="/Logout" class="red-link">
                                     <p style="color:white;">خروج  </p>
                                 </a>
                             </li>
-                 
+
 
                         </ul>
                     </nav>
