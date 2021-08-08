@@ -2,45 +2,10 @@
 
 namespace DataContext.Migrations
 {
-    public partial class UpdateReservationOrder5 : Migration
+    public partial class UpdateReservationOrder7 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ReservationOrders_DataReservation_DataReservationID",
-                table: "ReservationOrders");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ReservationOrders_HourReservation_HourReservationID",
-                table: "ReservationOrders");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ReservationOrders_DataReservationID",
-                table: "ReservationOrders");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ReservationOrders_HourReservationID",
-                table: "ReservationOrders");
-
-            migrationBuilder.DropColumn(
-                name: "DataReservationID",
-                table: "ReservationOrders");
-
-            migrationBuilder.DropColumn(
-                name: "DateReservationID",
-                table: "ReservationOrders");
-
-            migrationBuilder.DropColumn(
-                name: "HourReservationID",
-                table: "ReservationOrders");
-
-            migrationBuilder.DropColumn(
-                name: "HoureReservationID",
-                table: "ReservationOrders");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
             migrationBuilder.AddColumn<int>(
                 name: "DataReservationID",
                 table: "ReservationOrders",
@@ -51,8 +16,7 @@ namespace DataContext.Migrations
                 name: "DateReservationID",
                 table: "ReservationOrders",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "HourReservationID",
@@ -64,8 +28,7 @@ namespace DataContext.Migrations
                 name: "HoureReservationID",
                 table: "ReservationOrders",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReservationOrders_DataReservationID",
@@ -92,6 +55,41 @@ namespace DataContext.Migrations
                 principalTable: "HourReservation",
                 principalColumn: "HourReservationID",
                 onDelete: ReferentialAction.Restrict);
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_ReservationOrders_DataReservation_DataReservationID",
+                table: "ReservationOrders");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_ReservationOrders_HourReservation_HourReservationID",
+                table: "ReservationOrders");
+
+            migrationBuilder.DropIndex(
+                name: "IX_ReservationOrders_DataReservationID",
+                table: "ReservationOrders");
+
+            migrationBuilder.DropIndex(
+                name: "IX_ReservationOrders_HourReservationID",
+                table: "ReservationOrders");
+
+            migrationBuilder.DropColumn(
+                name: "DataReservationID",
+                table: "ReservationOrders");
+
+            migrationBuilder.DropColumn(
+                name: "DateReservationID",
+                table: "ReservationOrders");
+
+            migrationBuilder.DropColumn(
+                name: "HourReservationID",
+                table: "ReservationOrders");
+
+            migrationBuilder.DropColumn(
+                name: "HoureReservationID",
+                table: "ReservationOrders");
         }
     }
 }

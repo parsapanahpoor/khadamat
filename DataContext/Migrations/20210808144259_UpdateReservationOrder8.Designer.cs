@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    [Migration("20210808141005_UpdateReservationOrder5")]
-    partial class UpdateReservationOrder5
+    [Migration("20210808144259_UpdateReservationOrder8")]
+    partial class UpdateReservationOrder8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

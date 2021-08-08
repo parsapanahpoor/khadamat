@@ -55,7 +55,7 @@ namespace Models.Entities.EmployeeReservation
         public ReservationStatus ReservationStatus { get; set; }
         public User.User User { get; set; }
         public DataReservation DataReservation { get; set; }
-        //public List<ReservationOrder> ReservationOrder { get; set; }
+        public List<ReservationOrder> ReservationOrder { get; set; }
 
         #endregion
     }

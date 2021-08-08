@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210808144034_UpdateReservationOrder7")]
+    partial class UpdateReservationOrder7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,6 +227,9 @@ namespace DataContext.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("DataReservationID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("DateReservationID")
                         .HasColumnType("int");
 
@@ -236,6 +241,9 @@ namespace DataContext.Migrations
 
                     b.Property<string>("EmployeeID")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("HourReservationID")
+                        .HasColumnType("int");
 
                     b.Property<int?>("HoureReservationID")
                         .HasColumnType("int");
@@ -254,11 +262,11 @@ namespace DataContext.Migrations
 
                     b.HasKey("ReservationOrderID");
 
-                    b.HasIndex("DateReservationID");
+                    b.HasIndex("DataReservationID");
 
                     b.HasIndex("EmployeeID");
 
-                    b.HasIndex("HoureReservationID");
+                    b.HasIndex("HourReservationID");
 
                     b.HasIndex("JobCategoryID");
 
@@ -721,7 +729,7 @@ namespace DataContext.Migrations
                 {
                     b.HasOne("Models.Entities.EmployeeReservation.DataReservation", "DataReservation")
                         .WithMany("ReservationOrder")
-                        .HasForeignKey("DateReservationID");
+                        .HasForeignKey("DataReservationID");
 
                     b.HasOne("Models.Entities.User.User", "Employee")
                         .WithMany("ReservationOrderEmployee")
@@ -729,7 +737,7 @@ namespace DataContext.Migrations
 
                     b.HasOne("Models.Entities.EmployeeReservation.HourReservation", "HourReservation")
                         .WithMany("ReservationOrder")
-                        .HasForeignKey("HoureReservationID");
+                        .HasForeignKey("HourReservationID");
 
                     b.HasOne("Models.Entities.Works.JobCategory", "JobCategory")
                         .WithMany("ReservationOrder")

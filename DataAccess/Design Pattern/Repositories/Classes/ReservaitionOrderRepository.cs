@@ -30,8 +30,8 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 UserID = reservationOrder.UserID,
                 JobCategoryID = reservationOrder.JobCategoryID,
                 LocationID = (int)reservationOrder.LocationID,
-                //HoureReservationID = reservationOrder.HoureReservationID,
-                //DateReservationID = reservationOrder.DateReservationID,
+                HoureReservationID = reservationOrder.HoureReservationID,
+                DateReservationID = reservationOrder.DateReservationID,
                 DateTimeReservation = reservationOrder.DateTimeReservation,
                 Description = reservationOrder.Description
             };
@@ -56,7 +56,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
    
             foreach (var item in AllReservs)
             {
-                if (item.UserReservationStatus == 2 /*&& item.DataReservation.ReservationDateTime >= DateTime.Now*/)
+                if (item.UserReservationStatus == 2 && item.DataReservation.ReservationDateTime >= DateTime.Now)
                 {
                     ReservationList.Add(item);
                 }
