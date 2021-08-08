@@ -104,6 +104,13 @@ namespace Presentation.Areas.Employee.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> GetListOfEmployeeDataReservationHistory()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var model = _context.dataReservationRepository.GetListOfEmployeeDataReservationHistory(user.Id);
+
+            return View(model);
+        }
         public IActionResult CreateDataReservation()
         {
 
@@ -229,7 +236,7 @@ namespace Presentation.Areas.Employee.Controllers
 
         #region HourReservation Part
 
-        public IActionResult ListOfDateReservation(int? id, bool Create = false, bool Edit = false, bool Delete = false)
+        public IActionResult ListOfDateReservation(int? id, bool Create = false, bool Edit = false, bool Delete = false , bool History = false)
         {
             if (id == null)
             {
@@ -254,6 +261,10 @@ namespace Presentation.Areas.Employee.Controllers
             if (Delete == true)
             {
                 ViewBag.Delete = true;
+            }
+            if (History == true)
+            {
+                ViewBag.History = true;
             }
 
             ViewBag.DateReservation = id;
@@ -362,6 +373,24 @@ namespace Presentation.Areas.Employee.Controllers
             _context.SaveChangesDB();
 
             return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + hour.DataReservationID + "&&Delete=true");
+        }
+
+        public async Task<IActionResult> HoureReservationInfo(int? id )
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            ReservationOrder reservation = _context.reservaitionOrderRepository
+                                                        .GetReservationOrderByHourReservationId((int)id);
+            if (reservation == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+
+            ViewBag.User = await _userManager.FindByIdAsync(reservation.UserID);
+
+            return View(reservation);
         }
         #endregion
     }

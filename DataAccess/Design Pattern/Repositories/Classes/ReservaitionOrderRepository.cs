@@ -40,6 +40,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return reserve;
         }
 
+        public ReservationOrder GetReservationOrderByHourReservationId(int id)
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,Location")
+                                .FirstOrDefault(p => p.HoureReservationID == id);
+        }
+
         public ReservationOrder GetReservationOrderById(int id)
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")

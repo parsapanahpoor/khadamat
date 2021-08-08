@@ -15,5 +15,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         ReservationOrder GetReservationOrderById(int id);
         List<ReservationOrder> GetUserNetReservationOrderForShowInUserPanel(string userid);
         List<ReservationOrder> GetUserLaterReservationOrderForShowInUserPanel(string userid);
+        ReservationOrder GetReservationOrderByHourReservationId(int id );
     }
 }

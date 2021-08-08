@@ -1,0 +1,155 @@
+﻿@model Models.Entities.EmployeeReservation.ReservationOrder
+@{
+    ViewData["Title"] = "برسی اطلاعات رزرو";
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+
+    Models.Entities.User.User user = ViewBag.User as Models.Entities.User.User;
+}
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>  برسی اطلاعات رزرو   </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                        <li class="breadcrumb-item active">برسی اطلاعات رزرو </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-7">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">اطلاعات کاربری  </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <div role="form" asp-action="Create" asp-controller="Users" asp-area="Admin">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> نام مشتری  </label>
+                                    <input type="text" value="@user.UserName" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> شماره موبایل مشتری   </label>
+                                    <input type="text" value="@user.PhoneNumber" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> ایمیل مشتری   </label>
+                                    <input type="text" value="@user.Email" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> دسته بندی خدمت   </label>
+                                    <input type="text" value="@Model.JobCategory.CategoryTitle" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                </div>
+                                @if (Model.DateReservationID == null)
+                                {
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> تاریخ مراجعه ی خدمت رسان  </label>
+                                        <input type="text" value="@Model.DateTimeReservation" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> تاریخ مراجعه ی خدمت رسان  </label>
+                                        <input type="text" value="@Model.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> ساعت شروع خدمت   </label>
+                                        <input type="text" value="@Model.HourReservation.StartHourReservation" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> ساعت پایان  خدمت   </label>
+                                        <input type="text" value="@Model.HourReservation.EndHourReservation" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> تاریخ ثبت درخواست    </label>
+                                    <input type="text" value="@Model.DateTimeReservation.ToString("HH:mm:ss  dd/MM/yyyy" )" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> کدپستی    </label>
+                                    <input type="text" value="@Model.Location.PostalCode" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> نشانی مشتری     </label>
+                                    <textarea type="text" readonly class="form-control" id="exampleInputEmail1">@Model.Location.LocationAddress</textarea>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> توضیحات مشتری    </label>
+                                    <textarea type="text" readonly class="form-control" id="exampleInputEmail1">@Model.Description</textarea>
+
+                                </div>
+                            </div>
+                     
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-md-5">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">  تصویر مشتری    </h3>
+                        </div>
+
+                        <div class="form-horizontal">
+                            <div class="card-body row">
+                                <img style="margin:auto; width:342px" id="imgAvatar" class="img-responsive rounded" src="~/Images/UserAvatar/@user.UserAvatar" alt="upload_img">
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+
+
+
+
+</div>
+

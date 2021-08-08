@@ -12,6 +12,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
     public interface IDataReservationRepository : IGernericRepository<DataReservation>
     {
         List<DataReservation> GetListOfEmployeeDataReservation(string userid);
+        List<DataReservation> GetListOfEmployeeDataReservationHistory(string userid);
         void AddDataReservationFromEmployeePanel(DateTime date , string userid);
         DataReservation GetDataReservationById(int id);
         void UpdateDateReservationFromEmployeePanel(DataReservation data);
