@@ -40,12 +40,16 @@ namespace Presentation.Areas.Users.Controllers
 
             return View(ListOFReservation);
         }
-        public IActionResult LastestReservations()
+        public async Task<IActionResult> LastestReservations()
         {
-            return View();
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            List<ReservationOrder> ListOFReservation = _context.reservaitionOrderRepository
+                                                                    .GetUserLaterReservationOrderForShowInUserPanel(user.Id);
+            return View(ListOFReservation);
         }
 
-        public async Task<IActionResult> OrderReservationInfo(int? id)
+        public async Task<IActionResult> OrderReservationInfo(int? id , bool Later = false)
         {
             if (id == null)
             {
@@ -55,6 +59,10 @@ namespace Presentation.Areas.Users.Controllers
             if (orderReservationInfo == null)
             {
                 return View("~/Views/Shared/_404.cshtml");
+            }
+            if (Later == true)
+            {
+                ViewBag.Later = true;
             }
 
             ViewBag.EmployeeInfo =await _userManager.FindByIdAsync(orderReservationInfo.EmployeeID);

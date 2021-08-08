@@ -14,5 +14,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         ReservationOrder AddRservationOrderFromSession(EmployeeReservationViewModel reservationOrder);
         ReservationOrder GetReservationOrderById(int id);
         List<ReservationOrder> GetUserNetReservationOrderForShowInUserPanel(string userid);
+        List<ReservationOrder> GetUserLaterReservationOrderForShowInUserPanel(string userid);
     }
 }

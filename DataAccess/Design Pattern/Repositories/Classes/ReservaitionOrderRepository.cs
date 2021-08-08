@@ -47,6 +47,29 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                     
         }
 
+        public List<ReservationOrder> GetUserLaterReservationOrderForShowInUserPanel(string userid)
+        {
+            List<ReservationOrder> ReservationList = new List<ReservationOrder>();
+
+            IEnumerable<ReservationOrder> AllReservs = GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                .Where(p => p.UserID == userid);
+
+            foreach (var item in AllReservs)
+            {
+                if (item.UserReservationStatus == 2 && item.DataReservation.ReservationDateTime < DateTime.Now)
+                {
+                    ReservationList.Add(item);
+                }
+                if (item.UserReservationStatus == 1 && item.DateTimeReservation < DateTime.Now)
+                {
+                    ReservationList.Add(item);
+                }
+            }
+
+
+            return ReservationList.ToList();
+        }
+
         public List<ReservationOrder> GetUserNetReservationOrderForShowInUserPanel(string userid)
         {
             List<ReservationOrder> ReservationList = new List<ReservationOrder>();

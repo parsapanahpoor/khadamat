@@ -53,19 +53,53 @@
                                     <input type="text" asp-for="@Employee.Email" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
 
                                 </div>
+                                @if (Model.DateReservationID == null)
+                                {
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> تاریخ مراجعه ی خدمت رسان  </label>
+                                        <input type="text" value="@Model.DateTimeReservation" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> تاریخ مراجعه ی خدمت رسان  </label>
+                                        <input type="text" value="@Model.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> ساعت شروع خدمت   </label>
+                                        <input type="text" value="@Model.HourReservation.StartHourReservation" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> ساعت پایان  خدمت   </label>
+                                        <input type="text" value="@Model.HourReservation.EndHourReservation" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> تاریخ ثبت درخواست    </label>
+                                    <input type="text" value="@Model.DateTimeReservation.ToString("HH:mm:ss  dd/MM/yyyy" )" readonly class="form-control" id="exampleInputEmail1" placeholder="نام کاربری  را وارد کنید">
+
+                                </div>
 
                             </div>
                             <!-- /.card-body -->
+                            @if (ViewBag.Later = true)
+                            {
+                                <div class="card-footer">
+                                    <a href="/Users/ReservationOrder/LastestReservations" class="btn btn-primary">بازگشت</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="card-footer">
+                                    <a href="/Users/ReservationOrder/NextReservations" class="btn btn-primary">بازگشت</a>
+                                </div>
+                            }
 
-                            <div class="card-footer">
-
-                           
-                                    <a asp-action="Index" asp-controller="Users" asp-area="Admin" class="btn btn-primary">بازگشت</a>
-
-
-
-
-                            </div>
                         </div>
                     </div>
 

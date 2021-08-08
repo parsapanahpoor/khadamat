@@ -18,12 +18,12 @@ section Styls
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> لیست خدمات  </h1>
+                    <h1> تاریخچه ی  خدمات  </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="/Users">خانه</a></li>
-                        <li class="breadcrumb-item active">لیست خدمات </li>
+                        <li class="breadcrumb-item active">تاریخچه ی  خدمات </li>
                     </ol>
                 </div>
             </div>
@@ -38,7 +38,7 @@ section Styls
                 <div class="card ">
                     <div class="card-header">
                         <div class="card-tools">
-                         
+
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -49,13 +49,13 @@ section Styls
                                     <thead>
                                         <tr role="row">
 
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     وضعیت   </th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     وضعیت   </th>
 
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">تاریخ خدمت  </th>
 
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-label="وضعیت: activate to sort column ascending">تاریخ ثبت </th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-label="وضعیت: activate to sort column ascending"> خدمت  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending">تاریخ ثبت </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"> خدمت  </th>
 
                                         </tr>
                                     </thead>
@@ -63,43 +63,42 @@ section Styls
 
                                         @foreach (var item in Model)
                                         {
-                                        <tr role="row" class="odd">
+                                            <tr role="row" class="odd">
 
-                                            <td>
+                                                <td>
 
-                                                @if (item.UserReservationStatus == 1)
+                                                    @if (item.UserReservationStatus == 1)
+                                                    {
+                                                        <div class="btn btn-success">Online</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="btn btn-primary">Reservation</div>
+                                                    }
+
+
+                                                </td>
+
+                                                @if (item.DateReservationID != null)
                                                 {
-                                                    <div class="btn btn-success">Online</div>
+                                                    <td>@item.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")</td>
                                                 }
-                                                else
+                                                @if (item.DateReservationID == null)
                                                 {
-                                                    <div class="btn btn-primary">Reservation</div>
+                                                    <td>@item.DateTimeReservation.ToString("dddd dd/ MMMM MM/ yyyy")</td>
                                                 }
-
-
-                                            </td>
-
-                                            @if (item.DateReservationID != null)
-                                            {
-                                                <td>@item.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")</td>
-                                            }
-                                            @if (item.DateReservationID == null)
-                                            {
                                                 <td>@item.DateTimeReservation.ToString("dddd dd/ MMMM MM/ yyyy")</td>
-                                            }
-                                            <td>@item.DateTimeReservation.ToString("dddd dd/ MMMM MM/ yyyy")</td>
-                                            <td>@item.JobCategory.CategoryTitle</td>
+                                                <td>@item.JobCategory.CategoryTitle</td>
 
 
-                                            <td>
+                                                <td>
 
-                                                <a class="btn btn-outline-primary btn-sm waves-effect" href="/Users/ReservationOrder/OrderReservationInfo/@item.ReservationOrderID"
-                                                   >
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                    جزییات
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                    <a class="btn btn-outline-primary btn-sm waves-effect" href="/Users/ReservationOrder/OrderReservationInfo?id=@item.ReservationOrderID&&Later=True">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        جزییات
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
 
