@@ -87,18 +87,25 @@
 
                             </div>
                             <!-- /.card-body -->
-                            @if (ViewBag.Later = true)
+                            @if (ViewBag.Later = true && ViewBag.Home != true)
                             {
                                 <div class="card-footer">
                                     <a href="/Users/ReservationOrder/LastestReservations" class="btn btn-primary">بازگشت</a>
                                 </div>
                             }
-                            else
+                            @if (ViewBag.Home = true && ViewBag.Later != true)
+                            {
+                                <div class="card-footer">
+                                    <a href="/Users" class="btn btn-primary">بازگشت</a>
+                                </div>
+                            }
+                            @if (ViewBag.Later != true && ViewBag.Home != true)
                             {
                                 <div class="card-footer">
                                     <a href="/Users/ReservationOrder/NextReservations" class="btn btn-primary">بازگشت</a>
                                 </div>
                             }
+                            
 
                         </div>
                     </div>

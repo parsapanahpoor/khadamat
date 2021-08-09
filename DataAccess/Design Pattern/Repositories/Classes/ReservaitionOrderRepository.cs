@@ -40,6 +40,14 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return reserve;
         }
 
+        public List<ReservationOrder> GetAllTodayReservationOrder()
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                                          .Where(p =>  p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
+                                                     && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
+                                                      && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day).ToList();
+        }
+
         public ReservationOrder GetReservationOrderByHourReservationId(int id)
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,Location")
@@ -50,7 +58,24 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
                                 .FirstOrDefault(p => p.ReservationOrderID == id);
-                    
+
+        }
+
+        public List<ReservationOrder> GetTodayEmployeeReservationOrder(string EmployeeID)
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                                .Where(p => p.EmployeeID == EmployeeID && p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
+                                           && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
+                                            && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day).ToList();
+
+        }
+
+        public List<ReservationOrder> GetTodayUserReservationOrder(string userid)
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                                .Where(p => p.UserID == userid && p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
+                                           && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
+                                            && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day).ToList();
         }
 
         public List<ReservationOrder> GetUserLaterReservationOrderForShowInUserPanel(string userid)
@@ -82,14 +107,18 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
             IEnumerable<ReservationOrder> AllReservs = GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
                 .Where(p => p.UserID == userid);
-   
+
             foreach (var item in AllReservs)
             {
-                if (item.UserReservationStatus == 2 && item.DataReservation.ReservationDateTime >= DateTime.Now)
+                if (item.UserReservationStatus == 2 && item.DataReservation.ReservationDateTime.Year >= DateTime.Now.Year &&
+                   item.DataReservation.ReservationDateTime.Month >= DateTime.Now.Month &&
+                        item.DataReservation.ReservationDateTime.Day >= DateTime.Now.Day)
                 {
                     ReservationList.Add(item);
                 }
-                if (item.UserReservationStatus == 1 && item.DateTimeReservation >= DateTime.Now)
+                if (item.UserReservationStatus == 1 && item.DataReservation.ReservationDateTime.Year >= DateTime.Now.Year &&
+                   item.DataReservation.ReservationDateTime.Month >= DateTime.Now.Month &&
+                        item.DataReservation.ReservationDateTime.Day >= DateTime.Now.Day)
                 {
                     ReservationList.Add(item);
                 }
@@ -97,7 +126,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
 
             return ReservationList.ToList();
-         
+
         }
     }
 }

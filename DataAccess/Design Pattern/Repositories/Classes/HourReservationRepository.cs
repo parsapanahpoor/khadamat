@@ -80,6 +80,15 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetById(id);
         }
 
+        public List<HourReservation> GetTodayEmployeeHoureReservation(string EmployeeID)
+        {
+            return GetAll(includeProperties: "User,ReservationOrder,DataReservation")
+                                                   .Where(p => p.EmployeeID == EmployeeID && p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
+                                                              && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
+                                                               && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day)
+                                                                    .OrderByDescending(p=>p.HourReservationID).ToList();
+        }
+
         public bool IsExistHoureReservationWhiteDateReservationID(int id)
         {
             if (GetAll(p=>p.DataReservationID == id).Any())

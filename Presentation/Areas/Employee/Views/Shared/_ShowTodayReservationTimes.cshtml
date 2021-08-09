@@ -1,0 +1,76 @@
+﻿@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+@using Microsoft.AspNetCore.Identity;
+
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@inject IUnitOfWork _context
+@inject UserManager<Models.Entities.User.User> _userManager;
+
+@{
+    var EmployeeID = await _userManager.FindByNameAsync(User.Identity.Name);
+
+    List<Models.Entities.EmployeeReservation.HourReservation> reservations = _context.hourReservationRepository
+                                                                                .GetTodayEmployeeHoureReservation(EmployeeID.Id);
+}
+
+<div class="card col-md-6">
+    <div class="card-header border-transparent">
+        <h3 class="card-title"> رویداد های امروز شما </h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-widget="remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table m-0">
+                <thead>
+                    <tr>
+                        <th>وضعیت </th>
+                        <th>ساعت شروع  </th>
+                        <th>ساعت پایان </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in reservations)
+                    {
+                    <tr>
+                        <td>
+
+                            @if (item.ReservationStatusID == 1)
+                            {
+                                <div class="right badge badge-success">رزرو شده </div>
+                            }
+                            @if (item.ReservationStatusID == 2)
+                            {
+                                <div class="right badge badge-danger">رزرو نشده  </div>
+                            }
+
+                        </td>
+                        
+                        <td><span class="badge badge-warning">@item.StartHourReservation</span></td>
+                        <td><span class="badge badge-warning">@item.EndHourReservation</span></td>
+                        
+                    </tr>
+                            }
+                       
+
+                    </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        <a href="/Employee/EmployeeReservation/ListOfEmployeeDateReservations" class="btn btn-sm btn-primary float-right">مشاهده همه </a>
+    </div>
+    <!-- /.card-footer -->
+</div>

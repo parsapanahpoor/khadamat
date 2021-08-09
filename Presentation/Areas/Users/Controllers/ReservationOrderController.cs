@@ -49,7 +49,7 @@ namespace Presentation.Areas.Users.Controllers
             return View(ListOFReservation);
         }
 
-        public async Task<IActionResult> OrderReservationInfo(int? id , bool Later = false)
+        public async Task<IActionResult> OrderReservationInfo(int? id , bool Later = false , bool Home = false)
         {
             if (id == null)
             {
@@ -63,6 +63,10 @@ namespace Presentation.Areas.Users.Controllers
             if (Later == true)
             {
                 ViewBag.Later = true;
+            }
+            if (Home == true)
+            {
+                ViewBag.Home = true;
             }
 
             ViewBag.EmployeeInfo =await _userManager.FindByIdAsync(orderReservationInfo.EmployeeID);

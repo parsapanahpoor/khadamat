@@ -18,5 +18,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void UpdateDateReservationFromEmployeePanel(DataReservation data);
         void DeleteDateReservation(DataReservation data);
         List<DataReservation> GetDateReservationByEmployeeId(string EmployeeID);
+        List<DataReservation> GetTodayEmployeeDateReservation(string EmployeeID);
     }
 }

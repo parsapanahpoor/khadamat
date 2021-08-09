@@ -1,0 +1,79 @@
+﻿@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+@using Microsoft.AspNetCore.Identity;
+
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@inject IUnitOfWork _context
+@inject UserManager<Models.Entities.User.User> _userManager;
+
+@{
+    var EmployeeID = await _userManager.FindByNameAsync(User.Identity.Name);
+
+    List<Models.Entities.EmployeeReservation.ReservationOrder> reservations = _context.reservaitionOrderRepository
+                                                                                .GetTodayEmployeeReservationOrder(EmployeeID.Id);
+}
+
+
+<div class="card col-md-6">
+    <div class="card-header border-transparent">
+        <h3 class="card-title"> مشتری  های امروز شما </h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-widget="remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table m-0">
+                <thead>
+                    <tr>
+                        <th>مشتری   </th>
+                        <th>نام مشتری    </th>
+                        <th>تلفن     </th>
+                        <th>ساعت شروع  </th>
+                        <th>ساعت پایان </th>
+                        <th> برسی جزییات  </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in reservations)
+                    {
+                    <tr>
+                        <td>
+                            <img src="/Images/UserAvatar/@item.User.UserAvatar" style="height:50px;width:50px;" class="img-circle elevation-2" alt="User Image">
+                        </td>
+                        <td>
+                            <div class="right badge badge-success">@item.User.UserName  </div>
+                        </td>
+                        <td>
+                            <div class="right badge badge-secondary">@item.User.PhoneNumber  </div>
+                        </td>
+                        <td>
+                            <div class="right badge badge-warning">@item.HourReservation.StartHourReservation  </div>
+                        </td>
+                        <td>
+                            <div class="right badge badge-warning">@item.HourReservation.EndHourReservation </div>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-primary btn-sm"  href="/Employee/EmployeeReservation/HoureReservationInfo/@item.HoureReservationID">جزییات    </a>
+                        </td>
+                    </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer clearfix">
+        <a href="/Employee/EmployeeReservation/ListOfEmployeeDateReservations" >  </a>
+    </div>
+</div>

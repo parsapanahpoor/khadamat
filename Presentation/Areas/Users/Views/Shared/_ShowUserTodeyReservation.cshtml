@@ -1,0 +1,80 @@
+﻿@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+@using Microsoft.AspNetCore.Identity;
+
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@inject IUnitOfWork _context
+@inject UserManager<Models.Entities.User.User> _userManager;
+
+@{
+    var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+    List<Models.Entities.EmployeeReservation.ReservationOrder> reservations = _context.reservaitionOrderRepository
+                                                                                .GetTodayUserReservationOrder(user.Id);
+}
+
+<div class="card col-md-6">
+    <div class="card-header border-transparent">
+        <h3 class="card-title"> خدمات امروز شما </h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-widget="remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table m-0">
+                <thead>
+                    <tr>
+                        <th> دسته بندی  </th>
+                        <th>ساعت شروع خدمت </th>
+                        <th>ساعت پایان خدمت </th>
+                        <th>تاریخ ثبت </th>
+                        <th>برسی </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in reservations)
+                    {
+                    <tr>
+                        <td>
+                            <div class="right badge badge-success"> @item.JobCategory.CategoryTitle </div>
+                        </td>
+                        <td>
+                            <div class="right badge badge-warning"> @item.HourReservation.StartHourReservation </div>
+                        </td>
+                        <td>
+                            <div class="right badge badge-warning"> @item.HourReservation.EndHourReservation </div>
+                        </td>
+                        <td>
+                            <div class="right badge badge-warning"> @item.DateTimeReservation.ToString("yyyy/MM/dd") </div>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-primary btn-sm" href="/Users/ReservationOrder/OrderReservationInfo?id=@item.ReservationOrderID&&Home=True"> برسی </a>
+                        </td>
+                    </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        <a href="javascript:void(0)"> </a>
+        <a href="javascript:void(0)">  </a>
+    </div>
+    <!-- /.card-footer -->
+</div>
