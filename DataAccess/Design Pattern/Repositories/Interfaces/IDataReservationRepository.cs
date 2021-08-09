@@ -19,5 +19,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void DeleteDateReservation(DataReservation data);
         List<DataReservation> GetDateReservationByEmployeeId(string EmployeeID);
         List<DataReservation> GetTodayEmployeeDateReservation(string EmployeeID);
+        List<DataReservation> GetAllDateReservation (string EmployeeID);
     }
 }

@@ -38,7 +38,7 @@ namespace Presentation.Areas.Admin.Controllers
 
             return View(reservations);
         }
-        public async Task<IActionResult> ReservationOrderInformation(int? id , bool Index=false)
+        public async Task<IActionResult> ReservationOrderInformation(int? id , bool Index = false)
         {
             if (id == null)
             {
@@ -50,8 +50,16 @@ namespace Presentation.Areas.Admin.Controllers
                 return View("~/Views/Shared/_404.cshtml");
             }
             ViewBag.Employee = await _userManager.FindByIdAsync(reservation.EmployeeID);
-
+            if (Index == true)
+            {
+                ViewBag.Index = true;
+            }
             return View(reservation);
+        }
+        public async Task<IActionResult> ListOfEmployeeForReservationProccess()
+        {
+            List<User> usersid = (List<User>)await _userManager.GetUsersInRoleAsync("Employee");
+            return View(usersid);
         }
     }
 }

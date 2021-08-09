@@ -36,6 +36,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Delete(data);
         }
 
+        public List<DataReservation> GetAllDateReservation(string EmployeeID)
+        {
+            return GetAll(includeProperties: "User,HourReservation,ReservationOrder")
+                                                        .ToList();
+        }
+
         public DataReservation GetDataReservationById(int id)
         {
             return GetAll(p => p.DataReservationID == id).First();
