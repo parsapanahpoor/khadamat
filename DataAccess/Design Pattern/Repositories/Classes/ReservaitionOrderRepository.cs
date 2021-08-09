@@ -41,6 +41,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return reserve;
         }
 
+        public void DeleteReservationOrder(ReservationOrder reservation)
+        {
+            Delete(reservation);
+        }
+
         public List<string> GetAllEmployeeIDHaveReservationToday()
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")

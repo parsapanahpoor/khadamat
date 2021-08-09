@@ -1,20 +1,20 @@
-﻿@model DataAccess.ViewModels.AddHourReservationFromEmployeeVM
+﻿@model Models.Entities.EmployeeReservation.HourReservation
 
 @{
-    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
-    ViewData["Title"] = "افزودن  ساعت ";}
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "ویرایش  ساعت ";}
 
 <div class="content-wrapper" style="min-height: 805px;">
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> افزودن  ساعت </h1>
+                    <h1> ویرایش  ساعت </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
-                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
-                        <li class="breadcrumb-item active">افزودن  ساعت </li>
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">ویرایش  ساعت </li>
                     </ol>
                 </div>
             </div>
@@ -22,8 +22,8 @@
     </section>
     <section class="content">
         <div class="container-fluid">
-            <form asp-action="CreateHourReservation" asp-controller="EmployeeReservation" asp-area="Employee" method="post" enctype="multipart/form-data">
-                @if (ViewBag.Error !=  null)
+            <form asp-action="UpdateHourReservation" asp-controller="ReservationOrder" asp-area="Admin" method="post" enctype="multipart/form-data">
+                @if (ViewBag.Error != null)
                 {
                     <div class="col-md-12">
                         <div class="card bg-danger-gradient">
@@ -48,14 +48,32 @@
 
                 }
 
-                <input type="hidden" asp-for="DataReservationID" value="@ViewBag.Date" />
+
+                <input type="hidden" asp-for="DataReservationID" />
+                <input type="hidden" asp-for="HourReservationID" />
+                <input type="hidden" asp-for="Description" />
+                <input type="hidden" asp-for="ReservationStatusID" />
+                <input type="hidden" asp-for="EmployeeID" />
+                <input type="hidden" asp-for="EndHourReservationInt" />
+                <input type="hidden" asp-for="StartHourReservationInt" />
+
                 <div class="row">
                 </div>
                 <div class="col-md-12">
+
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">  ثبت ساعت  </h3>
-                        </div>
+                        @if (ViewBag.Alert == true)
+                        {
+                            <div class="card-header">
+                                <h3 class="card-title">   لطفا دقت بفرمایید در این ساعت کاربری درخواست رزرو داده است   </h3>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card-header">
+                                <h3 class="card-title">  ویرایش ساعت  </h3>
+                            </div>
+                        }
 
                         <div class="form-horizontal ">
                             <div class="row">
@@ -63,7 +81,7 @@
                                     <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">   ساعت شروع        </label>
-                                            <input type="text" class="form-control" asp-for="StartHour" placeholder="ساعت شروع را وارد کنید">
+                                            <input type="text" class="form-control" asp-for="StartHourReservation" placeholder="ساعت شروع را وارد کنید">
                                         </div>
 
                                     </div>
@@ -73,7 +91,7 @@
                                     <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">   ساعت پایان         </label>
-                                            <input type="text" class="form-control" asp-for="EndHour" placeholder="ساعت پایان را وارد کنید">
+                                            <input type="text" class="form-control" asp-for="EndHourReservation" placeholder="ساعت پایان را وارد کنید">
                                         </div>
 
                                     </div>
@@ -81,8 +99,17 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success">ثبت </button>
-                                <a href="/Employee/EmployeeReservation/ListOfDateReservation/@ViewBag.Date" class="btn btn-primary">بازگشت </a>
+                                @if (ViewBag.Delete != null)
+                                {
+                                    <a class="btn btn-danger" href="/Admin/ReservationOrder/DeleteHourReservation?id=@Model.HourReservationID">
+                                        حذف
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-success">ثبت </button>
+                                }
+                                <a href="/Admin/ReservationOrder/ListOfDateReservation/@Model.DataReservationID" class="btn btn-primary">بازگشت </a>
                             </div>
                         </div>
                     </div>

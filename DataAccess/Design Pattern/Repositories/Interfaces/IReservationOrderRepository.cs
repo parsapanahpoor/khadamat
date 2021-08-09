@@ -20,5 +20,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         List<ReservationOrder> GetTodayUserReservationOrder(string userid);
         List<ReservationOrder> GetAllTodayReservationOrder();
         List<string> GetAllEmployeeIDHaveReservationToday();
+        void DeleteReservationOrder(ReservationOrder reservation);
     }
 }

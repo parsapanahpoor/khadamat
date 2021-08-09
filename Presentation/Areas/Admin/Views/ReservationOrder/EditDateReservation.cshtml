@@ -1,7 +1,7 @@
 ﻿@model Models.Entities.EmployeeReservation.DataReservation
 @using Utilities.Convertors
 @{
-    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "ویرایش  تاریخ";}
 
 <div class="content-wrapper" style="min-height: 805px;">
@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-left">
-                            <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                            <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
                             <li class="breadcrumb-item active">حذف  تاریخ </li>
                         </ol>
                     </div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-left">
-                            <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                            <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
                             <li class="breadcrumb-item active">ویرایش  تاریخ </li>
                         </ol>
                     </div>
@@ -38,7 +38,7 @@
     </section>
     <section class="content">
         <div class="container-fluid">
-            <form asp-action="EditDateReservation" asp-controller="EmployeeReservation" asp-area="Employee" method="post" enctype="multipart/form-data">
+            <form asp-action="EditDateReservation" asp-controller="ReservationOrder" asp-area="Admin" method="post" enctype="multipart/form-data">
                 <input type="hidden" asp-for="DataReservationID"/>
                 <input type="hidden" asp-for="ReservationDateTime"/>
                 <input type="hidden" asp-for="EmployeeID"/>
@@ -67,8 +67,8 @@
                                 </div>
 
                                 <div class="card-footer">
-                                    <a href="/Employee/EmployeeReservation/DeleteDateReservation?id=@Model.DataReservationID" class="btn btn-danger">حذف </a>
-                                    <a href="/Employee/EmployeeReservation/ListOfEmployeeDateReservations" class="btn btn-primary">بازگشت </a>
+                                    <a href="/Admin/ReservationOrder/DeleteDateReservation?id=@Model.DataReservationID" class="btn btn-danger">حذف </a>
+                                    <a href="/Admin/ReservationOrder/CheckEmployeeWorkingDate?id=@Model.EmployeeID" class="btn btn-primary">بازگشت </a>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
 
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-success">ثبت </button>
-                                    <a href="/Employee/EmployeeReservation/ListOfEmployeeDateReservations" class="btn btn-primary">بازگشت </a>
+                                    <a href="/Admin/ReservationOrder/CheckEmployeeWorkingDate?id=@Model.EmployeeID" class="btn btn-primary">بازگشت </a>
                                 </div>
                             </div>
                         </div>

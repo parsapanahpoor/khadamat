@@ -56,10 +56,9 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         public void DeleteHourReservationFromEmployeePanel(HourReservation hourReservation)
         {
-            if (hourReservation.ReservationStatusID == 2)
-            {
+       
                 Delete(hourReservation);
-            }
+           
         }
 
         public List<HourReservation> GetEmployeeHourReservationByDateHourReservationID(int id)
