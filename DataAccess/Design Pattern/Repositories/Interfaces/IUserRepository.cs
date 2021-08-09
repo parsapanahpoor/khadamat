@@ -22,5 +22,6 @@ namespace DataAccess.Design_Pattern.Repositories
         bool? GetEmployeeAcceptedPossition(string username);
         User UpdateUserAvatar(User user, EditUserInAdminPanel userEdited);
         int GetUserOnlineStatus(string username);
+        List<User> GetEmployeeForShowTodayReservation(List<string> EmployeeID);
     }
 }

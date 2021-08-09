@@ -33,7 +33,25 @@ namespace Presentation.Areas.Admin.Controllers
         {
             List<ReservationOrder> reservations = _context.reservaitionOrderRepository.GetAllTodayReservationOrder();
 
+            List<string> EmployeeID = _context.reservaitionOrderRepository.GetAllEmployeeIDHaveReservationToday();
+            ViewBag.EmployeeList = _context.userRepository.GetEmployeeForShowTodayReservation(EmployeeID);
+
             return View(reservations);
+        }
+        public async Task<IActionResult> ReservationOrderInformation(int? id , bool Index=false)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderById((int)id);
+            if (reservation == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            ViewBag.Employee = await _userManager.FindByIdAsync(reservation.EmployeeID);
+
+            return View(reservation);
         }
     }
 }

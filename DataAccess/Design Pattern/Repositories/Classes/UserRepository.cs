@@ -41,6 +41,19 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return user.IsAccepted;
         }
 
+        public List<User> GetEmployeeForShowTodayReservation(List<string> EmployeeID)
+        {
+            List<User> EmployeeList = new List<User>();
+
+            foreach (string item in EmployeeID)
+            {
+                User employee = GetById(item);
+                EmployeeList.Add(employee);
+            }
+
+            return EmployeeList.ToList();
+        }
+
         public SideBarUserPanelViewModel GetSideBarUserPanelData(string username)
         {
 

@@ -1,0 +1,144 @@
+﻿@model Models.Entities.EmployeeReservation.ReservationOrder
+@{
+    ViewData["Title"] = "برسی اطلاعات خدمت ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    Models.Entities.User.User Employee = ViewBag.Employee as Models.Entities.User.User;
+}
+
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> برسی اطلاعات خدمت  </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">برسی اطلاعات خدمت</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-header">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-widget widget-user-2">
+                            <div class="widget-user-header bg-warning">
+                                <div class="widget-user-image">
+                                    <img style="width:100px;height:100px;" class="img-circle elevation-2" src="~/Images/UserAvatar/@Employee.UserAvatar" alt="User Avatar">
+                                </div>
+                                <h3 class="widget-user-username">اطلاعات خدمت رسان  </h3>
+                                <h5 class="widget-user-desc">@Employee.UserName </h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ‌شماره موبایل  <span class="float-left badge bg-primary">@Employee.PhoneNumber</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ایمیل <span class="float-left badge bg-info">@Employee.Email</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            تاریخ ثبت نام  <span class="float-left badge bg-success">@Employee.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-widget widget-user-2">
+                            <div class="widget-user-header bg-primary">
+                                <div class="widget-user-image">
+                                    <img style="width:100px;height:100px;" class="img-circle elevation-2" src="~/Images/UserAvatar/@Model.User.UserAvatar" alt="User Avatar">
+                                </div>
+                                <h3 class="widget-user-username">اطلاعات مشتری  </h3>
+                                <h5 class="widget-user-desc">@Model.User.UserName </h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ‌شماره موبایل  <span class="float-left badge bg-primary">@Model.User.PhoneNumber</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ایمیل <span class="float-left badge bg-info">@Model.User.Email</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            تاریخ ثبت نام  <span class="float-left badge bg-success">@Model.User.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">اطلاعات رزرو  </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form method="post" asp-action="ReservationEmployee" asp-controller="EmployeeReservation" role="form">
+                     
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputEmail1"> تاریخ رزرو</label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="exampleInputEmail1">  ساعت شروع کار </label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.HourReservation.StartHourReservation">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="exampleInputEmail1">  ساعت پایان کار </label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.HourReservation.EndHourReservation">
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputEmail1">  توضیحات تکمیلی  </label>
+                                            <textarea type="text" class="form-control" asp-for="Description" id="exampleInputEmail1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">ارسال</button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+</div>

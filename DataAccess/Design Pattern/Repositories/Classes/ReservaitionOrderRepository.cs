@@ -3,6 +3,7 @@ using DataAccess.Design_Pattern.Repositories.Interfaces;
 using DataAccess.ViewModels;
 using DataContext.Context;
 using Models.Entities.EmployeeReservation;
+using Models.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,15 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return reserve;
         }
 
+        public List<string> GetAllEmployeeIDHaveReservationToday()
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                                                     .Where(p => p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
+                                                                && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
+                                                                 && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day)
+                                                                        .Select(p=>p.EmployeeID).ToList();
+        }
+
         public List<ReservationOrder> GetAllTodayReservationOrder()
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
@@ -56,7 +66,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         public ReservationOrder GetReservationOrderById(int id)
         {
-            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,Location")
                                 .FirstOrDefault(p => p.ReservationOrderID == id);
 
         }

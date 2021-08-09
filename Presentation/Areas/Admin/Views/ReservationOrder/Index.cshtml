@@ -3,7 +3,11 @@
     ViewData["Title"] = "مدیریت خدمات ";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@{ 
 
+    List<Models.Entities.User.User> EmployeeList = ViewBag.EmployeeList as List<Models.Entities.User.User>;
+
+}
 
 @section Styls
     {
@@ -19,12 +23,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> لیست تمام کاربران </h1>
+                    <h1> تاریخچه ی خدمات  </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
-                        <li class="breadcrumb-item active">لیست تمام کاربران </li>
+                        <li class="breadcrumb-item active">تاریخچه ی خدمات</li>
                     </ol>
                 </div>
             </div>
@@ -58,93 +62,173 @@
             setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
     }
 
-    <section class="content">
-        <div class="row">
-            <div class="col-12">
+<section class="content">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fa fa-gear"></i></span>
 
-
-                <div class="card ">
-                    <div class="card-header">
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <a href="/Admin/Users/Create" class="btn btn-block btn-primary btn-sm waves-effect">افزودن کاربر  جدید  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                            <div class="col-sm-12">
-                                <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-label="عکس  : activate to sort column ascending">عکس  </th>
-
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 80.583px;" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     نام کاربری</th>
-
-
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.5px;" aria-label="موبایل : activate to sort column ascending">موبایل </th>
-
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 50.317px;" aria-label="وضعیت: activate to sort column ascending">وضعیت</th>
-
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 420.6px;" aria-label=" activate to sort column ascending"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">
-                                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/" alt="message user image">
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                {
-                                                    <td><a href="/Admin/Users/LockUser?Userid=&&id=1" class="btn btn-success btn-sm" style="color:white;">فعال</a></td>
-                                                }
-                                               
-
-
-                                                <td>
-
-                                                    <a class="btn btn-primary btn-sm waves-effect" asp-action="Edit" asp-area="Admin" asp-controller="Users" asp-route-id="">
-                                                        <i class="glyphicon glyphicon-edit"></i>
-                                                        ویرایش
-                                                    </a>
-
-
-
-                                                    <a class="btn btn-danger btn-sm waves-effect" href="/Admin/Users/Edit?Id=&&Delete=true">
-                                                        <i class="glyphicon glyphicon-trash"></i>
-                                                        حذف
-                                                    </a>
-
-                                                    <a class="btn btn-warning btn-sm waves-effect" asp-controller="Users" asp-action="AddUserToRole" asp-route-id="" asp-area="Admin">
-                                                        <i class="glyphicon glyphicon-trash"></i>
-                                                        افزودن  نقش
-                                                    </a>
-                                                    <a class="btn btn-danger btn-sm waves-effect" asp-controller="Users" asp-action="RemoveUserFromRole" asp-route-id="" asp-area="Admin">
-                                                        <i class="glyphicon glyphicon-trash"></i>
-                                                        حذف نقش
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
+                <div class="info-box-content">
+                    <span class="info-box-text">ترافیک Cpu</span>
+                    <span class="info-box-number">
+                        ۱۰
+                        <small>%</small>
+                    </span>
                 </div>
-                <!-- /.card -->
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.col -->
+            <!-- /.info-box -->
         </div>
-        <!-- /.row -->
-    </section> <!-- /.content -->
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-google-plus"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">لایک‌ها</span>
+                    <span class="info-box-number">۴۱,۴۱۰</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fa fa-shopping-cart"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">فروش</span>
+                    <span class="info-box-number">۷۶۰</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-users"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">اعضای جدید</span>
+                    <span class="info-box-number">۲,۰۰۰</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-12">
+
+
+            <div class="card ">
+                <div class="card-header">
+                    <div class="card-tools">
+                        <div class="btn btn-sm btn-info ">
+                            لیست خدمات امروز
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <div class="col-sm-12">
+                            <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-label="عکس  : activate to sort column ascending">مشتری   </th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام مشتری  </th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل مشتری  </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     خدمات دهنده  </th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام  خدمت رسان   </th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل خدمت رسان   </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model)
+                                    {
+             
+                                        Models.Entities.User.User EmployeeInfo = EmployeeList.Where(p => p.Id == item.EmployeeID).First();
+
+                                    <tr role="row" class="odd">
+                                        <td class="sorting_1">
+                                            <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.User.UserAvatar" alt="message user image">
+                                        </td>
+
+                                        <td>
+                                            <div class="badge badge-primary">
+                                                @item.User.UserName
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            @item.User.PhoneNumber
+                                        </td>
+
+                                        <td class="sorting_1">
+                                            <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@EmployeeInfo.UserAvatar" alt="message user image">
+                                        </td>
+
+
+                                        <td>
+                                            <div class="badge badge-warning">
+                                                @EmployeeInfo.UserName
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            @EmployeeInfo.PhoneNumber
+                                        </td>
+
+                                        <td>
+
+                                            <a class="btn btn-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?id=@item.ReservationOrderID&&Index=True">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                                 برسی جزییات  
+                                            </a>
+
+
+
+                                            <a class="btn btn-danger btn-sm waves-effect" href="/Admin/Users/Edit?Id=&&Delete=true">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                                حذف
+                                            </a>
+
+                                            <a class="btn btn-warning btn-sm waves-effect" asp-controller="Users" asp-action="AddUserToRole" asp-route-id="" asp-area="Admin">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                                افزودن  نقش
+                                            </a>
+                                            <a class="btn btn-danger btn-sm waves-effect" asp-controller="Users" asp-action="RemoveUserFromRole" asp-route-id="" asp-area="Admin">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                                حذف نقش
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section> <!-- /.content -->
 </div>
 
 
