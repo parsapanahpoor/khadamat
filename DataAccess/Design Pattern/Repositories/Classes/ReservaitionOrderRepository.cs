@@ -63,6 +63,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                                                       && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day).ToList();
         }
 
+        public List<ReservationOrder> GetAllUserReservationOrderByUserid(string userid)
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,Location")
+                                        .Where(p => p.UserID == userid).ToList();
+        }
+
         public ReservationOrder GetReservationOrderByHourReservationId(int id)
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,Location")

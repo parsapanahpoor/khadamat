@@ -302,5 +302,23 @@ namespace Presentation.Areas.Admin.Controllers
 
         #endregion
 
+        #region List Of Users
+
+        public async Task<IActionResult> ListOfUsers()
+        {
+            List<User> UsersList = (List<User>)await _userManager.GetUsersInRoleAsync("User");
+            return View(UsersList);
+        }
+        public IActionResult CheckUserDateReservation(string id)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            List<ReservationOrder> reservations = _context.reservaitionOrderRepository.GetAllUserReservationOrderByUserid(id);
+
+            return View(reservations);
+        }
+        #endregion
     }
 }
