@@ -39,7 +39,8 @@ namespace Presentation.Areas.Admin.Controllers
 
             return View(reservations);
         }
-        public async Task<IActionResult> ReservationOrderInformation(int? id, int? HoureID, bool Index = false, bool HoureIndex = false)
+        public async Task<IActionResult> ReservationOrderInformation(int? id, int? HoureID, bool Index = false, bool HoureIndex = false, bool UserPage = false
+            )
         {
             if (id == null && HoureID == null)
             {
@@ -56,6 +57,10 @@ namespace Presentation.Areas.Admin.Controllers
                 if (Index == true)
                 {
                     ViewBag.Index = true;
+                }
+                if (UserPage == true)
+                {
+                    ViewBag.UserPage = true;
                 }
                 return View(reservation);
             }
@@ -309,15 +314,52 @@ namespace Presentation.Areas.Admin.Controllers
             List<User> UsersList = (List<User>)await _userManager.GetUsersInRoleAsync("User");
             return View(UsersList);
         }
-        public IActionResult CheckUserDateReservation(string id)
+        public IActionResult CheckUserDateReservation(string id, bool Delete = false)
         {
             if (id == null)
             {
                 return View("~/Views/Shared/_404.cshtml");
             }
             List<ReservationOrder> reservations = _context.reservaitionOrderRepository.GetAllUserReservationOrderByUserid(id);
-
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
             return View(reservations);
+        }
+        public IActionResult ShowDeletePage(int? id)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderById((int)id);
+
+            return View(reservation);
+        }
+        public IActionResult DeleteOrderReservation(int? id, bool UserPage = false)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderById((int)id);
+            if (reservation == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            _context.reservaitionOrderRepository.DeleteReservationOrder(reservation);
+            HourReservation hour = _context.hourReservationRepository.GetHoureReservationByID((int)reservation.HoureReservationID);
+            hour.ReservationStatusID = 2;
+            _context.hourReservationRepository.UpdateHourReservationAfterDeleteReservationOrder(hour);
+
+            _context.SaveChangesDB();
+            if (UserPage == true)
+            {
+            return Redirect("/Admin/ReservationOrder/CheckUserDateReservation?id="+ reservation.UserID + "&&Delete=True");
+
+            }
+            return Redirect("/Admin/ReservationOrder/ListOfDateReservation?id=" + hour.DataReservationID + "&&Delete=true");
         }
         #endregion
     }

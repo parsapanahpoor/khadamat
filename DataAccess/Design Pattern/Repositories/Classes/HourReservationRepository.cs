@@ -100,6 +100,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             }
         }
 
+        public void UpdateHourReservationAfterDeleteReservationOrder(HourReservation hour)
+        {
+            Update(hour);
+        }
+
         public bool UpdateHourReservationFromEmployee(HourReservation hourReservation)
         {
             string StartHourString = hourReservation.StartHourReservation.Remove(2, 1);

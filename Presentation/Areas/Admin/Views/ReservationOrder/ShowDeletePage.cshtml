@@ -1,0 +1,74 @@
+﻿@model Models.Entities.EmployeeReservation.ReservationOrder
+@{
+    ViewData["Title"] = "حذف خدمت ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> حذف خدمت</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">حذف خدمت    </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+
+
+
+                <div class="row">
+                </div>
+                <div class="col-md-12">
+
+                    <div class="card card-danger">
+                       
+                            <div class="card-header">
+                                <h3 class="card-title">  حذف خدمت    </h3>
+                            </div>
+                        
+
+                        <div class="form-horizontal ">
+                            <div class="row">
+                                <div class="card-body row">
+                                    <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">   ساعت شروع        </label>
+                                            <input type="text" class="form-control" readonly value="@Model.HourReservation.EndHourReservation" placeholder="ساعت شروع را وارد کنید">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="card-body row">
+                                    <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">   ساعت پایان         </label>
+                                            <input type="text" class="form-control" readonly value="@Model.HourReservation.StartHourReservation" placeholder="ساعت پایان را وارد کنید">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/Admin/ReservationOrder/DeleteOrderReservation?id=@Model.ReservationOrderID&&UserPage=True" class="btn btn-danger">حذف  </a>
+                                <a href="/Admin/ReservationOrder/CheckUserDateReservation?id=@Model.UserID" class="btn btn-primary">بازگشت </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </section>
+
+</div>
+

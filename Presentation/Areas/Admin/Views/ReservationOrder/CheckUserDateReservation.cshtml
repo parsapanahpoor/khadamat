@@ -30,6 +30,33 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+    @if (ViewBag.Delete == true)
+    {
+        <div class="col-md-12">
+            <div class="card bg-danger-gradient">
+                <div class="card-header">
+                    <h3 class="card-title">حذف موفق </h3>
+
+                    <div class="card-tools">
+                        <button type="button" id="DeleteBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    حذف خدمت با موفقیت انجام گردید
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <script>
+            // Your delay in milliseconds
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("DeleteBtn").click(); }, delay);</script>
+    }
 
     <!-- Main content -->
     <section class="content">
@@ -68,41 +95,44 @@
 
                                         @foreach (var item in Model)
                                         {
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">
-                                                <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.User.UserAvatar" alt="message user image">
-                                            </td>
-                                            <td>@item.User.UserName</td>
-                                            @if (item.UserReservationStatus == 1)
-                                            {
-                                                <td><div class="badge badge-success" style="color:white;">سفارش آنلاین </div></td>
-                                            }
-                                            @if (item.UserReservationStatus == 2)
-                                            {
-                                                <td><div class="badge badge-primary" style="color:white;">سفارش رزرو  </div></td>
-                                            }
-                                            <td><div class="badge badge-warning" style="color:black;">@item.DataReservation.ReservationDateTime.ToString("yyyy/MM/dd")  </div></td>
-                                            @if (item.UserReservationStatus == 1)
-                                            {
-                                                <td><div class="badge badge-primary" style="color:black;">سفارش آنلاین  </div></td>
-                                                <td><div class="badge badge-warning" style="color:black;">سفارش آنلاین    </div></td>
-                                            }
-                                            @if (item.UserReservationStatus == 2)
-                                            {
-                                                <td><div class="badge badge-warning" style="color:black;">@item.HourReservation.StartHourReservation </div></td>
-                                                <td><div class="badge badge-warning" style="color:black;">@item.HourReservation.EndHourReservation  </div></td>
-                                            }
-                                            <td><div class="badge badge-success" style="color:white;">@item.JobCategory.CategoryTitle </div></td>
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">
+                                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.User.UserAvatar" alt="message user image">
+                                                </td>
+                                                <td>@item.User.UserName</td>
+                                                @if (item.UserReservationStatus == 1)
+                                                {
+                                                    <td><div class="badge badge-success" style="color:white;">سفارش آنلاین </div></td>
+                                                }
+                                                @if (item.UserReservationStatus == 2)
+                                                {
+                                                    <td><div class="badge badge-primary" style="color:white;">سفارش رزرو  </div></td>
+                                                }
+                                                <td><div class="badge badge-warning" style="color:black;">@item.DataReservation.ReservationDateTime.ToString("yyyy/MM/dd")  </div></td>
+                                                @if (item.UserReservationStatus == 1)
+                                                {
+                                                    <td><div class="badge badge-primary" style="color:black;">سفارش آنلاین  </div></td>
+                                                    <td><div class="badge badge-warning" style="color:black;">سفارش آنلاین    </div></td>
+                                                }
+                                                @if (item.UserReservationStatus == 2)
+                                                {
+                                                    <td><div class="badge badge-warning" style="color:black;">@item.HourReservation.StartHourReservation </div></td>
+                                                    <td><div class="badge badge-warning" style="color:black;">@item.HourReservation.EndHourReservation  </div></td>
+                                                }
+                                                <td><div class="badge badge-success" style="color:white;">@item.JobCategory.CategoryTitle </div></td>
 
-                                            <td>
+                                                <td>
 
-                                                <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/CheckUserDateReservation?id=@item>">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                    برسی درخواست های ثبت شده
-                                                </a>
-
-                                            </td>
-                                        </tr>
+                                                    <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?id=@item.ReservationOrderID&&UserPage=True">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                        برسی درخواست های ثبت شده
+                                                    </a>
+                                                    <a class="btn btn-outline-danger btn-sm waves-effect" href="/Admin/ReservationOrder/ShowDeletePage?id=@item.ReservationOrderID&&UserPage=True">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                        حذف درخواست
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
 
