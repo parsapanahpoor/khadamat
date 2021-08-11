@@ -88,5 +88,28 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         {
             Update(data);
         }
+
+        public DataReservation AddDateTimeReservationWhileOnlineProcees(string EmployeeID)
+        {
+            DataReservation date = GetAll(p=>p.ReservationDateTime.Year == DateTime.Now.Year
+                                            &&p.ReservationDateTime.Month == DateTime.Now.Month
+                                            &&p.ReservationDateTime.Day == DateTime.Now.Day
+                                            &&p.EmployeeID == EmployeeID).FirstOrDefault();
+            if (date == null)
+            {
+                DataReservation data = new DataReservation()
+                {
+                    EmployeeID = EmployeeID,
+                    ReservationDateTime = DateTime.Now
+                };
+                Add(data);
+
+                return data;
+            }
+            else
+            {
+                return date;
+            }
+        }
     }
 }

@@ -80,8 +80,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetAll(p => p.UserName == username).Select(p => p.Id).First();
         }
 
-        public int GetUserOnlineStatus(string username)
+        public int GetUserOnlineStatus(string username , bool Job = false)
         {
+            if (Job == true)
+            {
+                return 3;
+            }
             return GetAll(p => p.UserName == username)
                         .Select(p => p.EmployeeStatusID).First();
         }

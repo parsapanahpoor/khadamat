@@ -37,35 +37,49 @@ namespace Presentation.Areas.Employee.Controllers
         public async Task<IActionResult> ChangeStatusByIconInPartial(int id, string username)
         {
             var user = await _userManager.FindByNameAsync(username);
-
-            if (id == 1)
-            {
-                user.EmployeeStatusID = 1;
-
-            }
-            if (id == 2)
-            {
-                user.EmployeeStatusID = 2;
-            }
-            if (id == 3)
+            List<HourReservation> DateReservation = _context.hourReservationRepository
+                                                    .GetJustTodayEmployeeHourReservationByEmployeeId(user.Id);
+            if (_context.hourReservationRepository.ISEmployeeHaveHObTightNow(DateReservation))
             {
                 user.EmployeeStatusID = 3;
             }
+            else
+            {
+                if (id == 1)
+                {
+                    user.EmployeeStatusID = 1;
 
+                }
+                if (id == 2)
+                {
+                    user.EmployeeStatusID = 2;
+                }
+                if (id == 3)
+                {
+                    user.EmployeeStatusID = 3;
+                }
+            }
             var result = await _userManager.UpdateAsync(user);
             _context.SaveChangesDB();
 
-            if (id == 1)
-            {
-                return Redirect("/Employee/Home/Index?Status=1");
-            }
-            if (id == 2)
-            {
-                return Redirect("/Employee/Home/Index?Status=2");
-            }
-            if (id == 3)
+            if (_context.hourReservationRepository.ISEmployeeHaveHObTightNow(DateReservation))
             {
                 return Redirect("/Employee/Home/Index?Status=3");
+            }
+            else
+            {
+                if (id == 1)
+                {
+                    return Redirect("/Employee/Home/Index?Status=1");
+                }
+                if (id == 2)
+                {
+                    return Redirect("/Employee/Home/Index?Status=2");
+                }
+                if (id == 3)
+                {
+                    return Redirect("/Employee/Home/Index?Status=3");
+                }
             }
 
             return View();
@@ -236,7 +250,7 @@ namespace Presentation.Areas.Employee.Controllers
 
         #region HourReservation Part
 
-        public IActionResult ListOfDateReservation(int? id, bool Create = false, bool Edit = false, bool Delete = false , bool History = false)
+        public IActionResult ListOfDateReservation(int? id, bool Create = false, bool Edit = false, bool Delete = false, bool History = false)
         {
             if (id == null)
             {
@@ -297,7 +311,6 @@ namespace Presentation.Areas.Employee.Controllers
                 {
                     _context.SaveChangesDB();
                     return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + addHourReservation.DataReservationID + "&&Create=true");
-
                 }
                 if (result == false)
                 {
@@ -375,7 +388,7 @@ namespace Presentation.Areas.Employee.Controllers
             return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + hour.DataReservationID + "&&Delete=true");
         }
 
-        public async Task<IActionResult> HoureReservationInfo(int? id )
+        public async Task<IActionResult> HoureReservationInfo(int? id)
         {
             if (id == null)
             {

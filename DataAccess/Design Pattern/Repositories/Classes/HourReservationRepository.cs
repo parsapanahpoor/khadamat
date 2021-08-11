@@ -30,6 +30,9 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
             int WorkTime = Math.Abs(EndtHourInt - StartHourInt);
 
+            int StartHourReservationInt = Convert.ToInt32(StartHourString.Remove(2, 2));
+            int EndHourReservationInt = Convert.ToInt32(EndHourString.Remove(2, 2));
+
             if (WorkTime >= 200 && WorkTime <= 2200)
             {
                 HourReservation hour = new HourReservation()
@@ -40,8 +43,8 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                     ReservationStatusID = 2 , 
                     DataReservationID = addHourReservation.DataReservationID,
                     EmployeeID = EmployeeId,
-                    StartHourReservationInt = StartHourInt,
-                    EndHourReservationInt = EndtHourInt
+                    StartHourReservationInt = StartHourReservationInt,
+                    EndHourReservationInt = EndHourReservationInt
                 };
                 Add(hour);
                 return true;
@@ -52,6 +55,27 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 return false;
             }
 
+        }
+
+        public HourReservation AddHourReservationWhileOnlineProccess(string employID , int DateID)
+        {
+            int StartHour = DateTime.Now.Hour;
+            string startHourString = $"{StartHour}:00";
+
+            HourReservation hour = new HourReservation()
+            {
+                Description = null,
+                ReservationStatusID = 2,
+                DataReservationID = DateID,
+                EmployeeID = employID,
+                EndHourReservationInt = 0,
+                EndHourReservation = "00:00",
+                StartHourReservationInt = StartHour,
+                StartHourReservation = startHourString
+            };
+            Add(hour);
+
+            return hour;
         }
 
         public void DeleteHourReservationFromEmployeePanel(HourReservation hourReservation)
@@ -79,6 +103,16 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetById(id);
         }
 
+        public List<HourReservation> GetJustTodayEmployeeHourReservationByEmployeeId(string EmployeeID)
+        {
+            return GetAll(includeProperties: "User,ReservationOrder,DataReservation")
+                                            .Where(p => p.EmployeeID == EmployeeID 
+                                                &&p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
+                                                &&p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
+                                                &&p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day
+                                                &&p.ReservationStatusID == 1 ).ToList();
+        }
+
         public List<HourReservation> GetTodayEmployeeHoureReservation(string EmployeeID)
         {
             return GetAll(includeProperties: "User,ReservationOrder,DataReservation")
@@ -86,6 +120,29 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                                                               && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
                                                                && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day)
                                                                     .OrderByDescending(p=>p.HourReservationID).ToList();
+        }
+
+        public bool ISEmployeeHaveHObTightNow(List<HourReservation> List)
+        {
+            bool result = false; 
+
+            foreach (var item in List)
+            {
+                if (item.StartHourReservationInt <= DateTime.Now.Hour && item.EndHourReservationInt > DateTime.Now.Hour)
+                {
+                    result = true;
+                }
+
+            }
+
+            if (result == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool IsExistHoureReservationWhiteDateReservationID(int id)
@@ -115,10 +172,13 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
             int WorkTime = Math.Abs(EndtHourInt - StartHourInt);
 
+            int StartHourReservationInt = Convert.ToInt32(StartHourString.Remove(2, 2));
+            int EndHourReservationInt = Convert.ToInt32(EndHourString.Remove(2, 2));
+
             if (WorkTime >= 200 && WorkTime <= 2200)
             {
-                hourReservation.StartHourReservationInt = StartHourInt;
-                hourReservation.EndHourReservationInt = EndtHourInt ;
+                hourReservation.StartHourReservationInt = StartHourReservationInt;
+                hourReservation.EndHourReservationInt = EndHourReservationInt;
 
                 Update(hourReservation);
                 return true;

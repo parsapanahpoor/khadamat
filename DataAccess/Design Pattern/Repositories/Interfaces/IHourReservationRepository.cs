@@ -21,6 +21,9 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         HourReservation GetHoureReservationByID(int id);
         List<HourReservation> GetTodayEmployeeHoureReservation(string EmployeeID);
         void UpdateHourReservationAfterDeleteReservationOrder(HourReservation hour);
+        List<HourReservation> GetJustTodayEmployeeHourReservationByEmployeeId(string EmployeeID);
+        bool ISEmployeeHaveHObTightNow(List<HourReservation> List);
+        HourReservation AddHourReservationWhileOnlineProccess(string employID , int DateID);
 
     }
 }

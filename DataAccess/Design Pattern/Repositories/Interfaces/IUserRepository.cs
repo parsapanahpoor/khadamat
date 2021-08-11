@@ -21,7 +21,7 @@ namespace DataAccess.Design_Pattern.Repositories
         void DeleteUserAvatar(User user);
         bool? GetEmployeeAcceptedPossition(string username);
         User UpdateUserAvatar(User user, EditUserInAdminPanel userEdited);
-        int GetUserOnlineStatus(string username);
+        int GetUserOnlineStatus(string username , bool Job = false);
         List<User> GetEmployeeForShowTodayReservation(List<string> EmployeeID);
     }
 }

@@ -33,7 +33,7 @@ namespace Presentation.Controllers
         }
 
         #endregion
-        public IActionResult ShowEmployeeInfoPage(int? id , string Houre = "empty")
+        public IActionResult ShowEmployeeInfoPage(int? id, string Houre = "empty")
         {
             if (id == null)
             {
@@ -52,7 +52,22 @@ namespace Presentation.Controllers
             }
             return View(userSelectedJob);
         }
-        public async Task<IActionResult> ReservationEmployee(int? Houre , int? EmployeeInfo)
+        public IActionResult OnlineReservation(int? EmployeeInfo)
+        {
+            if (EmployeeInfo == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            UserSelectedJob EmployeeDuc = _context.userSelectedJobRepository.GetUserSelectedJobByID((int)EmployeeInfo);
+            DataReservation date = _context.dataReservationRepository.AddDateTimeReservationWhileOnlineProcees(EmployeeDuc.Userid);
+            _context.SaveChangesDB();
+
+            HourReservation hour = _context.hourReservationRepository.AddHourReservationWhileOnlineProccess(EmployeeDuc.Userid, date.DataReservationID);
+            _context.SaveChangesDB();
+
+            return Redirect($"/EmployeeReservation/ReservationEmployee?Houre={hour.HourReservationID}&&EmployeeInfo={EmployeeInfo}");
+        }
+        public async Task<IActionResult> ReservationEmployee(int? Houre, int? EmployeeInfo)
         {
             if (Houre == null)
             {
@@ -79,19 +94,37 @@ namespace Presentation.Controllers
 
             ViewBag.HoureInfo = houre;
             ViewBag.EmployeeInfo = EmployeeDuc;
+            if (houre.EndHourReservationInt == 0)
+            {
+                return View(new EmployeeReservationViewModel()
+                {
 
-            return View(new EmployeeReservationViewModel()
-            { 
-            
-                UserReservationStatus = 2,
-                EmployeeID = EmployeeDuc.Userid,
-                UserID = user.Id,
-                JobCategoryID = EmployeeDuc.JobCategoryId,
-                HoureReservationID = houre.HourReservationID,
-                DateReservationID = houre.DataReservationID,
-                DateTimeReservation = DateTime.Now
-            
-            });
+                    UserReservationStatus = 1,
+                    EmployeeID = EmployeeDuc.Userid,
+                    UserID = user.Id,
+                    JobCategoryID = EmployeeDuc.JobCategoryId,
+                    HoureReservationID = houre.HourReservationID,
+                    DateReservationID = houre.DataReservationID,
+                    DateTimeReservation = DateTime.Now
+
+                });
+            }
+            else
+            {
+                return View(new EmployeeReservationViewModel()
+                {
+
+                    UserReservationStatus = 2,
+                    EmployeeID = EmployeeDuc.Userid,
+                    UserID = user.Id,
+                    JobCategoryID = EmployeeDuc.JobCategoryId,
+                    HoureReservationID = houre.HourReservationID,
+                    DateReservationID = houre.DataReservationID,
+                    DateTimeReservation = DateTime.Now
+
+                });
+            }
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -128,7 +161,7 @@ namespace Presentation.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (ModelState.IsValid)
             {
-                _context.locationAddressRepository.AddLocationBeforeReserve(user.Id , Location , postalCode);
+                _context.locationAddressRepository.AddLocationBeforeReserve(user.Id, Location, postalCode);
                 _context.SaveChangesDB();
 
                 List<Location> Locationss = _context.locationAddressRepository.GetUserLocations(user.Id);
@@ -141,7 +174,7 @@ namespace Presentation.Controllers
             return View(Locations);
         }
 
-        public IActionResult SubmitReservationRequest(int? LocationId)
+        public async Task<IActionResult> SubmitReservationRequest(int? LocationId)
         {
             if (LocationId == null)
             {
@@ -163,12 +196,18 @@ namespace Presentation.Controllers
             hour.ReservationStatusID = 1;
             _context.hourReservationRepository.UpdateHourReservationFromEmployee(hour);
 
-            ReservationOrder Reservation =  _context.reservaitionOrderRepository.AddRservationOrderFromSession(reserve);
+            if (reserve.UserReservationStatus == 1)
+            {
+                var Employee = await _userManager.FindByIdAsync(reserve.EmployeeID);
+                Employee.EmployeeStatusID = 1;
+            }
+
+            ReservationOrder Reservation = _context.reservaitionOrderRepository.AddRservationOrderFromSession(reserve);
             _context.SaveChangesDB();
 
 
-            return Redirect("/Home/Index?AddReservation=true&&ReservationId="+ Reservation.ReservationOrderID);
+            return Redirect("/Home/Index?AddReservation=true&&ReservationId=" + Reservation.ReservationOrderID);
         }
- 
+
     }
 }

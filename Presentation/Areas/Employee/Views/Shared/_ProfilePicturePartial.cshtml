@@ -2,11 +2,26 @@
 @using DataAccess.Design_Pattern.UnitOfWork
 @inject IUnitOfWork _UserService
 @using DataAccess.ViewModels
-@{ 
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<Models.Entities.User.User> _userManager;
 
+@{
     SideBarUserPanelViewModel user = _UserService.userRepository.GetSideBarUserPanelData(User.Identity.Name);
 
-    int UserStatusID = _UserService.userRepository.GetUserOnlineStatus(User.Identity.Name);
+    var EmployeeID = await _userManager.FindByNameAsync(User.Identity.Name);
+    List<Models.Entities.EmployeeReservation.HourReservation> List = _UserService.hourReservationRepository
+                                                                                .GetJustTodayEmployeeHourReservationByEmployeeId(EmployeeID.Id);
+
+    bool Job = false;
+
+    if (_UserService.hourReservationRepository.ISEmployeeHaveHObTightNow(List))
+    {
+        Job = true;
+    }
+
+    int UserStatusID = _UserService.userRepository.GetUserOnlineStatus(User.Identity.Name , Job);
+
+
 }
 
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -18,19 +33,19 @@
 
         @if (UserStatusID == 1)
         {
-    <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=2&&username=@User.Identity.Name">
-        <span class="right badge badge-danger"> آفلاین  </span>
-    </a>}
+            <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=2&&username=@User.Identity.Name">
+                <span class="right badge badge-danger"> آفلاین  </span>
+            </a>}
         @if (UserStatusID == 2)
         {
-    <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=3&&username=@User.Identity.Name">
-        <span class="right badge badge-success"> آنلاین  </span>
-    </a>}
+            <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=3&&username=@User.Identity.Name">
+                <span class="right badge badge-success"> آنلاین  </span>
+            </a>}
         @if (UserStatusID == 3)
         {
-    <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=1&&username=@User.Identity.Name">
-        <span class="right badge badge-primary"> درحال کار  </span>
-    </a>}
+            <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=1&&username=@User.Identity.Name">
+                <span class="right badge badge-primary"> درحال کار  </span>
+            </a>}
 
 
     </div>

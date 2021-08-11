@@ -1,5 +1,7 @@
 ﻿@model Models.Entities.User.UserSelectedJob
 @using Utilities.Convertors
+
+
 @{
     ViewData["Title"] = "صفحه ی " + Model.User.UserName;
     Layout = "~/Views/Shared/_TestLayout.cshtml";
@@ -39,39 +41,60 @@
 
                                 <p class="text-muted text-center">@Model.JobCategory.CategoryTitle</p>
 
-                                <ul class="list-group list-group-unbordered mb-3">
-                                    <li class="list-group-item">
-                                        <a class="float-left">@Model.User.PhoneNumber</a>  <b>شماره موبایل  </b>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a class="float-left">@Model.User.Email</a>  <b>ایمیل   </b>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a class="float-left">@Model.User.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</a>  <b>تاریخ ثبت نام    </b>
-                                    </li>
+                                <div class="text-center mb-4">
+                                    @if (Model.User.EmployeeStatusID == 1)
+                                    {
+                                        <div class="text-center">
+                                            <span class="btn btn-danger"> آفلاین  </span>
+                                        </div>}
+                                    @if (Model.User.EmployeeStatusID == 2)
+                                    {
+                                        <a>
+                                            <span class="btn btn-success"> آنلاین  </span>
+                                        </a>}
+                                    @if (Model.User.EmployeeStatusID == 3)
+                                    {
+                                        <a>
+                                            <span class="btn btn-primary"> درحال کار  </span>
+                                        </a>}
+                                </div>
 
-                                </ul>
+                                    <ul class="list-group list-group-unbordered mb-3">
+                                        <li class="list-group-item">
+                                            <a class="float-left">@Model.User.PhoneNumber</a>  <b>شماره موبایل  </b>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a class="float-left">@Model.User.Email</a>  <b>ایمیل   </b>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a class="float-left">@Model.User.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</a>  <b>تاریخ ثبت نام    </b>
+                                        </li>
 
+                                    </ul>
+                                    @if (Model.User.EmployeeStatusID == 2)
+                                    {
+                            <a href="/EmployeeReservation/OnlineReservation?EmployeeInfo=@Model.JobCategorySelectedID">
+
+                                <div class="text-center mb-1">
+                                    <span class="btn btn-success"> ثبت درخواست   </span>
+                                </div>
+                            </a>
+                                        }
+                                </div>
                             </div>
-                            <!-- /.card-body -->
-                        </div>
-
                     </div>
-
-
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
                                     @if (ViewBag.Houre != null)
                                     {
-                                        <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">فعالیت‌ها</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">رزومه </a></li>
                                         <li class="nav-item"><a class="nav-link active show" href="#timeline" data-toggle="tab">ساعت رزرو  </a></li>
                                     }
-
                                     else
                                     {
-                                        <li class="nav-item"><a class="nav-link active show" href="#activity" data-toggle="tab">فعالیت‌ها</a></li>
+                                        <li class="nav-item"><a class="nav-link active show" href="#activity" data-toggle="tab">‌رزومه</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">ساعت رزرو  </a></li>
                                     }
                                 </ul>
@@ -92,15 +115,11 @@
                                                 <p>
                                                     @Html.Raw(Model.ResumeDescription)
                                                 </p>
-
-
                                             </div>
-
                                         </div>
                                         <div class="tab-pane active show" id="timeline">
                                             <partial name="_ShowListOfEmployeeDateReservation" model="ViewBag.ListOFEmployeeDateReservation" />
                                             <partial name="_ShowEmployeeHourReservation" />
-
                                         </div>
                                     }
                                     else
@@ -113,30 +132,20 @@
                                                         <a href="#">@Model.User.UserName </a>
                                                     </span>
                                                 </div>
-                                                <!-- /.user-block -->
                                                 <p>
                                                     @Html.Raw(Model.ResumeDescription)
                                                 </p>
-
-
                                             </div>
-
                                         </div>
                                         <div class="tab-pane" id="timeline">
                                             <partial name="_ShowListOfEmployeeDateReservation" model="ViewBag.ListOFEmployeeDateReservation" />
-
                                         </div>
-
                                     }
 
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
         </section>

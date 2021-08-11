@@ -21,5 +21,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         List<DataReservation> GetDateReservationAfterTodayByEmployeeId(string EmployeeID);
         List<DataReservation> GetTodayEmployeeDateReservation(string EmployeeID);
         List<DataReservation> GetAllDateReservation (string EmployeeID);
+        DataReservation AddDateTimeReservationWhileOnlineProcees(string EmployeeID);
     }
 }
