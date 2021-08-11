@@ -129,7 +129,14 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="exampleInputEmail1">  ساعت پایان کار </label>
-                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Houre.EndHourReservation">
+                                            @if (Houre.EndHourReservationInt == 0)
+                                            {
+                                                <input type="text" class="form-control" readonly id="exampleInputEmail1" value="نامشخص">
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Houre.EndHourReservation">
+                                            }
                                         </div>
 
                                         <div class="form-group col-md-12">

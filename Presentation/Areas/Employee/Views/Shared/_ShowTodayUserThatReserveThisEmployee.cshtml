@@ -39,6 +39,7 @@
                         <th>تلفن     </th>
                         <th>ساعت شروع  </th>
                         <th>ساعت پایان </th>
+                        <th> وضعیت  </th>
                         <th> برسی جزییات  </th>
                     </tr>
                 </thead>
@@ -62,8 +63,20 @@
                         <td>
                             <div class="right badge badge-warning">@item.HourReservation.EndHourReservation </div>
                         </td>
+                        @if (item.UserReservationStatus == 1)
+                        {
+                            <td>
+                                <div class="right badge badge-primary">آنلاین  </div>
+                            </td>
+                        }
+                        @if (item.UserReservationStatus == 2)
+                        {
+                            <td>
+                                <div class="right badge badge-primary">رزرو</div>
+                            </td>
+                        }
                         <td>
-                            <a class="btn btn-outline-primary btn-sm"  href="/Employee/EmployeeReservation/HoureReservationInfo/@item.HoureReservationID">جزییات    </a>
+                            <a class="btn btn-outline-primary btn-sm" href="/Employee/EmployeeReservation/HoureReservationInfo/@item.HoureReservationID">جزییات    </a>
                         </td>
                     </tr>
                     }

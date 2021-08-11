@@ -15,7 +15,7 @@
                                                                                 .GetTodayUserReservationOrder(user.Id);
 }
 
-<div class="card col-md-6">
+<div class="card col-md-12">
     <div class="card-header border-transparent">
         <h3 class="card-title"> خدمات امروز شما </h3>
 
@@ -34,9 +34,11 @@
             <table class="table m-0">
                 <thead>
                     <tr>
+                        <th> وضعیت درخواست    </th>
                         <th> دسته بندی  </th>
                         <th>ساعت شروع خدمت </th>
                         <th>ساعت پایان خدمت </th>
+                        <th>تاریخ خدمت </th>
                         <th>تاریخ ثبت </th>
                         <th>برسی </th>
                     </tr>
@@ -46,14 +48,39 @@
                     @foreach (var item in reservations)
                     {
                     <tr>
+                        @if (item.UserReservationStatus == 1)
+                        {
+                            <td>
+                                <div class="right badge badge-primary"> سفارش آنلاین </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="right badge badge-primary"> سفارش رزرو  </div>
+                            </td>
+                        }
+
                         <td>
                             <div class="right badge badge-success"> @item.JobCategory.CategoryTitle </div>
                         </td>
                         <td>
                             <div class="right badge badge-warning"> @item.HourReservation.StartHourReservation </div>
                         </td>
+                        @if (item.HourReservation.EndHourReservationInt == 0)
+                        {
+                            <td>
+                                <div class="right badge badge-dark">نامشخص </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="right badge badge-warning"> @item.HourReservation.EndHourReservation </div>
+                            </td>
+                        }
                         <td>
-                            <div class="right badge badge-warning"> @item.HourReservation.EndHourReservation </div>
+                            <div class="right badge badge-warning"> @item.DataReservation.ReservationDateTime.ToString("yyyy/MM/dd") </div>
                         </td>
                         <td>
                             <div class="right badge badge-warning"> @item.DateTimeReservation.ToString("yyyy/MM/dd") </div>

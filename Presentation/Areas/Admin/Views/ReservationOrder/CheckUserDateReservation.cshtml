@@ -102,7 +102,7 @@
                                                 <td>@item.User.UserName</td>
                                                 @if (item.UserReservationStatus == 1)
                                                 {
-                                                    <td><div class="badge badge-success" style="color:white;">سفارش آنلاین </div></td>
+                                                    <td><div class="badge badge-primary" style="color:white;">سفارش آنلاین </div></td>
                                                 }
                                                 @if (item.UserReservationStatus == 2)
                                                 {
@@ -111,7 +111,7 @@
                                                 <td><div class="badge badge-warning" style="color:black;">@item.DataReservation.ReservationDateTime.ToString("yyyy/MM/dd")  </div></td>
                                                 @if (item.UserReservationStatus == 1)
                                                 {
-                                                    <td><div class="badge badge-primary" style="color:black;">سفارش آنلاین  </div></td>
+                                                    <td><div class="badge badge-warning" style="color:black;">@item.HourReservation.StartHourReservation </div></td>
                                                     <td><div class="badge badge-warning" style="color:black;">سفارش آنلاین    </div></td>
                                                 }
                                                 @if (item.UserReservationStatus == 2)

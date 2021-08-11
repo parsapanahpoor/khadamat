@@ -199,7 +199,7 @@ namespace Presentation.Controllers
             if (reserve.UserReservationStatus == 1)
             {
                 var Employee = await _userManager.FindByIdAsync(reserve.EmployeeID);
-                Employee.EmployeeStatusID = 1;
+                Employee.EmployeeStatusID = 3;
             }
 
             ReservationOrder Reservation = _context.reservaitionOrderRepository.AddRservationOrderFromSession(reserve);

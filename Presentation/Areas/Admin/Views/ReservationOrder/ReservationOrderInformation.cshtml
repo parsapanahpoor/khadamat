@@ -118,10 +118,20 @@
                                             <label for="exampleInputEmail1">  ساعت شروع کار </label>
                                             <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.HourReservation.StartHourReservation">
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="exampleInputEmail1">  ساعت پایان کار </label>
-                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.HourReservation.EndHourReservation">
-                                        </div>
+                                        @if (Model.UserReservationStatus == 1)
+                                        {
+                                            <div class="form-group col-md-3">
+                                                <label for="exampleInputEmail1">  ساعت پایان کار </label>
+                                                <input type="text" class="form-control" readonly id="exampleInputEmail1" value="نامشخص">
+                                            </div>
+                                        }
+                                        @if (Model.UserReservationStatus == 2)
+                                        {
+                                            <div class="form-group col-md-3">
+                                                <label for="exampleInputEmail1">  ساعت پایان کار </label>
+                                                <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.HourReservation.EndHourReservation">
+                                            </div>
+                                        }
                                         @if (Model.UserReservationStatus == 1)
                                         {
                                             <div class="form-group col-md-6">

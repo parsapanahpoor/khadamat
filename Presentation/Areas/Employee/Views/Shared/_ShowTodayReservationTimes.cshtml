@@ -55,10 +55,17 @@
                             }
 
                         </td>
-                        
+
                         <td><span class="badge badge-warning">@item.StartHourReservation</span></td>
-                        <td><span class="badge badge-warning">@item.EndHourReservation</span></td>
-                        
+                        @if (item.EndHourReservationInt == 0)
+                        {
+                            <td><span class="badge badge-dark">نامشخص</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="badge badge-warning">@item.EndHourReservation</span></td>
+                        }
+
                     </tr>
                             }
                        
