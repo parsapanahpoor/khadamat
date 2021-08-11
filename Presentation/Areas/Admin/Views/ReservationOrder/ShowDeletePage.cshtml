@@ -60,7 +60,14 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="/Admin/ReservationOrder/DeleteOrderReservation?id=@Model.ReservationOrderID&&UserPage=True" class="btn btn-danger">حذف  </a>
+                                @if (ViewBag.HistoryIndex == true)
+                                {
+                                    <a href="/Admin/ReservationOrder/DeleteOrderReservation?id=@Model.ReservationOrderID&&HistoryIndex=True" class="btn btn-danger">حذف  </a>
+                                }
+                                else
+                                {
+                                    <a href="/Admin/ReservationOrder/DeleteOrderReservation?id=@Model.ReservationOrderID&&UserPage=True" class="btn btn-danger">حذف  </a>
+                                }
                                 <a href="/Admin/ReservationOrder/CheckUserDateReservation?id=@Model.UserID" class="btn btn-primary">بازگشت </a>
                             </div>
                         </div>

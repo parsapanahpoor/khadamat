@@ -46,6 +46,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Delete(reservation);
         }
 
+        public List<string> GetAllEmployeeID()
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                                                                                   .Select(p => p.EmployeeID).ToList();
+        }
+
         public List<string> GetAllEmployeeIDHaveReservationToday()
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
@@ -53,6 +59,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                                                                 && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
                                                                  && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day)
                                                                         .Select(p=>p.EmployeeID).ToList();
+        }
+
+        public List<ReservationOrder> GetAllReservationOrder()
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                                                                .ToList();
         }
 
         public List<ReservationOrder> GetAllTodayReservationOrder()

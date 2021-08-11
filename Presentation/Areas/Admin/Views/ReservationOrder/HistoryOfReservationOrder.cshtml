@@ -1,0 +1,255 @@
+﻿@model List<Models.Entities.EmployeeReservation.ReservationOrder>
+@{
+    ViewData["Title"] = "تاریخجه ی خدمات ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    List<Models.Entities.User.User> EmployeeList = ViewBag.EmployeeList as List<Models.Entities.User.User>;
+}
+
+@section Styls
+    {
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/Admin_Panel/plugins/datatables/dataTables.bootstrap4.css">
+
+}
+
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> تاریخچه ی خدمات  </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">تاریخچه ی خدمات</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    @if (ViewBag.Delete == true)
+    {
+        <div class="col-md-12">
+            <div class="card bg-danger-gradient">
+                <div class="card-header">
+                    <h3 class="card-title"> حذف با موفقیت </h3>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    حذف خدمت  با موفقیت انجام شده است
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <script>
+            // Your delay in milliseconds
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+    }
+
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+
+
+                <div class="card ">
+                    <div class="card-header">
+
+
+                        <form asp-action="HistoryOfReservationOrder" asp-controller="ReservationOrder" asp-area="Admin"
+                              method="post">
+                            <input type="text" class="form-control" value="@ViewBag.StartDate" name="StartDate" id="StartDate" />
+                            <input type="text" class="form-control" value="@ViewBag.EndDate" name="EndDate" id="EndDate" />
+                            <input type="submit" class="btn btn-success" value="ثبت" />
+                        </form>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="col-sm-12">
+                                <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-label="عکس  : activate to sort column ascending">مشتری   </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام مشتری  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل مشتری  </th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     خدمات دهنده  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام  خدمت رسان   </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل خدمت رسان   </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">  تاریخ    </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">  دسته بندی خدمت     </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">  روش ثبت      </th>
+
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+
+                                            Models.Entities.User.User EmployeeInfo = EmployeeList.Where(p => p.Id == item.EmployeeID).First();
+
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">
+                                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.User.UserAvatar" alt="message user image">
+                                                </td>
+
+                                                <td>
+                                                    <div class="badge badge-primary">
+                                                        @item.User.UserName
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    @item.User.PhoneNumber
+                                                </td>
+
+                                                <td class="sorting_1">
+                                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@EmployeeInfo.UserAvatar" alt="message user image">
+                                                </td>
+
+
+                                                <td>
+                                                    <div class="badge badge-warning">
+                                                        @EmployeeInfo.UserName
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    @EmployeeInfo.PhoneNumber
+                                                </td>
+
+                                                <td>
+                                                    <div class="badge badge-secondary">
+                                                        @item.DateTimeReservation.ToString("yyyy/MM/dd")
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="badge badge-success">
+                                                        @item.JobCategory.CategoryTitle
+                                                    </div>
+                                                </td>
+
+                                                @if (item.UserReservationStatus == 1)
+                                                {
+                                                    <td>
+                                                        <div class="badge badge-success">
+                                                            Online
+                                                        </div>
+                                                    </td>
+                                                }
+                                                @if (item.UserReservationStatus == 2)
+                                                {
+                                                    <td>
+                                                        <div class="badge badge-success">
+                                                            Reservation
+                                                        </div>
+                                                    </td>
+                                                }
+
+
+                                            <td>
+
+                                                <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?id=@item.ReservationOrderID&&HistoryIndex=True">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    برسی جزییات
+                                                </a>
+                                                <a class="btn btn-outline-danger btn-sm waves-effect" href="/Admin/ReservationOrder/ShowDeletePage?id=@item.ReservationOrderID&&HistoryIndex=True">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    حذف درخواست
+                                                </a>
+
+                                            </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section> <!-- /.content -->
+</div>
+
+
+
+
+@section scripts{
+
+    <link href="https://cdn.kendostatic.com/2013.2.918/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://cdn.kendostatic.com/2013.2.918/styles/kendo.default.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="~/Admin_Panel/dist/js/kendo.all.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            // create DatePicker from input HTML element
+            $("#StartDate").kendoDatePicker();
+            $("#EndDate").kendoDatePicker();
+
+        });
+    </script>
+    <script src="/Admin_Panel/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/Admin_Panel/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- SlimScroll -->
+    <!-- FastClick -->
+    <script src="/Admin_Panel/plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "language": {
+                    "paginate": {
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    }
+                },
+                "info": false,
+            });
+            $('#example2').DataTable({
+                "language": {
+                    "paginate": {
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    }
+                },
+                "info": false,
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "autoWidth": false
+            });
+        });
+
+    </script>
+
+}

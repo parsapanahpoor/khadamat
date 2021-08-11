@@ -45,7 +45,7 @@ namespace Presentation.Controllers
                 return View("~/Views/Shared/_404.cshtml");
             }
             ViewBag.ListOFEmployeeDateReservation = _context.dataReservationRepository
-                                                    .GetDateReservationByEmployeeId(userSelectedJob.Userid);
+                                                    .GetDateReservationAfterTodayByEmployeeId(userSelectedJob.Userid);
             if (Houre != "empty")
             {
                 ViewBag.Houre = true;

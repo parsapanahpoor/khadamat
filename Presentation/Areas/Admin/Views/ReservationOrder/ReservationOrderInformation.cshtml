@@ -156,23 +156,29 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if (ViewBag.Index == true && ViewBag.HoureIndex != true && ViewBag.UserPage != true)
+                                @if (ViewBag.Index == true && ViewBag.HoureIndex != true && ViewBag.UserPage != true && ViewBag.HistoryIndex == true)
                                 {
                                     <div class="card-footer">
                                         <a href="/Admin/ReservationOrder/Index" style="color:white" class="btn btn-primary">بازگشت </a>
                                     </div>
 
                                 }
-                                @if (ViewBag.HoureIndex == true && ViewBag.Index != true && ViewBag.UserPage != true)
+                                @if (ViewBag.HoureIndex == true && ViewBag.Index != true && ViewBag.UserPage != true && ViewBag.HistoryIndex == true)
                                 {
                                     <div class="card-footer">
                                         <a href="/Admin/ReservationOrder/ListOfDateReservation?id=@Model.DateReservationID" style="color:white" class="btn btn-primary">بازگشت </a>
                                     </div>
                                 }
-                                @if (ViewBag.UserPage == true && ViewBag.Index != true && ViewBag.HoureIndex != true)
+                                @if (ViewBag.UserPage == true && ViewBag.Index != true && ViewBag.HoureIndex != true && ViewBag.HistoryIndex == true)
                                 {
                                     <div class="card-footer">
                                         <a href="/Admin/ReservationOrder/CheckUserDateReservation?id=@Model.UserID" style="color:white" class="btn btn-primary">بازگشت </a>
+                                    </div>
+                                } 
+                                @if (ViewBag.HistoryIndex == true && ViewBag.UserPage != true && ViewBag.Index != true && ViewBag.HoureIndex != true)
+                                {
+                                    <div class="card-footer">
+                                        <a href="/Admin/ReservationOrder/HistoryOfReservationOrder" style="color:white" class="btn btn-primary">بازگشت </a>
                                     </div>
                                 }
                             </form>

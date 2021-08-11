@@ -40,7 +40,7 @@ namespace Presentation.Areas.Admin.Controllers
             return View(reservations);
         }
         public async Task<IActionResult> ReservationOrderInformation(int? id, int? HoureID, bool Index = false, bool HoureIndex = false, bool UserPage = false
-            )
+            , bool HistoryIndex = false)
         {
             if (id == null && HoureID == null)
             {
@@ -62,6 +62,11 @@ namespace Presentation.Areas.Admin.Controllers
                 {
                     ViewBag.UserPage = true;
                 }
+                if (HistoryIndex == true)
+                {
+                    ViewBag.HistoryIndex = true;
+                }
+
                 return View(reservation);
             }
             else
@@ -327,17 +332,20 @@ namespace Presentation.Areas.Admin.Controllers
             }
             return View(reservations);
         }
-        public IActionResult ShowDeletePage(int? id)
+        public IActionResult ShowDeletePage(int? id , bool HistoryIndex = false)
         {
             if (id == null)
             {
                 return View("~/Views/Shared/_404.cshtml");
             }
             ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderById((int)id);
-
+            if (HistoryIndex == true)
+            {
+                ViewBag.HistoryIndex = true;
+            }
             return View(reservation);
         }
-        public IActionResult DeleteOrderReservation(int? id, bool UserPage = false)
+        public IActionResult DeleteOrderReservation(int? id, bool UserPage = false , bool HistoryIndex = false)
         {
             if (id == null)
             {
@@ -356,10 +364,90 @@ namespace Presentation.Areas.Admin.Controllers
             _context.SaveChangesDB();
             if (UserPage == true)
             {
-            return Redirect("/Admin/ReservationOrder/CheckUserDateReservation?id="+ reservation.UserID + "&&Delete=True");
+                return Redirect("/Admin/ReservationOrder/CheckUserDateReservation?id=" + reservation.UserID + "&&Delete=True");
+
+            }  
+            if (HistoryIndex == true)
+            {
+                return Redirect("/Admin/ReservationOrder/HistoryOfReservationOrder?id=" + reservation.UserID + "&&Delete=True");
 
             }
             return Redirect("/Admin/ReservationOrder/ListOfDateReservation?id=" + hour.DataReservationID + "&&Delete=true");
+        }
+        #endregion
+        #region HistoryOfReservationOrder
+
+        public IActionResult HistoryOfReservationOrder(bool Delete = false)
+        {
+            List<ReservationOrder> ReservationOrders = _context.reservaitionOrderRepository.GetAllReservationOrder();
+
+            List<string> EmployeeID = _context.reservaitionOrderRepository.GetAllEmployeeID();
+            ViewBag.EmployeeList = _context.userRepository.GetEmployeeForShowTodayReservation(EmployeeID);
+            if (Delete == true)
+            {
+                ViewBag.Delete = true;
+            }
+            return View(ReservationOrders);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult HistoryOfReservationOrder(string StartDate = "", string EndDate = "")
+        {
+            List<ReservationOrder> list = new List<ReservationOrder>();
+            list.AddRange(_context.reservaitionOrderRepository.GetAllReservationOrder());
+
+            if (StartDate != null)
+            {
+                string[] std = StartDate.Split('/');
+                DateTime StartDATE = new DateTime(int.Parse(std[0]),
+                    int.Parse(std[1]),
+                    int.Parse(std[2]),
+                    new PersianCalendar()
+                    );
+
+                //PersianCalendar p = new PersianCalendar();
+                //DateTime x = p.ToDateTime(StartDATE.Year, StartDATE.Month, StartDATE.Day, StartDATE.Hour, StartDATE.Minute, StartDATE.Second, StartDATE.Millisecond);
+                //int y, m, d;
+                //y = x.Year;
+                //m = x.Month;
+                //d = x.Day;
+
+                list = list.Where(p => p.DataReservation.ReservationDateTime.Year >= StartDATE.Year
+                                            && p.DataReservation.ReservationDateTime.Month >= StartDATE.Month
+                                                    && p.DataReservation.ReservationDateTime.Day >= StartDATE.Day
+                                                    &&p.DataReservation.ReservationDateTime.Hour >= StartDATE.Hour
+                                                    &&p.DataReservation.ReservationDateTime.Minute >= StartDATE.Minute
+                                                    &&p.DataReservation.ReservationDateTime.Second >= StartDATE.Second
+                                                    &&p.DataReservation.ReservationDateTime.Millisecond >= StartDATE.Millisecond).ToList();
+            }
+            if (EndDate != null)
+            {
+                string[] edd = EndDate.Split('/');
+                DateTime EndDATE = new DateTime(int.Parse(edd[0]),
+                    int.Parse(edd[1]),
+                    int.Parse(edd[2]),
+                    new PersianCalendar()
+                    );
+
+                //PersianCalendar p = new PersianCalendar();
+                //DateTime x = p.ToDateTime(EndDATE.Year, EndDATE.Month, EndDATE.Day, EndDATE.Hour, EndDATE.Minute, EndDATE.Second, EndDATE.Millisecond);
+                //int y, m, d;
+                //y = x.Year;
+                //m = x.Month;
+                //d = x.Day;
+
+                list = list.Where(p => p.DataReservation.ReservationDateTime.Year <= EndDATE.Year
+                                            && p.DataReservation.ReservationDateTime.Month <= EndDATE.Month
+                                                    && p.DataReservation.ReservationDateTime.Day <= EndDATE.Day).ToList();
+            }
+
+            List<string> EmployeeID = _context.reservaitionOrderRepository.GetAllEmployeeID();
+            ViewBag.EmployeeList = _context.userRepository.GetEmployeeForShowTodayReservation(EmployeeID);
+
+            ViewBag.StartDate = StartDate;
+            ViewBag.EndDate = EndDate;
+
+            return View(list);
         }
         #endregion
     }

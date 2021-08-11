@@ -59,61 +59,119 @@
 
                 <div class="row">
                 </div>
-                <div class="col-md-12">
+                @if (ViewBag.Delete == true)
+                {
 
-                    <div class="card card-primary">
-                        @if (ViewBag.Alert == true)
-                        {
-                            <div class="card-header">
-                                <h3 class="card-title">   لطفا دقت بفرمایید در این ساعت کاربری درخواست رزرو داده است   </h3>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="card-header">
-                                <h3 class="card-title">  ویرایش ساعت  </h3>
-                            </div>
-                        }
+                    <div class="col-md-12">
 
-                        <div class="form-horizontal ">
-                            <div class="row">
-                                <div class="card-body row">
-                                    <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">   ساعت شروع        </label>
-                                            <input type="text" class="form-control" asp-for="StartHourReservation" placeholder="ساعت شروع را وارد کنید">
+                        <div class="card card-danger">
+                            @if (ViewBag.Alert == true)
+                            {
+                                <div class="card-header">
+                                    <h3 class="card-title">   لطفا دقت بفرمایید در این ساعت کاربری درخواست رزرو داده است   </h3>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="card-header">
+                                    <h3 class="card-title">  حذف ساعت  </h3>
+                                </div>
+                            }
+
+
+                            <div class="form-horizontal ">
+                                <div class="row">
+                                    <div class="card-body row">
+                                        <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">   ساعت شروع        </label>
+                                                <input type="text" class="form-control" asp-for="StartHourReservation" placeholder="ساعت شروع را وارد کنید">
+                                            </div>
+
                                         </div>
 
                                     </div>
+                                    <div class="card-body row">
+                                        <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">   ساعت پایان         </label>
+                                                <input type="text" class="form-control" asp-for="EndHourReservation" placeholder="ساعت پایان را وارد کنید">
+                                            </div>
 
-                                </div>
-                                <div class="card-body row">
-                                    <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">   ساعت پایان         </label>
-                                            <input type="text" class="form-control" asp-for="EndHourReservation" placeholder="ساعت پایان را وارد کنید">
                                         </div>
 
                                     </div>
-
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                @if (ViewBag.Delete != null)
-                                {
-                                    <a class="btn btn-danger" href="/Admin/ReservationOrder/DeleteHourReservation?id=@Model.HourReservationID">
-                                        حذف
-                                    </a>
-                                }
-                                else
-                                {
-                                    <button type="submit" class="btn btn-success">ثبت </button>
-                                }
-                                <a href="/Admin/ReservationOrder/ListOfDateReservation/@Model.DataReservationID" class="btn btn-primary">بازگشت </a>
+                                <div class="card-footer">
+                                    @if (ViewBag.Delete != null)
+                                    {
+                                        <a class="btn btn-danger" href="/Admin/ReservationOrder/DeleteHourReservation?id=@Model.HourReservationID">
+                                            حذف
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-success">ثبت </button>
+                                    }
+                                    <a href="/Admin/ReservationOrder/ListOfDateReservation/@Model.DataReservationID" class="btn btn-primary">بازگشت </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                }
+                else
+                {
+                    <div class="col-md-12">
+
+                        <div class="card card-primary">
+
+
+                            <div class="card-header">
+                                <h3 class="card-title">  ویرایش ساعت  </h3>
+                            </div>
+
+                            <div class="form-horizontal ">
+                                <div class="row">
+                                    <div class="card-body row">
+                                        <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">   ساعت شروع        </label>
+                                                <input type="text" class="form-control" asp-for="StartHourReservation" placeholder="ساعت شروع را وارد کنید">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body row">
+                                        <div class="card-body col-md-6" style="margin-bottom:0px; margin-top:0px;">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">   ساعت پایان         </label>
+                                                <input type="text" class="form-control" asp-for="EndHourReservation" placeholder="ساعت پایان را وارد کنید">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    @if (ViewBag.Delete != null)
+                                    {
+                                        <a class="btn btn-danger" href="/Admin/ReservationOrder/DeleteHourReservation?id=@Model.HourReservationID">
+                                            حذف
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-success">ثبت </button>
+                                    }
+                                    <a href="/Admin/ReservationOrder/ListOfDateReservation/@Model.DataReservationID" class="btn btn-primary">بازگشت </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
 
             </form>
         </div>
