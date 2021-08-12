@@ -111,5 +111,19 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 return date;
             }
         }
+
+        public bool IsExistSpicialDateReservation(string EmployeeID, DateTime datetime)
+        {
+            List<DataReservation> List = GetAll(p => p.EmployeeID == EmployeeID
+                                                && p.ReservationDateTime.Year == datetime.Year
+                                                && p.ReservationDateTime.Month == datetime.Month
+                                                && p.ReservationDateTime.Day == datetime.Day).ToList();
+            if (List.Count() == 0 )
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

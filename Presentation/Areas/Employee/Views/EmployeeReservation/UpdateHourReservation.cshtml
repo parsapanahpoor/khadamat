@@ -45,9 +45,30 @@
                         </div>
                         <!-- /.card -->
                     </div>
-
                 }
+                @if (ViewBag.ErrorHour != null)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-danger-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title"> خطا </h3>
 
+                                <div class="card-tools">
+                                    <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                در این بازه ی زمانی تایم کاری ثبت شده است 
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                }
 
                 <input type="hidden" asp-for="DataReservationID" />
                 <input type="hidden" asp-for="HourReservationID" />
@@ -92,13 +113,13 @@
                             <div class="card-footer">
                                 @if (ViewBag.Delete != null)
                                 {
-                                    <a  class="btn btn-danger" href="/Employee/EmployeeReservation/DeleteHourReservation?id=@Model.HourReservationID">
+                                    <a class="btn btn-danger" href="/Employee/EmployeeReservation/DeleteHourReservation?id=@Model.HourReservationID">
                                         حذف
                                     </a>
                                 }
                                 else
                                 {
-                                <button type="submit" class="btn btn-success">ثبت </button>
+                                    <button type="submit" class="btn btn-success">ثبت </button>
                                 }
                                 <a href="/Employee/EmployeeReservation/ListOfDateReservation/@Model.DataReservationID" class="btn btn-primary">بازگشت </a>
                             </div>

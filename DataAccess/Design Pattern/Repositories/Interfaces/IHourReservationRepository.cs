@@ -24,6 +24,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         List<HourReservation> GetJustTodayEmployeeHourReservationByEmployeeId(string EmployeeID);
         bool ISEmployeeHaveHObTightNow(List<HourReservation> List);
         HourReservation AddHourReservationWhileOnlineProccess(string employID , int DateID);
-
+        bool IsExistSpecialHour(string EmployeeID , int Datetime , string StartHour, string EndHour);
+        bool IsExistHourReservation2HourBefore(List<HourReservation> List);
     }
 }

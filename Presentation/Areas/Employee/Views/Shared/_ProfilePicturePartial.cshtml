@@ -20,8 +20,6 @@
     }
 
     int UserStatusID = _UserService.userRepository.GetUserOnlineStatus(User.Identity.Name , Job);
-
-
 }
 
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -30,7 +28,6 @@
     </div>
     <div class="info">
         <a href="#" style="margin-top:20px;" class="d-block">@user.UserName</a>
-
         @if (UserStatusID == 1)
         {
             <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=2&&username=@User.Identity.Name">
@@ -46,7 +43,5 @@
             <a href="/Employee/EmployeeReservation/ChangeStatusByIconInPartial?id=2&&username=@User.Identity.Name">
                 <span class="right badge badge-primary"> درحال کار  </span>
             </a>}
-
-
     </div>
 </div>

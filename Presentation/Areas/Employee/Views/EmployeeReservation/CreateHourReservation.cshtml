@@ -23,7 +23,7 @@
     <section class="content">
         <div class="container-fluid">
             <form asp-action="CreateHourReservation" asp-controller="EmployeeReservation" asp-area="Employee" method="post" enctype="multipart/form-data">
-                @if (ViewBag.Error !=  null)
+                @if (ViewBag.Error != null)
                 {
                     <div class="col-md-12">
                         <div class="card bg-danger-gradient">
@@ -47,7 +47,30 @@
                     </div>
 
                 }
+                @if (ViewBag.ErrorHour != null)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-danger-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title"> خطا </h3>
 
+                                <div class="card-tools">
+                                    <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                در این بازه ی زمانی تایم کاری درج شده است 
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+
+                }
                 <input type="hidden" asp-for="DataReservationID" value="@ViewBag.Date" />
                 <div class="row">
                 </div>

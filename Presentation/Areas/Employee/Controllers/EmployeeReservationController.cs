@@ -42,21 +42,20 @@ namespace Presentation.Areas.Employee.Controllers
             if (_context.hourReservationRepository.ISEmployeeHaveHObTightNow(DateReservation))
             {
                 user.EmployeeStatusID = 3;
+            } 
+            if (_context.hourReservationRepository.IsExistHourReservation2HourBefore(DateReservation))
+            {
+                user.EmployeeStatusID = 1;
             }
             else
             {
                 if (id == 1)
                 {
                     user.EmployeeStatusID = 1;
-
                 }
                 if (id == 2)
                 {
                     user.EmployeeStatusID = 2;
-                }
-                if (id == 3)
-                {
-                    user.EmployeeStatusID = 3;
                 }
             }
             var result = await _userManager.UpdateAsync(user);
@@ -65,6 +64,10 @@ namespace Presentation.Areas.Employee.Controllers
             if (_context.hourReservationRepository.ISEmployeeHaveHObTightNow(DateReservation))
             {
                 return Redirect("/Employee/Home/Index?Status=3");
+            }
+            if (_context.hourReservationRepository.IsExistHourReservation2HourBefore(DateReservation))
+            {
+                return Redirect("/Employee/Home/Index?Status=1");
             }
             else
             {
@@ -76,10 +79,6 @@ namespace Presentation.Areas.Employee.Controllers
                 {
                     return Redirect("/Employee/Home/Index?Status=2");
                 }
-                if (id == 3)
-                {
-                    return Redirect("/Employee/Home/Index?Status=3");
-                }
             }
 
             return View();
@@ -89,7 +88,7 @@ namespace Presentation.Areas.Employee.Controllers
 
 
         public async Task<IActionResult> ListOfEmployeeDateReservations(bool Create = false, bool Edit = false, bool Delete = false
-                            , bool ErrorDelete = false, bool ErrorEdit = false)
+                            , bool ErrorDelete = false, bool ErrorEdit = false, bool ErrorDate = false)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var model = _context.dataReservationRepository.GetListOfEmployeeDataReservation(user.Id);
@@ -113,6 +112,10 @@ namespace Presentation.Areas.Employee.Controllers
             if (ErrorEdit == true)
             {
                 ViewBag.ErrorEdit = true;
+            }
+            if (ErrorDate == true)
+            {
+                ViewBag.ErrorDate = true;
             }
 
             return View(model);
@@ -150,11 +153,15 @@ namespace Presentation.Areas.Employee.Controllers
 
                 DateTime DateTime = eDateTime;
 
+                if (_context.dataReservationRepository.IsExistSpicialDateReservation(user.Id, DateTime))
+                {
+                    return Redirect("/Employee/EmployeeReservation/ListOfEmployeeDateReservations?ErrorDate=true");
+                }
+
                 _context.dataReservationRepository.AddDataReservationFromEmployeePanel(DateTime, user.Id);
                 _context.SaveChangesDB();
 
                 return Redirect("/Employee/EmployeeReservation/ListOfEmployeeDateReservations?Create=true");
-
             }
 
             return View();
@@ -307,16 +314,25 @@ namespace Presentation.Areas.Employee.Controllers
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 bool result = _context.hourReservationRepository.AddHourReservationFromEmployeePanel(addHourReservation, user.Id);
 
-                if (result == true)
+                if (_context.hourReservationRepository.IsExistSpecialHour(user.Id, addHourReservation.DataReservationID, addHourReservation.StartHour, addHourReservation.EndHour))
                 {
-                    _context.SaveChangesDB();
-                    return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + addHourReservation.DataReservationID + "&&Create=true");
-                }
-                if (result == false)
-                {
-                    ViewBag.Error = true;
+                    ViewBag.ErrorHour = true;
                     ViewBag.Date = addHourReservation.DataReservationID;
                     return View(addHourReservation);
+                }
+                else
+                {
+                    if (result == true)
+                    {
+                        _context.SaveChangesDB();
+                        return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + addHourReservation.DataReservationID + "&&Create=true");
+                    }
+                    if (result == false)
+                    {
+                        ViewBag.Error = true;
+                        ViewBag.Date = addHourReservation.DataReservationID;
+                        return View(addHourReservation);
+                    }
                 }
             }
 
@@ -355,19 +371,26 @@ namespace Presentation.Areas.Employee.Controllers
             if (ModelState.IsValid)
             {
                 bool result = _context.hourReservationRepository.UpdateHourReservationFromEmployee(hourReservation);
-                if (result == true)
+                if (_context.hourReservationRepository.IsExistSpecialHour(hourReservation.EmployeeID, hourReservation.DataReservationID, hourReservation.StartHourReservation, hourReservation.EndHourReservation))
                 {
-                    _context.SaveChangesDB();
-                    return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + hourReservation.DataReservationID + "&&Edit=true");
-
-                }
-                if (result == false)
-                {
-                    ViewBag.Error = true;
+                    ViewBag.ErrorHour = true;
                     return View(hourReservation);
                 }
-            }
+                else
+                {
+                    if (result == true)
+                    {
+                        _context.SaveChangesDB();
+                        return Redirect("/Employee/EmployeeReservation/ListOfDateReservation?id=" + hourReservation.DataReservationID + "&&Edit=true");
 
+                    }
+                    if (result == false)
+                    {
+                        ViewBag.Error = true;
+                        return View(hourReservation);
+                    }
+                }
+            }
             return View(hourReservation);
         }
         public IActionResult DeleteHourReservation(int? id)

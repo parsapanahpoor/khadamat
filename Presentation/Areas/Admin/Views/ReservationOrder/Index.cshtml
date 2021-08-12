@@ -128,6 +128,8 @@
                                         <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     خدمات دهنده  </th>
                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام  خدمت رسان   </th>
                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل خدمت رسان   </th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">شروع    </th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">پایان    </th>
 
                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"></th>
 
@@ -168,12 +170,37 @@
                                         <td>
                                             @EmployeeInfo.PhoneNumber
                                         </td>
-
+                                        @if (item.UserReservationStatus == 1)
+                                        {
+                                            <td>
+                                                <div class="badge badge-warning">
+                                                    @item.HourReservation.StartHourReservation
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="badge badge-warning">
+                                                    نامشخص
+                                                </div>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <div class="badge badge-warning">
+                                                    @item.HourReservation.StartHourReservation
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="badge badge-warning">
+                                                    @item.HourReservation.EndHourReservation
+                                                </div>
+                                            </td>
+                                        }
                                         <td>
 
                                             <a class="btn btn-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?id=@item.ReservationOrderID&&Index=True">
                                                 <i class="glyphicon glyphicon-edit"></i>
-                                                 برسی جزییات  
+                                                برسی جزییات
                                             </a>
 
 

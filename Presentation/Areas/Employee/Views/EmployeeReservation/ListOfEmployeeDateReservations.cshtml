@@ -166,11 +166,33 @@
             var delay = 5000;
             setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
     }
+    @if (ViewBag.ErrorDate == true)
+    {
+        <div class="col-md-12">
+            <div class="card bg-warning">
+                <div class="card-header">
+                    <h3 class="card-title"> افزودن ناموفق  </h3>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    شما از قبل روزی را با این تاریخ در سیستم درج کرده اید 
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <script>
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+    }
 
 
 
-    <!-- Content Header (Page header) -->
-    <!-- Main content -->
+ 
     <section class="content">
         <div class="row">
             <div class="col-12">
