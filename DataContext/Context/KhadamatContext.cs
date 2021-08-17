@@ -54,9 +54,10 @@ namespace DataContext.Context
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
 
             modelBuilder.Entity<User>()
-           .HasQueryFilter(u => !u.IsDelete);
+                 .HasQueryFilter(u => !u.IsDelete);
 
-
+            modelBuilder.Entity<ReservationOrder>()
+                .HasQueryFilter(u => !u.IsDelete);
 
             modelBuilder.Entity<EmployeeDocuments>()
              .HasOne(a => a.User)

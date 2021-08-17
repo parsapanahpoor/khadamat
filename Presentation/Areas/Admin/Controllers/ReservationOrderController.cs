@@ -294,8 +294,10 @@ namespace Presentation.Areas.Admin.Controllers
             }
             if (hour.ReservationStatusID == 2)
             {
-                _context.hourReservationRepository.DeleteHourReservationFromEmployeePanel(hour);
+                ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderByHourReservationID(hour.HourReservationID);
+                _context.reservaitionOrderRepository.DeleteReservationOrder(reservation);
 
+                _context.hourReservationRepository.DeleteHourReservationFromEmployeePanel(hour);
             }
             if (hour.ReservationStatusID == 1)
             {
@@ -303,7 +305,6 @@ namespace Presentation.Areas.Admin.Controllers
 
                 _context.reservaitionOrderRepository.DeleteReservationOrder(reservation);
                 _context.hourReservationRepository.DeleteHourReservationFromEmployeePanel(hour);
-
             }
             _context.SaveChangesDB();
 
@@ -372,6 +373,7 @@ namespace Presentation.Areas.Admin.Controllers
                 return Redirect("/Admin/ReservationOrder/HistoryOfReservationOrder?id=" + reservation.UserID + "&&Delete=True");
 
             }
+
             return Redirect("/Admin/ReservationOrder/ListOfDateReservation?id=" + hour.DataReservationID + "&&Delete=true");
         }
         #endregion

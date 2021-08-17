@@ -1,0 +1,77 @@
+﻿@model Models.Entities.EmployeeReservation.ReservationOrder
+
+@{
+    ViewData["Title"] = "لغو درخواست ";
+    Layout = "~/Areas/Users/Views/Shared/_TestLayout.cshtml";
+}
+
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> لغو درخواست </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Users">خانه</a></li>
+                        <li class="breadcrumb-item active">لغو درخواست </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <form asp-action="DeleteReservationOrder" asp-controller="ReservationOrder" asp-area="Users" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="ReservationOrderID"/>
+                <input type="hidden" asp-for="UserReservationStatus"/>
+                <input type="hidden" asp-for="EmployeeID"/>
+                <input type="hidden" asp-for="UserID"/>
+                <input type="hidden" asp-for="JobCategoryID"/>
+                <input type="hidden" asp-for="LocationID"/>
+                <input type="hidden" asp-for="DateTimeReservation"/>
+                <input type="hidden" asp-for="Description"/>
+                <input type="hidden" asp-for="DateReservationID"/>
+                <input type="hidden" asp-for="HoureReservationID"/>
+                <input type="hidden" asp-for="IsDelete"/>
+                <input type="hidden" asp-for="IsEnd"/>
+
+                <div class="row">
+                </div>
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">  لغو درخواست  </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <div class="form-horizontal">
+                            <div class="card-body row">
+                                <div class="card-body col-md-10">
+                                    <div class="form-group">
+                                       آیا از تصمیم خود برای لغو درخواست مطمئن هستید ؟
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-danger">حذف </button>
+                                    <a href="/Users/ReservationOrder/NextReservations" class="btn btn-primary">بازگشت </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</div>
+
+
+

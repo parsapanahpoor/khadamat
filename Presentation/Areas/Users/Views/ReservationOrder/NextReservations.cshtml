@@ -29,6 +29,33 @@ section Styls
             </div>
         </div>
     </section>
+    @if (ViewBag.Delete == true)
+    {
+        <div class="col-md-12">
+            <div class="card bg-danger-gradient">
+                <div class="card-header">
+                    <h3 class="card-title"> حذف با موفقیت </h3>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    حذف   با موفقیت انجام شده است
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <script>
+            // Your delay in milliseconds
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+    }
 
     <section class="content">
         <div class="row">
@@ -38,7 +65,7 @@ section Styls
                 <div class="card ">
                     <div class="card-header">
                         <div class="card-tools">
-                         
+
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -49,13 +76,13 @@ section Styls
                                     <thead>
                                         <tr role="row">
 
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     وضعیت   </th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     وضعیت   </th>
 
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">تاریخ خدمت  </th>
 
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-label="وضعیت: activate to sort column ascending">تاریخ ثبت </th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-label="وضعیت: activate to sort column ascending"> خدمت  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending">تاریخ ثبت </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"> خدمت  </th>
 
                                         </tr>
                                     </thead>
@@ -63,43 +90,46 @@ section Styls
 
                                         @foreach (var item in Model)
                                         {
-                                        <tr role="row" class="odd">
+                                            <tr role="row" class="odd">
 
-                                            <td>
+                                                <td>
 
-                                                @if (item.UserReservationStatus == 1)
+                                                    @if (item.UserReservationStatus == 1)
+                                                    {
+                                                        <div class="btn btn-success">Online</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="btn btn-primary">Reservation</div>
+                                                    }
+
+
+                                                </td>
+
+                                                @if (item.DateReservationID != null)
                                                 {
-                                                    <div class="btn btn-success">Online</div>
+                                                    <td>@item.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")</td>
                                                 }
-                                                else
+                                                @if (item.DateReservationID == null)
                                                 {
-                                                    <div class="btn btn-primary">Reservation</div>
+                                                    <td>@item.DateTimeReservation.ToString("dddd dd/ MMMM MM/ yyyy")</td>
                                                 }
-
-
-                                            </td>
-
-                                            @if (item.DateReservationID != null)
-                                            {
-                                                <td>@item.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")</td>
-                                            }
-                                            @if (item.DateReservationID == null)
-                                            {
                                                 <td>@item.DateTimeReservation.ToString("dddd dd/ MMMM MM/ yyyy")</td>
-                                            }
-                                            <td>@item.DateTimeReservation.ToString("dddd dd/ MMMM MM/ yyyy")</td>
-                                            <td>@item.JobCategory.CategoryTitle</td>
+                                                <td>@item.JobCategory.CategoryTitle</td>
 
 
-                                            <td>
+                                                <td>
 
-                                                <a class="btn btn-outline-primary btn-sm waves-effect" href="/Users/ReservationOrder/OrderReservationInfo/@item.ReservationOrderID"
-                                                   >
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                    جزییات
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                    <a class="btn btn-outline-primary btn-sm waves-effect" href="/Users/ReservationOrder/OrderReservationInfo/@item.ReservationOrderID">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        جزییات
+                                                    </a>
+                                                    <a class="btn btn-outline-danger btn-sm waves-effect" href="/Users/ReservationOrder/DeleteReservationOrder?ReservationOrderId=@item.ReservationOrderID">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        لغو درخواست
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
 

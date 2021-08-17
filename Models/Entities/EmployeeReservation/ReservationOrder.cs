@@ -43,6 +43,11 @@ namespace Models.Entities.EmployeeReservation
 
         public string Description { get; set; }
 
+        public bool IsDelete { get; set; }
+
+        public bool IsEnd { get; set; }
+
+
         #region Navigation Property
 
         public UserReserveStatus UserReserveStatus { get; set; }

@@ -87,11 +87,21 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                                 .FirstOrDefault(p => p.HoureReservationID == id);
         }
 
+        public ReservationOrder GetReservationOrderByHourReservationID(int HourID)
+        {
+            return GetAll(p => p.HoureReservationID == HourID).First();
+        }
+
         public ReservationOrder GetReservationOrderById(int id)
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,Location")
                                 .FirstOrDefault(p => p.ReservationOrderID == id);
 
+        }
+
+        public List<ReservationOrder> GetTodayDeletedReservationOrder()
+        {
+            return GetAll().ToList();
         }
 
         public List<ReservationOrder> GetTodayEmployeeReservationOrder(string EmployeeID)
@@ -160,6 +170,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
             return ReservationList.ToList();
 
+        }
+
+        public void UpdateReservationOrder(ReservationOrder reservation)
+        {
+            Update(reservation);
         }
     }
 }
