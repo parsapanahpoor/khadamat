@@ -1,1 +1,75 @@
-﻿
+﻿@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+@using Microsoft.AspNetCore.Identity;
+
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@inject IUnitOfWork _context
+
+@{
+
+    List<Models.Entities.EmployeeReservation.ReservationOrder> reservations = _context.reservaitionOrderRepository
+                                                                                .GetTodayDeletedReservationOrder();
+
+    List<string> EmployeeID = _context.reservaitionOrderRepository.GetAllEmployeeIDHaveDeletedReservationToday();
+    List<Models.Entities.User.User> EmployeeList = _context.userRepository.GetEmployeeForShowTodayReservation(EmployeeID);
+
+}
+
+@if (reservations.Count > 0)
+{
+    <div class="card col-md-12">
+        <div class="card-header border-transparent">
+            <h3 class="card-title"> رویداد های لغو شده ی امروز  </h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th> مشتری </th>
+                            <th> نام مشتری  </th>
+                            <th> موبایل مشتری  </th>
+                            <th>خدمت رسان </th>
+                            <th> نام خدمت رسان </th>
+                            <th>موبایل خدمت رسان  </th>
+                            <th>  دسته بندی فعالیت   </th>
+                            <th>  تاریخ خدمت    </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in reservations)
+                        {
+                            Models.Entities.User.User EmployeeInfo = EmployeeList.Where(p => p.Id == item.EmployeeID).First();
+
+                            <tr>
+                                <td >
+                                    <img  style="width:50px;height:50px;" src="/Images/UserAvatar/@item.User.UserAvatar" alt="message user image">
+                                </td>
+                                <td><span class="badge badge-primary">@item.User.UserName</span></td>
+                                <td><span class="badge badge-primary">@item.User.PhoneNumber</span></td>
+                                <td >
+                                    <img  style="width:50px;height:50px;" src="/Images/UserAvatar/@EmployeeInfo.UserAvatar" alt="message user image">
+                                </td>
+                                <td><span class="badge badge-warning">@EmployeeInfo.UserName</span></td>
+                                <td><span class="badge badge-warning">@EmployeeInfo.PhoneNumber</span></td>
+
+                                <td><span class="badge badge-primary">@item.JobCategory.CategoryTitle</span></td>
+                                <td><span class="badge badge-danger">@item.DataReservation.ReservationDateTime.ToString("yyyy/MM/dd")</span></td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+ 
+    </div>
+
+}
+
+

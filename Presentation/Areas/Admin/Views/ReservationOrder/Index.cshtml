@@ -4,9 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{ 
-
     List<Models.Entities.User.User> EmployeeList = ViewBag.EmployeeList as List<Models.Entities.User.User>;
-
 }
 
 @section Styls
@@ -62,165 +60,182 @@
             setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
     }
 
-<section class="content">
-    <div class="row">
-        <div class="col-12 col-sm-6 col-md-4">
-            <a href="/Admin/ReservationOrder/ListOfEmployeeForReservationProccess">
-                <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fa fa-users"></i></span>
+    <section class="content">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="/Admin/ReservationOrder/ListOfEmployeeForReservationProccess">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fa fa-users"></i></span>
 
-                    <div class="info-box-content">
-                        <span class="info-box-text">لیست خدمت رسان ها  </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-            </a>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-12 col-sm-6 col-md-4">
-            <a href="/Admin/ReservationOrder/ListOfUsers">
-                <div class="info-box">
-                    <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-users"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">لیست مشتری ها  </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-            <a href="/Admin/ReservationOrder/HistoryOfReservationOrder">
-                <div class="info-box">
-                    <span class="info-box-icon bg-primary elevation-1"><i class="fa fa-users"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text"> تاریخچه ی خدمات     </span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    
-    </div>
-    <div class="row">
-        <div class="col-12">
-
-
-            <div class="card ">
-                <div class="card-header">
-                    <div class="card-tools">
-                        <div class="btn btn-sm btn-info ">
-                            لیست خدمات امروز
+                        <div class="info-box-content">
+                            <span class="info-box-text">لیست خدمت رسان ها  </span>
                         </div>
+                        <!-- /.info-box-content -->
                     </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                        <div class="col-sm-12">
-                            <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
-                                <thead>
-                                    <tr role="row">
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-label="عکس  : activate to sort column ascending">مشتری   </th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام مشتری  </th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل مشتری  </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     خدمات دهنده  </th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام  خدمت رسان   </th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل خدمت رسان   </th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">شروع    </th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">پایان    </th>
-
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"></th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach (var item in Model)
-                                    {
-             
-                                        Models.Entities.User.User EmployeeInfo = EmployeeList.Where(p => p.Id == item.EmployeeID).First();
-
-                                    <tr role="row" class="odd">
-                                        <td class="sorting_1">
-                                            <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.User.UserAvatar" alt="message user image">
-                                        </td>
-
-                                        <td>
-                                            <div class="badge badge-primary">
-                                                @item.User.UserName
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            @item.User.PhoneNumber
-                                        </td>
-
-                                        <td class="sorting_1">
-                                            <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@EmployeeInfo.UserAvatar" alt="message user image">
-                                        </td>
-
-                                        <td>
-                                            <div class="badge badge-warning">
-                                                @EmployeeInfo.UserName
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            @EmployeeInfo.PhoneNumber
-                                        </td>
-                                        @if (item.UserReservationStatus == 1)
-                                        {
-                                            <td>
-                                                <div class="badge badge-warning">
-                                                    @item.HourReservation.StartHourReservation
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="badge badge-warning">
-                                                    نامشخص
-                                                </div>
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                <div class="badge badge-warning">
-                                                    @item.HourReservation.StartHourReservation
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="badge badge-warning">
-                                                    @item.HourReservation.EndHourReservation
-                                                </div>
-                                            </td>
-                                        }
-                                        <td>
-
-                                            <a class="btn btn-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?id=@item.ReservationOrderID&&Index=True">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                                برسی جزییات
-                                            </a>
-
-
-                                        </td>
-                                    </tr>
-                                    }
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.card-body -->
+                </a>
+                <!-- /.info-box -->
             </div>
-            <!-- /.card -->
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="/Admin/ReservationOrder/ListOfUsers">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-users"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">لیست مشتری ها  </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="/Admin/ReservationOrder/HistoryOfReservationOrder">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-primary elevation-1"><i class="fa fa-users"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text"> تاریخچه ی خدمات     </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="/Admin/ReservationOrder/HistoryOfDeletedReservationOrder">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-users"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text"> تاریخچه ی خدمات لغو شده      </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
-        <!-- /.col -->
-    </div>
-    <!-- /.row -->
-</section> <!-- /.content -->
+        <div class="row">
+            <div class="col-12">
+
+
+                <div class="card ">
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <div class="btn btn-sm btn-info ">
+                                لیست خدمات امروز
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="col-sm-12">
+                                <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-label="عکس  : activate to sort column ascending">مشتری   </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام مشتری  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل مشتری  </th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10px;" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     خدمات دهنده  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">نام  خدمت رسان   </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">موبایل خدمت رسان   </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">شروع    </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">پایان    </th>
+
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+
+                                            Models.Entities.User.User EmployeeInfo = EmployeeList.Where(p => p.Id == item.EmployeeID).First();
+
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">
+                                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@item.User.UserAvatar" alt="message user image">
+                                                </td>
+
+                                                <td>
+                                                    <div class="badge badge-primary">
+                                                        @item.User.UserName
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    @item.User.PhoneNumber
+                                                </td>
+
+                                                <td class="sorting_1">
+                                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/UserAvatar/@EmployeeInfo.UserAvatar" alt="message user image">
+                                                </td>
+
+                                                <td>
+                                                    <div class="badge badge-warning">
+                                                        @EmployeeInfo.UserName
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    @EmployeeInfo.PhoneNumber
+                                                </td>
+                                                @if (item.UserReservationStatus == 1)
+                                                {
+                                                    <td>
+                                                        <div class="badge badge-warning">
+                                                            @item.HourReservation.StartHourReservation
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="badge badge-warning">
+                                                            نامشخص
+                                                        </div>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        <div class="badge badge-warning">
+                                                            @item.HourReservation.StartHourReservation
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="badge badge-warning">
+                                                            @item.HourReservation.EndHourReservation
+                                                        </div>
+                                                    </td>
+                                                }
+                                                <td>
+
+                                                    <a class="btn btn-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?id=@item.ReservationOrderID&&Index=True">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                        برسی جزییات
+                                                    </a>
+
+
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section> <!-- /.content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <partial name="_ShowTodayDeletedOrderReservations" />
+            </div>
+        </div>
+    </section>
 </div>
 
 

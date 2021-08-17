@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Design_Pattern.GenericRepositories
 {
-    public  interface IGernericRepository<TEntity> where TEntity : class
+    public interface IGernericRepository<TEntity> where TEntity : class
     {
         void Add(TEntity entity);
         void Update(TEntity entity);
@@ -22,9 +22,14 @@ namespace DataAccess.Design_Pattern.GenericRepositories
                   Expression<Func<TEntity, bool>> filter = null,
                   Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
                   string includeProperties = null
-                  ); TEntity Get(Expression<Func<TEntity, bool>> where);
+                  );
+        TEntity Get(Expression<Func<TEntity, bool>> where);
 
-
+        IEnumerable<TEntity> GetAllIgnorQueryFilter(
+                        Expression<Func<TEntity, bool>> filter = null,
+                        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                        string includeProperties = null
+                        );
 
         TEntity GetFirstOrDefault(
                Expression<Func<TEntity, bool>> filter = null,

@@ -451,6 +451,15 @@ namespace Presentation.Areas.Admin.Controllers
 
             return View(list);
         }
+        public IActionResult HistoryOfDeletedReservationOrder()
+        {
+            List<ReservationOrder> ReservationOrders = _context.reservaitionOrderRepository.GetAllDeletedReservationOrder();
+
+            List<string> EmployeeID = _context.reservaitionOrderRepository.GetAllEmployeeID();
+            ViewBag.EmployeeList = _context.userRepository.GetEmployeeForShowTodayReservation(EmployeeID);
+
+            return View(ReservationOrders);
+        }
         #endregion
     }
 }

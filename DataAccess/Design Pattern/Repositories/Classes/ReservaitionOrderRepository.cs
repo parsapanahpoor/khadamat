@@ -58,7 +58,16 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                                                      .Where(p => p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
                                                                 && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
                                                                  && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day)
-                                                                        .Select(p=>p.EmployeeID).ToList();
+                                                                        .Select(p => p.EmployeeID).ToList();
+        }
+        public List<string> GetAllEmployeeIDHaveDeletedReservationToday()
+        {
+            return GetAllIgnorQueryFilter(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                                                     .Where(p => p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
+                                                                && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
+                                                                && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day
+                                                                && p.IsDelete == true)
+                                                                .Select(p => p.EmployeeID).ToList();
         }
 
         public List<ReservationOrder> GetAllReservationOrder()
@@ -66,11 +75,15 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
                                                                 .ToList();
         }
-
+        public List<ReservationOrder> GetAllDeletedReservationOrder()
+        {
+            return GetAllIgnorQueryFilter(includeProperties: "User,DataReservation,HourReservation,JobCategory")
+                                                    .Where(p=>p.IsDelete == true).ToList();
+        }
         public List<ReservationOrder> GetAllTodayReservationOrder()
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
-                                          .Where(p =>  p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
+                                          .Where(p => p.DataReservation.ReservationDateTime.Year == DateTime.Now.Year
                                                      && p.DataReservation.ReservationDateTime.Month == DateTime.Now.Month
                                                       && p.DataReservation.ReservationDateTime.Day == DateTime.Now.Day).ToList();
         }
@@ -101,7 +114,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         public List<ReservationOrder> GetTodayDeletedReservationOrder()
         {
-            return GetAll().ToList();
+            return GetAllIgnorQueryFilter(includeProperties: "User,DataReservation,JobCategory")
+                                        .Where(p => p.DateTimeReservation.Year == DateTime.Now.Year
+                                               && p.DateTimeReservation.Month == DateTime.Now.Month
+                                               && p.DateTimeReservation.Day == DateTime.Now.Day
+                                               && p.IsDelete == true).ToList();
         }
 
         public List<ReservationOrder> GetTodayEmployeeReservationOrder(string EmployeeID)

@@ -111,5 +111,28 @@ namespace DataAccess.Design_Pattern.GenericRepositories
         {
             return dbSet.FirstOrDefault(where);
         }
+
+        public IEnumerable<TEntity> GetAllIgnorQueryFilter(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = null)
+        {
+            IQueryable<TEntity> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties != null)
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            return query.IgnoreQueryFilters().ToList();
+        }
     }
 }
