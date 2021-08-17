@@ -121,6 +121,15 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                                                && p.IsDelete == true).ToList();
         }
 
+        public List<ReservationOrder> GetTodayEmployeeDeletedReservationOrder(string EmployeeID)
+        {
+            return GetAllIgnorQueryFilter(includeProperties: "User,DataReservation,JobCategory")
+                                        .Where(p => p.DateTimeReservation.Year == DateTime.Now.Year
+                                               && p.DateTimeReservation.Month == DateTime.Now.Month
+                                               && p.DateTimeReservation.Day == DateTime.Now.Day
+                                               && p.IsDelete == true
+                                               && p.EmployeeID == EmployeeID).ToList();
+        }
         public List<ReservationOrder> GetTodayEmployeeReservationOrder(string EmployeeID)
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory")
@@ -192,6 +201,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         public void UpdateReservationOrder(ReservationOrder reservation)
         {
             Update(reservation);
+        }
+
+        public bool IsExistRservationOrderWithHourReservationID(int HourID)
+        {
+            return GetAll(p => p.HoureReservationID == HourID).Any();
         }
     }
 }

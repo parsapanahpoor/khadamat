@@ -15,78 +15,79 @@
                                                                                 .GetTodayEmployeeReservationOrder(EmployeeID.Id);
 }
 
+@if (reservations.Count() > 0)
+{
+    <div class="card col-md-6">
+        <div class="card-header border-transparent">
+            <h3 class="card-title"> مشتری  های امروز شما </h3>
 
-<div class="card col-md-6">
-    <div class="card-header border-transparent">
-        <h3 class="card-title"> مشتری  های امروز شما </h3>
-
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-widget="remove">
-                <i class="fa fa-times"></i>
-            </button>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-widget="remove">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>مشتری   </th>
-                        <th>نام مشتری    </th>
-                        <th>تلفن     </th>
-                        <th>ساعت شروع  </th>
-                        <th>ساعت پایان </th>
-                        <th> وضعیت  </th>
-                        <th> برسی جزییات  </th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>مشتری   </th>
+                            <th>نام مشتری    </th>
+                            <th>تلفن     </th>
+                            <th>ساعت شروع  </th>
+                            <th>ساعت پایان </th>
+                            <th> وضعیت  </th>
+                            <th> برسی جزییات  </th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                    @foreach (var item in reservations)
-                    {
-                    <tr>
-                        <td>
-                            <img src="/Images/UserAvatar/@item.User.UserAvatar" style="height:50px;width:50px;" class="img-circle elevation-2" alt="User Image">
-                        </td>
-                        <td>
-                            <div class="right badge badge-success">@item.User.UserName  </div>
-                        </td>
-                        <td>
-                            <div class="right badge badge-secondary">@item.User.PhoneNumber  </div>
-                        </td>
-                        <td>
-                            <div class="right badge badge-warning">@item.HourReservation.StartHourReservation  </div>
-                        </td>
-                        <td>
-                            <div class="right badge badge-warning">@item.HourReservation.EndHourReservation </div>
-                        </td>
-                        @if (item.UserReservationStatus == 1)
+                        @foreach (var item in reservations)
                         {
-                            <td>
-                                <div class="right badge badge-primary">آنلاین  </div>
-                            </td>
+                            <tr>
+                                <td>
+                                    <img src="/Images/UserAvatar/@item.User.UserAvatar" style="height:50px;width:50px;" class="img-circle elevation-2" alt="User Image">
+                                </td>
+                                <td>
+                                    <div class="right badge badge-success">@item.User.UserName  </div>
+                                </td>
+                                <td>
+                                    <div class="right badge badge-secondary">@item.User.PhoneNumber  </div>
+                                </td>
+                                <td>
+                                    <div class="right badge badge-warning">@item.HourReservation.StartHourReservation  </div>
+                                </td>
+                                <td>
+                                    <div class="right badge badge-warning">@item.HourReservation.EndHourReservation </div>
+                                </td>
+                                @if (item.UserReservationStatus == 1)
+                                {
+                                    <td>
+                                        <div class="right badge badge-primary">آنلاین  </div>
+                                    </td>
+                                }
+                                @if (item.UserReservationStatus == 2)
+                                {
+                                    <td>
+                                        <div class="right badge badge-primary">رزرو</div>
+                                    </td>
+                                }
+                                <td>
+                                    <a class="btn btn-outline-primary btn-sm" href="/Employee/EmployeeReservation/HoureReservationInfo/@item.HoureReservationID">جزییات    </a>
+                                </td>
+                            </tr>
                         }
-                        @if (item.UserReservationStatus == 2)
-                        {
-                            <td>
-                                <div class="right badge badge-primary">رزرو</div>
-                            </td>
-                        }
-                        <td>
-                            <a class="btn btn-outline-primary btn-sm" href="/Employee/EmployeeReservation/HoureReservationInfo/@item.HoureReservationID">جزییات    </a>
-                        </td>
-                    </tr>
-                    }
 
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
+     
     </div>
-    <div class="card-footer clearfix">
-        <a href="/Employee/EmployeeReservation/ListOfEmployeeDateReservations" >  </a>
-    </div>
-</div>
+
+}

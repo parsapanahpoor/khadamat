@@ -14,70 +14,71 @@
     List<Models.Entities.EmployeeReservation.HourReservation> reservations = _context.hourReservationRepository
                                                                                 .GetTodayEmployeeHoureReservation(EmployeeID.Id);
 }
+@if (reservations.Count() > 0)
+{
+    <div class="card col-md-6">
+        <div class="card-header border-transparent">
+            <h3 class="card-title"> رویداد های امروز شما </h3>
 
-<div class="card col-md-6">
-    <div class="card-header border-transparent">
-        <h3 class="card-title"> رویداد های امروز شما </h3>
-
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-widget="remove">
-                <i class="fa fa-times"></i>
-            </button>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-widget="remove">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>وضعیت </th>
-                        <th>ساعت شروع  </th>
-                        <th>ساعت پایان </th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>وضعیت </th>
+                            <th>ساعت شروع  </th>
+                            <th>ساعت پایان </th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                    @foreach (var item in reservations)
-                    {
-                    <tr>
-                        <td>
-
-                            @if (item.ReservationStatusID == 1)
-                            {
-                                <div class="right badge badge-success">رزرو شده </div>
-                            }
-                            @if (item.ReservationStatusID == 2)
-                            {
-                                <div class="right badge badge-danger">رزرو نشده  </div>
-                            }
-
-                        </td>
-
-                        <td><span class="badge badge-warning">@item.StartHourReservation</span></td>
-                        @if (item.EndHourReservationInt == 0)
+                        @foreach (var item in reservations)
                         {
-                            <td><span class="badge badge-dark">نامشخص</span></td>
-                        }
-                        else
-                        {
-                            <td><span class="badge badge-warning">@item.EndHourReservation</span></td>
+                            <tr>
+                                <td>
+
+                                    @if (item.ReservationStatusID == 1)
+                                    {
+                                        <div class="right badge badge-success">رزرو شده </div>
+                                    }
+                                    @if (item.ReservationStatusID == 2)
+                                    {
+                                        <div class="right badge badge-danger">رزرو نشده  </div>
+                                    }
+
+                                </td>
+
+                                <td><span class="badge badge-warning">@item.StartHourReservation</span></td>
+                                @if (item.EndHourReservationInt == 0)
+                                {
+                                    <td><span class="badge badge-dark">نامشخص</span></td>
+                                }
+                                else
+                                {
+                                    <td><span class="badge badge-warning">@item.EndHourReservation</span></td>
+                                }
+
+                            </tr>
                         }
 
-                    </tr>
-                            }
-                       
 
                     </tbody>
-            </table>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
         </div>
-        <!-- /.table-responsive -->
+        <!-- /.card-body -->
+      
+        <!-- /.card-footer -->
     </div>
-    <!-- /.card-body -->
-    <div class="card-footer clearfix">
-        <a href="/Employee/EmployeeReservation/ListOfEmployeeDateReservations" class="btn btn-sm btn-primary float-right">مشاهده همه </a>
-    </div>
-    <!-- /.card-footer -->
-</div>
+
+}

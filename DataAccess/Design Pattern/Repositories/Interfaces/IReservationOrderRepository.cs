@@ -29,5 +29,8 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void UpdateReservationOrder(ReservationOrder reservation);
         ReservationOrder GetReservationOrderByHourReservationID(int HourID);
         List<ReservationOrder> GetTodayDeletedReservationOrder( );
+        List<ReservationOrder> GetTodayEmployeeDeletedReservationOrder(string EmployeeID);
+        bool IsExistRservationOrderWithHourReservationID(int HourID);
+
     }
 }

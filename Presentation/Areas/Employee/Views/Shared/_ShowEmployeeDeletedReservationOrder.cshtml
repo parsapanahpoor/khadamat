@@ -1,0 +1,62 @@
+﻿@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+@using Microsoft.AspNetCore.Identity;
+
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@inject IUnitOfWork _context
+@inject UserManager<Models.Entities.User.User> _userManager;
+
+@{
+    var EmployeeID = await _userManager.FindByNameAsync(User.Identity.Name);
+
+    List<Models.Entities.EmployeeReservation.ReservationOrder> reservations = _context.reservaitionOrderRepository
+                                                                        .GetTodayEmployeeDeletedReservationOrder(EmployeeID.Id);
+}
+
+@if (reservations.Count > 0)
+{
+    <div class="card col-md-6">
+        <div class="card-header border-transparent">
+            <h3 class="card-title"> رویداد های لغو شده ی امروز  </h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th> مشتری </th>
+                            <th> نام مشتری  </th>
+                            <th> موبایل مشتری  </th>
+                            <th>  دسته بندی فعالیت   </th>
+                            <th>  تاریخ ارائه ی خدمت    </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in reservations)
+                        {
+
+                            <tr>
+                                <td>
+                                    <img style="width:50px;height:50px;" src="/Images/UserAvatar/@item.User.UserAvatar" alt="message user image">
+                                </td>
+                                <td><span class="badge badge-primary">@item.User.UserName</span></td>
+                                <td><span class="badge badge-primary">@item.User.PhoneNumber</span></td>
+                                <td><span class="badge badge-warning">@item.JobCategory.CategoryTitle</span></td>
+                                <td><span class="badge badge-danger">@item.DataReservation.ReservationDateTime.ToString("yyyy/MM/dd")</span></td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+
+    </div>
+
+}
+

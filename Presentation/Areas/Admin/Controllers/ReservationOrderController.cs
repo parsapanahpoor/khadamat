@@ -292,18 +292,25 @@ namespace Presentation.Areas.Admin.Controllers
             {
                 return View("~/Views/Shared/_404.cshtml");
             }
-            if (hour.ReservationStatusID == 2)
+            if (_context.reservaitionOrderRepository.IsExistRservationOrderWithHourReservationID(hour.HourReservationID))
             {
-                ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderByHourReservationID(hour.HourReservationID);
-                _context.reservaitionOrderRepository.DeleteReservationOrder(reservation);
+                if (hour.ReservationStatusID == 2)
+                {
+                    ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderByHourReservationID(hour.HourReservationID);
+                    _context.reservaitionOrderRepository.DeleteReservationOrder(reservation);
 
-                _context.hourReservationRepository.DeleteHourReservationFromEmployeePanel(hour);
+                    _context.hourReservationRepository.DeleteHourReservationFromEmployeePanel(hour);
+                }
+                if (hour.ReservationStatusID == 1)
+                {
+                    ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderByHourReservationId(hour.HourReservationID);
+
+                    _context.reservaitionOrderRepository.DeleteReservationOrder(reservation);
+                    _context.hourReservationRepository.DeleteHourReservationFromEmployeePanel(hour);
+                }
             }
-            if (hour.ReservationStatusID == 1)
+            else
             {
-                ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderByHourReservationId(hour.HourReservationID);
-
-                _context.reservaitionOrderRepository.DeleteReservationOrder(reservation);
                 _context.hourReservationRepository.DeleteHourReservationFromEmployeePanel(hour);
             }
             _context.SaveChangesDB();
@@ -333,7 +340,7 @@ namespace Presentation.Areas.Admin.Controllers
             }
             return View(reservations);
         }
-        public IActionResult ShowDeletePage(int? id , bool HistoryIndex = false)
+        public IActionResult ShowDeletePage(int? id, bool HistoryIndex = false)
         {
             if (id == null)
             {
@@ -346,7 +353,7 @@ namespace Presentation.Areas.Admin.Controllers
             }
             return View(reservation);
         }
-        public IActionResult DeleteOrderReservation(int? id, bool UserPage = false , bool HistoryIndex = false)
+        public IActionResult DeleteOrderReservation(int? id, bool UserPage = false, bool HistoryIndex = false)
         {
             if (id == null)
             {
@@ -367,7 +374,7 @@ namespace Presentation.Areas.Admin.Controllers
             {
                 return Redirect("/Admin/ReservationOrder/CheckUserDateReservation?id=" + reservation.UserID + "&&Delete=True");
 
-            }  
+            }
             if (HistoryIndex == true)
             {
                 return Redirect("/Admin/ReservationOrder/HistoryOfReservationOrder?id=" + reservation.UserID + "&&Delete=True");
@@ -417,10 +424,10 @@ namespace Presentation.Areas.Admin.Controllers
                 list = list.Where(p => p.DataReservation.ReservationDateTime.Year >= StartDATE.Year
                                             && p.DataReservation.ReservationDateTime.Month >= StartDATE.Month
                                                     && p.DataReservation.ReservationDateTime.Day >= StartDATE.Day
-                                                    &&p.DataReservation.ReservationDateTime.Hour >= StartDATE.Hour
-                                                    &&p.DataReservation.ReservationDateTime.Minute >= StartDATE.Minute
-                                                    &&p.DataReservation.ReservationDateTime.Second >= StartDATE.Second
-                                                    &&p.DataReservation.ReservationDateTime.Millisecond >= StartDATE.Millisecond).ToList();
+                                                    && p.DataReservation.ReservationDateTime.Hour >= StartDATE.Hour
+                                                    && p.DataReservation.ReservationDateTime.Minute >= StartDATE.Minute
+                                                    && p.DataReservation.ReservationDateTime.Second >= StartDATE.Second
+                                                    && p.DataReservation.ReservationDateTime.Millisecond >= StartDATE.Millisecond).ToList();
             }
             if (EndDate != null)
             {
