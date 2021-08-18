@@ -32,8 +32,6 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 CategoryTitle = jobCategory.CategoryTitle ,
                 IsDelete = false , 
                 Percent = jobCategory.Percent
-
-
             };
 
             if (JobPic != null)

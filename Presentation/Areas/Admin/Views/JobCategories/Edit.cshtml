@@ -27,78 +27,120 @@
             <input type="hidden" asp-for="JobLogo" />
             <input type="hidden" asp-for="JobCategoryId" />
 
-            <div class="row">
-                <div class="col-7">
+            @if (ViewBag.Level3 == true)
+            {
+<div class="row">
+    <div class="col-12">
 
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">دسته بندی</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1"> دسته بندی  </label>
-                                <input type="text" asp-for="CategoryTitle" class="form-control" id="exampleInputEmail1" placeholder="دسته بندی خود را وارد کنید ">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1"> درصد کمیسیون  </label>
-                                <input type="text" asp-for="Percent" class="form-control" id="exampleInputEmail1" placeholder="درصد کمیسیون خود را وارد کنید ">
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer">
-
-                            @if (ViewBag.Delete != null)
-                            {
-                        <a href="/Admin/JobCategories/Delete/@Model.JobCategoryId" class="btn btn-danger">حذف</a> }
-
-                            else
-                            {
-
-                        <button type="submit" class="btn btn-primary">ارسال</button>
-                        }
-                            <a href="/Admin/JobCategories/Index" class="btn btn-warning">بازگشت</a> 
-
-
-                        </div>
-
-                    </div>
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">دسته بندی</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> دسته بندی  </label>
+                    <input type="text" asp-for="CategoryTitle" class="form-control" id="exampleInputEmail1" placeholder="دسته بندی خود را وارد کنید ">
                 </div>
-                <div class="col-md-5">
-                    <!-- Horizontal Form -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">  تصویر  </h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <div class="form-horizontal">
-                            <div class="card-body row">
-                                <img style="margin:auto; width:190px" id="imgAvatar" class="img-responsive rounded" src="~/Images/JobsLogo/@Model.JobLogo" alt="upload_img">
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="JobPic" id="JobPic">
-                                        <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- /.card-body -->
-                            <!-- /.card-footer -->
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                    <!-- general form elements disabled -->
-                    <!-- /.card -->
-
-
-
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> درصد کمیسیون  </label>
+                    <input type="text" asp-for="Percent" class="form-control" id="exampleInputEmail1" placeholder="درصد کمیسیون خود را وارد کنید ">
                 </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+
+                @if (ViewBag.Delete != null)
+                {
+<a href="/Admin/JobCategories/Delete/@Model.JobCategoryId" class="btn btn-danger">حذف</a> }
+
+else
+{
+
+<button type="submit" class="btn btn-primary">ارسال</button>}
+                <a href="/Admin/JobCategories/Index" class="btn btn-warning">بازگشت</a>
+
 
             </div>
+
+        </div>
+    </div>
+
+</div> }
+else
+{
+<div class="row">
+    <div class="col-7">
+
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">دسته بندی</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> دسته بندی  </label>
+                    <input type="text" asp-for="CategoryTitle" class="form-control" id="exampleInputEmail1" placeholder="دسته بندی خود را وارد کنید ">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> درصد کمیسیون  </label>
+                    <input type="text" asp-for="Percent" class="form-control" id="exampleInputEmail1" placeholder="درصد کمیسیون خود را وارد کنید ">
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+
+                @if (ViewBag.Delete != null)
+                {
+<a href="/Admin/JobCategories/Delete/@Model.JobCategoryId" class="btn btn-danger">حذف</a> }
+
+else
+{
+
+<button type="submit" class="btn btn-primary">ارسال</button>}
+                <a href="/Admin/JobCategories/Index" class="btn btn-warning">بازگشت</a>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-5">
+        <!-- Horizontal Form -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">  تصویر  </h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <div class="form-horizontal">
+                <div class="card-body row">
+                    <img style="margin:auto; width:190px" id="imgAvatar" class="img-responsive rounded" src="~/Images/JobsLogo/@Model.JobLogo" alt="upload_img">
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="JobPic" id="JobPic">
+                            <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card-footer -->
+            </div>
+        </div>
+        <!-- /.card -->
+        <!-- general form elements disabled -->
+        <!-- /.card -->
+
+
+
+    </div>
+
+</div>}
         </form>
 
     </section>

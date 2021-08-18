@@ -29,18 +29,21 @@ namespace Presentation.Areas.Admin.Controllers
             return View(_context.jobCategoryRepository.GetAllJobsCategories());
         }
 
-        public IActionResult Create(int? id)
+        public IActionResult Create(int? id , bool Level3 = false)
         {
+            if (Level3 == true)
+            {
+                ViewBag.Level3 = true;
+            }
+
             return View(new JobCategory()
             {
-
                 ParentId = id
-
             });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(JobCategory jobCategory, IFormFile JobPic)
+        public IActionResult Create(JobCategory jobCategory, IFormFile JobPic )
         {
             if (ModelState.IsValid)
             {
@@ -52,7 +55,7 @@ namespace Presentation.Areas.Admin.Controllers
             return View(jobCategory);
         }
 
-        public IActionResult Edit(int? id, bool Delete = false)
+        public IActionResult Edit(int? id, bool Delete = false , bool Level3 = false)
         {
             if (id == null)
             {
@@ -68,6 +71,11 @@ namespace Presentation.Areas.Admin.Controllers
             {
                 ViewBag.Delete = true;
             }
+            if (Level3 == true)
+            {
+                ViewBag.Level3 = true;
+            }
+
             return View(productCategories);
         }
 

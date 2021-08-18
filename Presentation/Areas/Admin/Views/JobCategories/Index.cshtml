@@ -42,8 +42,7 @@
                 <script>
                     // Your delay in milliseconds
                     var delay = 5000;
-                    setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
-}
+                    setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>}
     @if (ViewBag.Edit == true)
     {
 <div class="col-md-12">
@@ -69,8 +68,7 @@
                 <script>
                     // Your delay in milliseconds
                     var delay = 5000;
-                    setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
-}
+                    setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>}
     @if (ViewBag.Delete == true)
     {
 <div class="col-md-12">
@@ -96,8 +94,7 @@
                 <script>
                     // Your delay in milliseconds
                     var delay = 5000;
-                    setTimeout(function () { document.getElementById("DeleteBtn").click(); }, delay);</script>
-}
+                    setTimeout(function () { document.getElementById("DeleteBtn").click(); }, delay);</script>}
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -139,11 +136,12 @@
                                         <tr role="row">
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 30px;" aria-label="لوگو: activate to sort column ascending">لوگو  </th>
 
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-sort="ascending" aria-label="سرگروه   : activate to sort column descending">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="سرگروه   : activate to sort column descending">
                                                 سرگروه
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  aria-label="زیرگروه  : activate to sort column ascending">زیرگروه </th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" > </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="زیرگروه  : activate to sort column ascending">زیرگروه </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="زیرگروه  : activate to sort column ascending">زیرگروه </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"> </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -151,64 +149,103 @@
                                         @foreach (var item in Model.Where(p => p.ParentId == null))
                                         {
 
-                            <tr role="row" class="odd" id="group_@(item.JobCategoryId)">
-                                <td class="sorting_1">
-                                    <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/JobsLogo/@item.JobLogo" alt="message user image">
-                                </td>
-                                <td>
-                                    @item.CategoryTitle 
-                                </td>
-                                <td class="card-body">
-                                    @if (Model.Any(p => p.ParentId == item.JobCategoryId))
-                                    {
+                                        <tr role="row" class="odd" id="group_@(item.JobCategoryId)">
+                                            <td class="sorting_1">
+                                                <img class="direct-chat-img" style="width:50px;height:50px;" src="/Images/JobsLogo/@item.JobLogo" alt="message user image">
+                                            </td>
+                                            <td>
+                                                @item.CategoryTitle
+                                            </td>
+                                            <td class="card-body">
+                                                @if (Model.Any(p => p.ParentId == item.JobCategoryId))
+                                                {
                                                             <ul class="mr-4">
                                                                 @foreach (var subGroup in Model.Where(p => p.ParentId == item.JobCategoryId))
                                                                 {
-                                                                <li style="list-style:none;" id="group_@(subGroup.JobCategoryId)">
+                                                                            <li style="list-style:none;" id="group_@(subGroup.JobCategoryId)">
 
-                                                                    <img class="direct-chat-img" style="width:40px;height:40px;" src="/Images/JobsLogo/@subGroup.JobLogo" alt="message user image">
+                                                                                <img class="direct-chat-img" style="width:40px;height:40px;" src="/Images/JobsLogo/@subGroup.JobLogo" alt="message user image">
 
-                                                                    @subGroup.CategoryTitle 
-
-
-                                                                    <a class=" text-info" style="cursor:pointer;" href="@Url.Action("Edit", new { id = subGroup.JobCategoryId })">
-                                                                        <i class="fa fa-edit" title="ویرایش"></i>
-
-                                                                    </a>
+                                                                                @subGroup.CategoryTitle
 
 
-                                                                    <a class=" text-danger" style="cursor:pointer;" href="/Admin/JobCategories/Edit?id=@subGroup.JobCategoryId&&Delete=True">
-                                                                        <i class="fa fa-trash" title="حذف"></i>
-                                                                    </a>
+                                                                                <a class=" text-info" style="cursor:pointer;" href="@Url.Action("Create", new { id = subGroup.JobCategoryId  , Level3 = true})">
+                                                                                    <i class="fa fa-plus" title="ویرایش"></i>
+
+                                                                                </a>
+                                                                                <a class=" text-info" style="cursor:pointer;" href="@Url.Action("Edit", new { id = subGroup.JobCategoryId })">
+                                                                                    <i class="fa fa-edit" title="ویرایش"></i>
+
+                                                                                </a>
+
+
+                                                                                <a class=" text-danger" style="cursor:pointer;" href="/Admin/JobCategories/Edit?id=@subGroup.JobCategoryId&&Delete=True">
+                                                                                    <i class="fa fa-trash" title="حذف"></i>
+                                                                                </a>
 
 
 
-                                                                </li>
-                                                                    <hr />}
+                                                                            </li>
+                                                                                    <hr />}
                                                             </ul>}
-                                </td>
+                                            </td>
+
+                                            <td class="card-body">
+                                                @if (Model.Any(p => p.ParentId == item.JobCategoryId))
+                                                {
+                                            @foreach (var subGroup in Model.Where(p => p.ParentId == item.JobCategoryId))
+                                            {
 
 
 
-                                <td>
-                                    <a class="btn btn-success btn-sm waves-effect" href="@Url.Action("Create", new { id = item.JobCategoryId })">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                        افزودن
-                                    </a>
-                                    <a class="btn btn-info btn-sm waves-effect" href="@Url.Action("Edit", new { id = item.JobCategoryId })">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                        ویرایش
-                                    </a>
 
-                                    <a style="color:white" class="btn btn-danger btn-sm waves-effect" href="/Admin/JobCategories/Edit?id=@item.JobCategoryId&&Delete=True">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                        حذف
-                                    </a>
+                                            @if (Model.Any(p => p.ParentId == subGroup.JobCategoryId))
+                                            {
+                                            <ul class="mr-4">
+                                                @foreach (var item2 in Model.Where(p => p.ParentId == subGroup.JobCategoryId))
+                                                {
+                                            <li style="list-style:none;" id="group_@(item2.JobCategoryId)">
 
 
-                                </td>
-                            </tr>
-}
+                                                @item2.CategoryTitle - @item2.Percent%
+
+
+                                               
+                                                <a class=" text-info" style="cursor:pointer;" href="@Url.Action("Edit", new { id = item2.JobCategoryId , Level3 = true})">
+                                                    <i class="fa fa-edit" title="ویرایش"></i>
+
+                                                </a>
+
+
+                                                <a class=" text-danger" style="cursor:pointer;" href="/Admin/JobCategories/Edit?id=@item2.JobCategoryId&&Delete=True">
+                                                    <i class="fa fa-trash" title="حذف"></i>
+                                                </a>
+
+
+
+                                            </li>
+                                                                            }
+                                            </ul><hr />}}}
+                                            </td>
+
+                                            <td>
+                                                <a class="btn btn-success btn-sm waves-effect mt-5" href="@Url.Action("Create", new { id = item.JobCategoryId })">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    افزودن
+                                                </a>
+                                                <a class="btn btn-info btn-sm waves-effect mt-5" href="@Url.Action("Edit", new { id = item.JobCategoryId })">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    ویرایش
+                                                </a>
+
+                                                <a style="color:white" class="btn btn-danger btn-sm waves-effect  mt-5" href="/Admin/JobCategories/Edit?id=@item.JobCategoryId&&Delete=True">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    حذف
+                                                </a>
+
+
+                                            </td>
+                                        </tr>}
 
                                     </tbody>
 
