@@ -1,5 +1,10 @@
 ﻿@model List<Models.Entities.EmployeeReservation.HourReservation>
 @using Utilities.Convertors
+@using DataAccess.Design_Pattern.UnitOfWork
+
+
+@inject IUnitOfWork _context
+
 @{
     Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
     ViewData["Title"] = "لیست ساعات";
@@ -185,12 +190,40 @@
                                                             حذف
                                                         </a>
                                                     }
-                                                    @if(item.ReservationStatusID == 1 )
+                                                    @if (item.ReservationStatusID == 1)
                                                     {
+                                                        Models.Entities.EmployeeReservation.ReservationOrder reservation = _context.reservaitionOrderRepository
+                                                            .GetReservationOrderByHourReservationID(item.HourReservationID);
+
+                                                        @if (item.DataReservation.ReservationDateTime.Year <= DateTime.Now.Year
+                                                                 && item.DataReservation.ReservationDateTime.Month <= DateTime.Now.Month
+                                                                 && item.DataReservation.ReservationDateTime.Day <= DateTime.Now.Day
+                                                                 && reservation.IsEnd == false)
+                                                        {
+                                                            <a class="btn btn-outline-warning btn-sm waves-effect"
+                                                               asp-action="HoureReservationInfo" asp-controller="EmployeeReservation" asp-area="Employee" asp-route-id="@item.HourReservationID">
+                                                                <i class="glyphicon glyphicon-edit"></i>
+                                                                صدور فاکتور
+                                                            </a>
+                                                        }
+
+                                                        @if (item.DataReservation.ReservationDateTime.Year <= DateTime.Now.Year
+                                                               && item.DataReservation.ReservationDateTime.Month <= DateTime.Now.Month
+                                                               && item.DataReservation.ReservationDateTime.Day <= DateTime.Now.Day
+                                                               && reservation.IsEnd == true)
+                                                        {
+                                                            <a class="btn btn-outline-warning btn-sm waves-effect"
+                                                               asp-action="HoureReservationInfo" asp-controller="EmployeeReservation" asp-area="Employee" asp-route-id="@item.HourReservationID">
+                                                                <i class="glyphicon glyphicon-edit"></i>
+                                                                برسی فاکتور
+                                                            </a>
+                                                        }
+
+
                                                         <a class="btn btn-outline-info btn-sm waves-effect"
                                                            asp-action="HoureReservationInfo" asp-controller="EmployeeReservation" asp-area="Employee" asp-route-id="@item.HourReservationID">
                                                             <i class="glyphicon glyphicon-edit"></i>
-                                                            برسی جزییات  
+                                                            برسی جزییات
                                                         </a>
                                                     }
 

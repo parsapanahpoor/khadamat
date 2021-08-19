@@ -40,6 +40,8 @@ namespace Models.Entities.EmployeeReservation
         public int? DateReservationID { get; set; }
 
         public DateTime DateTimeReservation { get; set; }
+        public DateTime? EndDateTimeReservation { get; set; }
+
 
         public string Description { get; set; }
 

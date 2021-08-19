@@ -47,7 +47,8 @@ namespace Presentation.Areas.Employee.Controllers
             {
                 user.EmployeeStatusID = 1;
             }
-            else
+            if (!_context.hourReservationRepository.IsExistHourReservation2HourBefore(DateReservation) &&
+                !_context.hourReservationRepository.ISEmployeeHaveHObTightNow(DateReservation))
             {
                 if (id == 1)
                 {

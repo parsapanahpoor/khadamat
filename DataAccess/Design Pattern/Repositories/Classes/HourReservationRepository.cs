@@ -107,7 +107,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
         public List<HourReservation> GetEmployeeHourReservationByDateHourReservationID(int id)
         {
-            return GetAll(includeProperties: "ReservationStatus")
+            return GetAll(includeProperties: "ReservationStatus,DataReservation")
                             .Where(p => p.DataReservationID == id).ToList();
 
         }
