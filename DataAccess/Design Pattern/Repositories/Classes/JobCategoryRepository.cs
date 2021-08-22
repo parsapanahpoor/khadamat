@@ -31,7 +31,6 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 JobLogo = "JobDefualt.jpg" ,
                 CategoryTitle = jobCategory.CategoryTitle ,
                 IsDelete = false , 
-                Percent = jobCategory.Percent
             };
 
             if (JobPic != null)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities.EmployeeReservation;
+using Models.Entities.Factor;
 using Models.Entities.User;
 using Models.Entities.Works;
 using System;
@@ -31,6 +32,7 @@ namespace DataContext.Context
         #region Jobs
 
         public DbSet<JobCategory> jobCategories { get; set; }
+        public DbSet<Tariff> Tariffs { get; set; }
 
         #endregion
         #region Reservation
@@ -40,6 +42,15 @@ namespace DataContext.Context
         public DbSet<ReservationStatus> ReservationStatus { get; set; }
         public DbSet<UserReserveStatus> UserReserveStatus { get; set; }
         public DbSet<ReservationOrder> ReservationOrders { get; set; }
+
+        #endregion
+
+
+        #region Factor
+
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<Invoicing> Invoicings { get; set; }
+        public DbSet<InvoicingDetail> InvoicingDetails { get; set; }
 
         #endregion
 
@@ -59,6 +70,12 @@ namespace DataContext.Context
             modelBuilder.Entity<ReservationOrder>()
                 .HasQueryFilter(u => !u.IsDelete);
 
+            modelBuilder.Entity<Invoicing>()
+                 .HasQueryFilter(u => !u.IsDelete);
+
+            modelBuilder.Entity<Invoicing>()
+                  .HasQueryFilter(u => !u.IsDelete);
+
             modelBuilder.Entity<EmployeeDocuments>()
              .HasOne(a => a.User)
              .WithOne(a => a.EmployeeDocuments)
@@ -72,6 +89,16 @@ namespace DataContext.Context
             modelBuilder.Entity<ReservationOrder>()
              .HasOne(x => x.User)
              .WithMany(x => x.ReservationOrderUser)
+             .HasForeignKey(x => x.UserID);
+
+            modelBuilder.Entity<Invoicing>()
+            .HasOne(x => x.Employee)
+            .WithMany(x => x.InvoicingEmployee)
+            .HasForeignKey(x => x.EmployeeID);
+
+            modelBuilder.Entity<Invoicing>()
+             .HasOne(x => x.User)
+             .WithMany(x => x.InvoicingUser)
              .HasForeignKey(x => x.UserID);
 
             modelBuilder.Entity<EmployeeDocuments>()

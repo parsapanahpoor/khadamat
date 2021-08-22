@@ -19,6 +19,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         HourReservationRepository hourReservationRepository { get; }
         LocationAddressRepository locationAddressRepository { get; }
         ReservaitionOrderRepository reservaitionOrderRepository { get; }
+        TariffRepository tariffRepository { get; }
 
         #endregion
 

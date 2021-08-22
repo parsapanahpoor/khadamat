@@ -1,4 +1,4 @@
-﻿using Models.Entities.Factor;
+﻿using Models.Entities.EmployeeReservation;
 using Models.Entities.User;
 using Models.Entities.Works;
 using System;
@@ -9,20 +9,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.Entities.EmployeeReservation
+namespace Models.Entities.Factor
 {
-    public class ReservationOrder
+    public class Invoicing
     {
-        public ReservationOrder()
+        public Invoicing()
         {
 
         }
 
         [Key]
+        public int InvoicingID { get; set; }
+
+        [ForeignKey("ReservationOrder")]
         public int ReservationOrderID { get; set; }
 
-        [ForeignKey("UserReserveStatus")]
-        public int UserReservationStatus { get; set; }
+        [ForeignKey("PaymentMethod")]
+        public int PaymentMethod { get; set; }
 
         public string EmployeeID { get; set; }
 
@@ -31,36 +34,30 @@ namespace Models.Entities.EmployeeReservation
         [ForeignKey("JobCategory")]
         public int JobCategoryID { get; set; }
 
-        [ForeignKey("Location")]
-        public int LocationID { get; set; }
-
         [ForeignKey("HourReservation")]
         public int? HoureReservationID { get; set; }
 
         [ForeignKey("DataReservation")]
         public int? DateReservationID { get; set; }
 
-        public DateTime DateTimeReservation { get; set; }
-        public DateTime? EndDateTimeReservation { get; set; }
-
+        public DateTime DateTime { get; set; }
 
         public string Description { get; set; }
 
         public bool IsDelete { get; set; }
 
-        public bool IsEnd { get; set; }
+        public bool IsFinaly { get; set; }
 
 
-        #region Navigation Property
+        #region Navigation
 
-        public UserReserveStatus UserReserveStatus { get; set; }
         public User.User Employee { get; set; }
         public User.User User { get; set; }
-        public JobCategory  JobCategory { get; set; }
-        public Location Location { get; set; }
+        public JobCategory JobCategory { get; set; }
         public HourReservation HourReservation { get; set; }
         public DataReservation DataReservation { get; set; }
-        public List<Invoicing> Invoicing { get; set; }
+        public ReservationOrder ReservationOrder { get; set; }
+        public List<InvoicingDetail> invoicingDetails { get; set; }
 
         #endregion
     }

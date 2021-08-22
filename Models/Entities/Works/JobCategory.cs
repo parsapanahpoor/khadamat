@@ -1,4 +1,5 @@
-﻿using Models.Entities.User;
+﻿using Models.Entities.Factor;
+using Models.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -33,13 +34,14 @@ namespace Models.Entities.Works
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
         public string JobLogo { get; set; }
 
-        [Display(Name = " درصد کمیسیون ")]
-        public int? Percent { get; set; }
+  
 
         #region Relations
 
         public virtual List<UserSelectedJob> UserSelected { get; set; }
         public virtual List<EmployeeReservation.ReservationOrder> ReservationOrder { get; set; }
+        public virtual List<Invoicing> Invoicing { get; set; }
+        public virtual List<InvoicingDetail> invoicingDetails { get; set; }
 
         #endregion
     }

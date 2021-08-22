@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Models.Entities.EmployeeReservation;
+using Models.Entities.Factor;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -56,7 +57,8 @@ namespace Models.Entities.User
         public List<Location> Location { get; set; }
         public List<ReservationOrder> ReservationOrderEmployee { get; set; }
         public List<ReservationOrder> ReservationOrderUser { get; set; }
-
+        public List<Invoicing> InvoicingEmployee { get; set; }
+        public List<Invoicing> InvoicingUser { get; set; }
         #endregion
 
     }

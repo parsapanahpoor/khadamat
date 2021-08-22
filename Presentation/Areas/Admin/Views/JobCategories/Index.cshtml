@@ -140,7 +140,6 @@
                                                 سرگروه
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="زیرگروه  : activate to sort column ascending">زیرگروه </th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="زیرگروه  : activate to sort column ascending">زیرگروه </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"> </th>
                                         </tr>
                                     </thead>
@@ -169,10 +168,7 @@
                                                                                 @subGroup.CategoryTitle
 
 
-                                                                                <a class=" text-info" style="cursor:pointer;" href="@Url.Action("Create", new { id = subGroup.JobCategoryId  , Level3 = true})">
-                                                                                    <i class="fa fa-plus" title="ویرایش"></i>
-
-                                                                                </a>
+                       
                                                                                 <a class=" text-info" style="cursor:pointer;" href="@Url.Action("Edit", new { id = subGroup.JobCategoryId })">
                                                                                     <i class="fa fa-edit" title="ویرایش"></i>
 
@@ -190,43 +186,6 @@
                                                             </ul>}
                                             </td>
 
-                                            <td class="card-body">
-                                                @if (Model.Any(p => p.ParentId == item.JobCategoryId))
-                                                {
-                                            @foreach (var subGroup in Model.Where(p => p.ParentId == item.JobCategoryId))
-                                            {
-
-
-
-
-                                            @if (Model.Any(p => p.ParentId == subGroup.JobCategoryId))
-                                            {
-                                            <ul class="mr-4">
-                                                @foreach (var item2 in Model.Where(p => p.ParentId == subGroup.JobCategoryId))
-                                                {
-                                            <li style="list-style:none;" id="group_@(item2.JobCategoryId)">
-
-
-                                                @item2.CategoryTitle - @item2.Percent%
-
-
-                                               
-                                                <a class=" text-info" style="cursor:pointer;" href="@Url.Action("Edit", new { id = item2.JobCategoryId , Level3 = true})">
-                                                    <i class="fa fa-edit" title="ویرایش"></i>
-
-                                                </a>
-
-
-                                                <a class=" text-danger" style="cursor:pointer;" href="/Admin/JobCategories/Edit?id=@item2.JobCategoryId&&Delete=True">
-                                                    <i class="fa fa-trash" title="حذف"></i>
-                                                </a>
-
-
-
-                                            </li>
-                                                                            }
-                                            </ul><hr />}}}
-                                            </td>
 
                                             <td>
                                                 <a class="btn btn-success btn-sm waves-effect mt-5" href="@Url.Action("Create", new { id = item.JobCategoryId })">

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models.Entities.Factor;
 using Models.Entities.User;
 
 namespace Models.Entities.EmployeeReservation
@@ -56,6 +57,7 @@ namespace Models.Entities.EmployeeReservation
         public User.User User { get; set; }
         public DataReservation DataReservation { get; set; }
         public List<ReservationOrder> ReservationOrder { get; set; }
+        public List<Invoicing> Invoicing { get; set; }
 
         #endregion
     }
