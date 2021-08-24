@@ -1,0 +1,86 @@
+﻿@model Models.Entities.Works.Tariff
+
+@{ ViewData["Title"] = "افزودن ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; }
+
+<div class="content-wrapper" style="min-height: 805px;">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>افزوده تعرفه  جدید </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">افزوده تعرفه جدید </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <form role="form" asp-action="Create" asp-area="Admin" asp-controller="Tariff" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="ParentId" />
+
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title"> تعرفه</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1"> دسته تعرفه </label>
+                                <input type="text" asp-for="TariffTitle" class="form-control" id="exampleInputEmail1" placeholder="تعرفه خود را وارد کنید ">
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">  درصد کمیسیون </label>
+                                <input type="text" asp-for="TariffPercent" class="form-control" id="exampleInputEmail1" placeholder="درصد کمیسیون خود را وارد کنید ">
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">ارسال</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </form>
+
+    </section>
+
+</div>
+
+@section Scripts
+{
+    <script>
+    function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgAvatar').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#JobPic").change(function () {
+            readURL(this);
+        });</script>
+}

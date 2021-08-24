@@ -18,5 +18,39 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         {
             _db = db;
         }
+
+        public void AddTariff(Tariff tariff)
+        {
+            Tariff job = new Tariff()
+            {
+                ParentId = tariff.ParentId,
+                TariffTitle = tariff.TariffTitle,
+                IsDelete = false,
+                TariffPercent = tariff.TariffPercent
+            };
+
+            Add(job);
+        }
+
+        public void DeleteTariff(Tariff tariff)
+        {
+            tariff.IsDelete = true;
+            Update(tariff);
+        }
+
+        public List<Tariff> GetAllTariffes()
+        {
+            return GetAll().ToList();
+        }
+
+        public Tariff GetTariffById(int id)
+        {
+            return GetAll(p => p.TariffId == id).First();
+        }
+
+        public void UpdateJobCaategory(Tariff tariff)
+        {
+            Update(tariff);
+        }
     }
 }

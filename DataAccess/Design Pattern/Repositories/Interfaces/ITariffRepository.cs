@@ -10,5 +10,11 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public  interface ITariffRepository : IGernericRepository<Tariff>
     {
+        List<Tariff> GetAllTariffes();
+        void AddTariff(Tariff tariff);
+        Tariff GetTariffById(int id);
+        void UpdateJobCaategory(Tariff tariff);
+        void DeleteTariff(Tariff tariff);
+
     }
 }

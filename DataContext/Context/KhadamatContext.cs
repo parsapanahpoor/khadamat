@@ -73,6 +73,9 @@ namespace DataContext.Context
             modelBuilder.Entity<Invoicing>()
                  .HasQueryFilter(u => !u.IsDelete);
 
+            modelBuilder.Entity<Tariff>()
+              .HasQueryFilter(u => !u.IsDelete);
+
             modelBuilder.Entity<Invoicing>()
                   .HasQueryFilter(u => !u.IsDelete);
 

@@ -19,7 +19,7 @@
     <!-- template rtl version -->
     <link rel="stylesheet" href="/Admin_Panel/dist/css/custom-style.css">
 
-    @RenderSection("Styls",false)
+    @RenderSection("Styls", false)
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -53,7 +53,7 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav mr-auto">
-   
+
                 <li class="nav-item">
                     <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
                         <i class="fa fa-th-large"></i>
@@ -188,7 +188,15 @@
 
                                 </ul>
 
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Tariff" asp-action="Index" class="nav-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>لیست تعرفه ها       </p>
+                                        </a>
+                                    </li>
 
+                                </ul>
 
                             </li>
 
@@ -227,7 +235,7 @@
         </aside>
         <!-- /.control-sidebar -->
         <!-- Main Footer -->
-      
+
     </div>
     <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
@@ -254,6 +262,6 @@
 
     <!-- PAGE SCRIPTS -->
     <script src="/Admin_Panel/dist/js/pages/dashboard2.js"></script>
-    @RenderSection("scripts" , false)
+    @RenderSection("scripts", false)
 </body>
 </html>
