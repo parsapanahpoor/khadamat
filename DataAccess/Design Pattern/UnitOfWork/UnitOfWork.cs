@@ -25,6 +25,8 @@ namespace DataAccess.Design_Pattern.UnitOfWork
             locationAddressRepository = new LocationAddressRepository(_db);
             reservaitionOrderRepository = new ReservaitionOrderRepository(_db);
             tariffRepository = new TariffRepository(_db);
+            invoicingDetailsRepository = new InvoicingDetailsRepository(_db);
+            invoicingRepository = new InvoicingRepository(_db);
         }
 
         #endregion
@@ -39,6 +41,8 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         public LocationAddressRepository locationAddressRepository { get; private set; }
         public ReservaitionOrderRepository reservaitionOrderRepository { get; private set; }
         public TariffRepository tariffRepository { get; private set; }
+        public InvoicingDetailsRepository invoicingDetailsRepository { get; private set; }
+        public InvoicingRepository invoicingRepository { get; private set; }
 
         #endregion
 

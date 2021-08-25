@@ -20,6 +20,8 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         LocationAddressRepository locationAddressRepository { get; }
         ReservaitionOrderRepository reservaitionOrderRepository { get; }
         TariffRepository tariffRepository { get; }
+        InvoicingDetailsRepository invoicingDetailsRepository { get; }
+        InvoicingRepository invoicingRepository { get; }
 
         #endregion
 

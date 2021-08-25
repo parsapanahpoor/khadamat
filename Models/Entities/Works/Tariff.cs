@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Entities.Factor;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace Models.Entities.Works
 
 
         #region Navigations
+        public virtual List<InvoicingDetail> invoicingDetails { get; set; }
 
         #endregion
 

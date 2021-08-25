@@ -22,8 +22,8 @@ namespace Models.Entities.Factor
         [ForeignKey("Invoicing")]
         public int InvoicingID { get; set; }
 
-        [ForeignKey("JobCategory")]
-        public int? JobCategoryID { get; set; }
+        [ForeignKey("Tariff")]
+        public int? TariffID { get; set; }
 
         public Double Price { get; set; }
 
@@ -37,7 +37,7 @@ namespace Models.Entities.Factor
         #region Navigation
 
         public Invoicing Invoicing { get; set; }
-        public JobCategory JobCategory { get; set; }
+        public Tariff Tariff { get; set; }
 
         #endregion
     }

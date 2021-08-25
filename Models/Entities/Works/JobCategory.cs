@@ -41,7 +41,6 @@ namespace Models.Entities.Works
         public virtual List<UserSelectedJob> UserSelected { get; set; }
         public virtual List<EmployeeReservation.ReservationOrder> ReservationOrder { get; set; }
         public virtual List<Invoicing> Invoicing { get; set; }
-        public virtual List<InvoicingDetail> invoicingDetails { get; set; }
 
         #endregion
     }
