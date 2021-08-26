@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Entities.Factor;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -33,6 +34,7 @@ namespace Models.Entities.User
 
         public User User { get; set; }
         public List<EmployeeReservation.ReservationOrder> ReservationOrder { get; set; }
+        public List<Invoicing> Invoicing { get; set; }
 
         #endregion
     }

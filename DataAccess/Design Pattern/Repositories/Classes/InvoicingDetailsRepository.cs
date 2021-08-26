@@ -19,5 +19,52 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
+        public void AddInvoicingDetailFromEmployeePanel(int InvoicingId, decimal Price, string Description = "")
+        {
+            InvoicingDetail detail = new InvoicingDetail()
+            {
+                InvoicingID = InvoicingId,
+                Price = (double)Price
+            };
+            if (Description != "")
+            {
+                detail.Description = Description;
+            }
+
+            Add(detail);
+        }
+
+        public void AddInvoicingDetailFromEmployeePanelByPercent(int InvoicingId, int TariffID, int percent, decimal Price, string Description = "")
+        {
+            InvoicingDetail detail = new InvoicingDetail()
+            {
+                InvoicingID = InvoicingId,
+                Price = (double)Price,
+                TariffID = TariffID,
+                PerCent = percent
+            };
+            if (Description != "")
+            {
+                detail.Description = Description;
+            }
+            
+            Add(detail);
+        }
+
+        public void DeleteInvoicingDetailSoftDelete(InvoicingDetail invoicingDetail)
+        {
+            Delete(invoicingDetail);
+        }
+
+        public InvoicingDetail GetInvoicingDetailByID(int id)
+        {
+            return GetById(id);
+        }
+
+        public List<InvoicingDetail> GetListOfInvoicingDetailByInvoicingId(int InvoicingID)
+        {
+            return GetAll(includeProperties: "Tariff")
+                    .Where(p => p.InvoicingID == InvoicingID).ToList();
+        }
     }
 }

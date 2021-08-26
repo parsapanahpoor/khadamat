@@ -21,7 +21,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
-        public void AddInvoicingByReservationOrderInformations(ReservationOrder reservation, FirstStepForInvoicing first)
+        public Invoicing AddInvoicingByReservationOrderInformations(ReservationOrder reservation, FirstStepForInvoicing first)
         {
             Invoicing invoicing = new Invoicing()
             {
@@ -36,15 +36,33 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 Description = first.Description,
                 IsDelete = false,
                 IsFinally = false,
-                IsOpen = true
+                IsOpen = true,
+                LocationID = reservation.LocationID
             };
+            if (first.PaymentMethodId == 1)
+            {
+                invoicing.IsPay = true;
+            }
+            else
+            {
+                invoicing.IsPay = false;
+            }
 
             Add(invoicing);
+
+            return invoicing;
+        }
+
+        public void CloseInvoicingFromEmployeePanel(Invoicing invoicing)
+        {
+            invoicing.IsOpen = false;
+
+            Update(invoicing);
         }
 
         public Invoicing GetInvoicingByID(int id)
         {
-            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder")
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder,Location")
                             .FirstOrDefault(p=>p.InvoicingID == id);
         }
     }

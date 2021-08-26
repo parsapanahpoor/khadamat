@@ -34,7 +34,7 @@ namespace Presentation.Areas.Supporter.Controllers
         #endregion
 
 
-        public async Task<IActionResult> Index(int? status , bool Edit = false  )
+        public async Task<IActionResult> Index(int? status , bool Edit = false , bool CloseInvoicing = false)
         {
             var user =await _userManager.FindByNameAsync(User.Identity.Name);
             var Employee = _context.employeeRepository.GetEmployeeDocument(user.Id);
@@ -49,6 +49,10 @@ namespace Presentation.Areas.Supporter.Controllers
             if (Edit == true)
             {
                 ViewBag.Edit = true;
+            }
+            if (CloseInvoicing == true)
+            {
+                ViewBag.CloseInvoicing = true;
             }
             if (status == 1)
             {

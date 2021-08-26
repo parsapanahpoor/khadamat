@@ -8,7 +8,12 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
-   public interface IInvoicingDetailsRepository : IGernericRepository<InvoicingDetail>
+    public interface IInvoicingDetailsRepository : IGernericRepository<InvoicingDetail>
     {
+        void AddInvoicingDetailFromEmployeePanel( int InvoicingId , decimal Price, string Description = "");
+        void AddInvoicingDetailFromEmployeePanelByPercent( int InvoicingId , int TariffID, int percent ,  decimal Price, string Description = "");
+        List<InvoicingDetail> GetListOfInvoicingDetailByInvoicingId(int InvoicingID);
+        InvoicingDetail GetInvoicingDetailByID(int id);
+        void DeleteInvoicingDetailSoftDelete(InvoicingDetail invoicingDetail);
     }
 }

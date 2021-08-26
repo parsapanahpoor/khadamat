@@ -51,6 +51,9 @@ namespace Models.Entities.Factor
         public bool IsPay { get; set; }
         public bool IsFinally { get; set; }
 
+        [ForeignKey("Location")]
+        public int LocationID { get; set; }
+
 
         #region Navigation
 
@@ -62,6 +65,7 @@ namespace Models.Entities.Factor
         public ReservationOrder ReservationOrder { get; set; }
         public List<InvoicingDetail> invoicingDetails { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
+        public Location Location { get; set; }
 
         #endregion
     }

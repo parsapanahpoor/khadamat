@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Models.Entities.EmployeeReservation;
 using Models.Entities.Factor;
 using Models.Entities.User;
+using Models.Entities.Works;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,11 +54,11 @@ namespace Presentation.Areas.Employee.Controllers
             if (ModelState.IsValid)
             {
                 ReservationOrder reservation = _context.reservaitionOrderRepository.GetReservationOrderById(invoicing.ReservationOrderID);
-                _context.invoicingRepository.AddInvoicingByReservationOrderInformations(reservation , invoicing);
+                Invoicing invoicing1 = _context.invoicingRepository.AddInvoicingByReservationOrderInformations(reservation, invoicing);
                 _context.reservaitionOrderRepository.EndOfReservationOredr(reservation);
 
                 _context.SaveChangesDB();
-
+                return Redirect("/Employee/Invoicing/InvoicingDetails?Id=" + invoicing1.InvoicingID);
             }
 
             return View("~/Views/Shared/_404.cshtml");
@@ -70,30 +71,73 @@ namespace Presentation.Areas.Employee.Controllers
                 return View("~/Views/Shared/_404.cshtml");
             }
             Invoicing invoicing = _context.invoicingRepository.GetInvoicingByID((int)id);
+            HourReservation houre = _context.hourReservationRepository.GetHoureReservationByID((int)invoicing.HoureReservationID);
+            if (invoicing == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            if (houre == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            ViewBag.HoureInfo = houre;
+            ViewBag.InvoicingDetail = _context.invoicingDetailsRepository.GetListOfInvoicingDetailByInvoicingId(invoicing.InvoicingID);
 
-            return View();
+            return View(invoicing);
         }
 
-        public IActionResult InvoicingFromEmployeePanel(int? id)
+        [HttpPost]
+        public IActionResult AddInvoicingDetails(int InvoicingId, int? TariffID, decimal Price, string Description = "")
+        {
+            if (ModelState.IsValid)
+            {
+                if (TariffID != 0)
+                {
+                    Tariff tariff = _context.tariffRepository.GetTariffById((int)TariffID);
+                    _context.invoicingDetailsRepository.AddInvoicingDetailFromEmployeePanelByPercent(InvoicingId, (int)TariffID, (int)tariff.TariffPercent, Price, Description);
+                }
+                else
+                {
+                    _context.invoicingDetailsRepository.AddInvoicingDetailFromEmployeePanel(InvoicingId, Price, Description);
+                }
+                _context.SaveChangesDB();
+
+                return Redirect("/Employee/Invoicing/InvoicingDetails?Id=" + InvoicingId);
+            }
+
+            return View("~/Views/Shared/_404.cshtml");
+        }
+        public IActionResult DeleteInvoicingDetail(int? id)
         {
             if (id == null)
             {
                 return View("~/Views/Shared/_404.cshtml");
             }
-            ReservationOrder reservationOrder = _context.reservaitionOrderRepository.GetReservationOrderById((int)id);
-            ViewBag.ReservationOrder = reservationOrder;
+            var invoicing = _context.invoicingDetailsRepository.GetInvoicingDetailByID((int)id);
+            if (invoicing == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            _context.invoicingDetailsRepository.DeleteInvoicingDetailSoftDelete(invoicing);
+            _context.SaveChangesDB();
 
-            ViewBag.ListOfInvoicingDetails = HttpContext.Session.GetComplexData<List<DataAccess.ViewModels.InvoicingDetail>>("invoicingDetailList");
-
-            return View();
+            return Redirect("/Employee/Invoicing/InvoicingDetails?Id=" + invoicing.InvoicingID);
         }
-
-        [HttpPost]
-        public IActionResult AddInvoicingDetailsToSession(DataAccess.ViewModels.InvoicingDetail invoicingDetail)
+        public IActionResult LastStepFromEmployeePanel(int? id)
         {
-            HttpContext.Session.SetComplexData("invoicingDetailList", invoicingDetail);
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            Invoicing invoicing = _context.invoicingRepository.GetInvoicingByID((int)id);
+            if (invoicing == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            _context.invoicingRepository.CloseInvoicingFromEmployeePanel(invoicing);
+            _context.SaveChangesDB();
 
-            return Redirect("/Employee/Invoicing/InvoicingFromEmployeePanel?Id=" + invoicingDetail.ReservationOrderID);
+            return Redirect("/Employee/Home/Index?CloseInvoicing=True");
         }
     }
 }

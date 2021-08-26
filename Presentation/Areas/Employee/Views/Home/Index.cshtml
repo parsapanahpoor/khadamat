@@ -242,6 +242,33 @@
                         setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
 
                 }
+                @if (ViewBag.CloseInvoicing == true)
+                {
+                    <div class="col-md-12">
+                        <div class="card bg-primary-gradient">
+                            <div class="card-header">
+                                <h3 class="card-title">ثبت فاکتور موفقیت آمیز  </h3>
+
+                                <div class="card-tools">
+                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /.card-tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                همکار عزیز از صدور فاکتور خود متشکریم 
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <script>
+                        // Your delay in milliseconds
+                        var delay = 5000;
+                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+                }
 
             </div>
             <div class="row">

@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210826061316_UpdateInvoivingTavle")]
+    partial class UpdateInvoivingTavle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -353,7 +355,7 @@ namespace DataContext.Migrations
                     b.Property<int>("JobCategoryID")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocationID")
+                    b.Property<int?>("LocationID")
                         .HasColumnType("int");
 
                     b.Property<int>("PaymentMethodID")
@@ -939,9 +941,7 @@ namespace DataContext.Migrations
 
                     b.HasOne("Models.Entities.User.Location", "Location")
                         .WithMany("Invoicing")
-                        .HasForeignKey("LocationID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("LocationID");
 
                     b.HasOne("Models.Entities.Factor.PaymentMethod", "PaymentMethod")
                         .WithMany("invoicings")

@@ -1,5 +1,4 @@
-﻿@model DataAccess.ViewModels.InvoicingDetail
-@using DataAccess.Design_Pattern.Repositories
+﻿@using DataAccess.Design_Pattern.Repositories
 @using DataAccess.Design_Pattern.UnitOfWork
 @using System;
 @using Microsoft.AspNetCore.Identity;
@@ -20,21 +19,25 @@
 
 @if (Context.Request.Query["Id"].ToString() != "empty")
 {
-    int ReservationOrderID = int.Parse(Context.Request.Query["Id"].ToString());
 
-    <form asp-action="AddInvoicingDetailsToSession" asp-controller="Invoicing" asp-area="Employee" method="post" enctype="multipart/form-data">
-        <input type="hidden" asp-for="ReservationOrderID" value="@ReservationOrderID"/>
+    <form asp-action="AddInvoicingDetails" asp-controller="Invoicing" asp-area="Employee" method="post" enctype="multipart/form-data">
+        @{
+            var Invoicing = _context.invoicingRepository.GetInvoicingByID(int.Parse(Context.Request.Query["id"].ToString()));
+         }
+
+        <input type="hidden" name="InvoicingId" value="@Invoicing.InvoicingID" />
+
         <div class="col-md-12">
             <div class="card card-warning">
                 <div class="card-header">
-                    <h3 class="card-title">   ریز  فاکتور   </h3>
+                    <h3 class="card-title">   صدور ریز فاکتور   </h3>
                 </div>
 
 
                 <div class="form-horizontal ">
                     <div class="row">
                         <div class="card-body row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>عنوان  </label>
                                     <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="Main" asp-items="@MainTariffs">
@@ -45,22 +48,22 @@
 
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label> خدمت </label>
-                                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" asp-for="TariffID" id="Sub" asp-items="@SubTariffs">
-                                        <option selected="selected">------   انتخاب کنید   -------</option>
+                                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="TariffID" id="Sub" asp-items="@SubTariffs">
+                                        <option selected="selected" value="0">------   انتخاب کنید   -------</option>
 
                                     </select>
                                 </div>
 
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">    مبلغ دریافتی         </label>
-                                        <input type="text" class="form-control" asp-for="Price" placeholder="مبلغ را به ریال وارد کنید ">
+                                        <input type="text" class="form-control" name="Price" placeholder="مبلغ را به ریال وارد کنید ">
                                     </div>
                                 </div>
 
@@ -70,7 +73,7 @@
 
                                 <div class="form-group col-md-12">
                                     <label for="exampleInputEmail1">  توضیحات   </label>
-                                    <textarea type="text" class="form-control" asp-for="Description" id="exampleInputEmail1"></textarea>
+                                    <textarea type="text" class="form-control" name="Description" id="exampleInputEmail1"></textarea>
                                 </div>
 
                             </div>
@@ -89,4 +92,6 @@
     </form>
 
 }
+
+
 

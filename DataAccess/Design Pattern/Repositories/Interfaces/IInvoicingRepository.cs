@@ -12,8 +12,9 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public  interface IInvoicingRepository : IGernericRepository<Invoicing>
     {
-        void AddInvoicingByReservationOrderInformations(ReservationOrder reservation , FirstStepForInvoicing first);
+        Invoicing AddInvoicingByReservationOrderInformations(ReservationOrder reservation , FirstStepForInvoicing first);
         Invoicing GetInvoicingByID(int id);
+        void CloseInvoicingFromEmployeePanel(Invoicing invoicing);
 
     }
 }
