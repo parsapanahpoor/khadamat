@@ -1,0 +1,87 @@
+﻿@model DataAccess.ViewModels.FirstStepForInvoicing
+@{
+    ViewData["Title"] = "اخطار ";
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+}
+
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> اخطار  </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                        <li class="breadcrumb-item active">اخطار </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+
+
+
+            <form asp-action="WarrningForSubmitInvoicing" asp-controller="Invoicing" asp-area="Employee" method="post" enctype="multipart/form-data">
+                <div style="color: darkred;" asp-validation-summary="ModelOnly"></div>
+
+                <input type="hidden" asp-for="ReservationOrderID" value="@ViewBag.ReservationOrderID" />
+
+
+                <div class="col-md-12">
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">   لفطا کاملا دقت بفرمایید ! تایید این فرم به منظور اعلام پایان این خدمت است    </h3>
+                        </div>
+
+
+                        <div class="form-horizontal ">
+
+                            <div class="card-body row">
+                                <div class="col-md-12" style="margin-bottom:0px; margin-top:0px;">
+                                    <div class="form-group col-md-12">
+                                        <label for="exampleInputEmail1">  توضیحات تکمیلی در ارتباط با این خدمت   </label>
+                                        <textarea type="text" class="form-control" asp-for="Description" id="exampleInputEmail1"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <div class="card-body row">
+                                    <div class="col-md-12" style="margin-bottom:0px; margin-top:0px;">
+                                        <label>روش دریافت مبلغ </label>
+                                        <select required class="form-control select2 select2-hidden-accessible" asp-for="PaymentMethodId" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                            <option selected="selected">----- انتخاب کنید -----</option>
+                                            <option value="1">نقدی </option>
+                                            <option value="2">آنلاین </option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>
+
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-outline-primary">ثبت </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+
+
+
+
+
+
+</div>

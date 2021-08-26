@@ -1,4 +1,5 @@
 ﻿using DataAccess.Design_Pattern.GenericRepositories;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models.Entities.Works;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         Tariff GetTariffById(int id);
         void UpdateJobCaategory(Tariff tariff);
         void DeleteTariff(Tariff tariff);
-
+        List<SelectListItem> GetMainTariffForCreateInvoicing();
+        List<SelectListItem> GetSubTariffForCreateInvoicing(int Id);
     }
 }

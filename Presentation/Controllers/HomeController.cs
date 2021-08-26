@@ -1,5 +1,6 @@
 ﻿using DataAccess.Design_Pattern.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Presentation.Models;
 using System;
@@ -72,6 +73,15 @@ namespace Presentation.Controllers
             var model = _context.userSelectedJobRepository.GetListOfEmployeeThatHaveThisJob((int)id);
 
             return View(model);
+        }
+        public IActionResult GetSubGroups(int id)
+        {
+            List<SelectListItem> list = new List<SelectListItem>()
+            {
+                new SelectListItem(){Text = "انتخاب کنید",Value = ""}
+            };
+            list.AddRange(_context.tariffRepository.GetSubTariffForCreateInvoicing(id));
+            return Json(new SelectList(list, "Value", "Text"));
         }
     }
 }

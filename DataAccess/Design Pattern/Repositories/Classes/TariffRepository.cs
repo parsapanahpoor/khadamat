@@ -1,6 +1,7 @@
 ﻿using DataAccess.Design_Pattern.GenericRepositories;
 using DataAccess.Design_Pattern.Repositories.Interfaces;
 using DataContext.Context;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models.Entities.Works;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,26 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         public List<Tariff> GetAllTariffes()
         {
             return GetAll().ToList();
+        }
+
+        public List<SelectListItem> GetMainTariffForCreateInvoicing()
+        {
+            return GetAll().Where(p=>p.ParentId == null)
+                        .Select(g => new SelectListItem()
+                        {
+                            Text = g.TariffTitle,
+                            Value = g.TariffId.ToString()
+                        }).ToList();
+        }
+
+        public List<SelectListItem> GetSubTariffForCreateInvoicing(int Id)
+        {
+            return GetAll().Where(p => p.ParentId == Id)
+                                   .Select(g => new SelectListItem()
+                                   {
+                                       Text = g.TariffTitle,
+                                       Value = g.TariffId.ToString()
+                                   }).ToList();
         }
 
         public Tariff GetTariffById(int id)

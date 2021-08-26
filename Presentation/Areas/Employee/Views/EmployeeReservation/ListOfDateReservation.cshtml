@@ -201,7 +201,7 @@
                                                                  && reservation.IsEnd == false)
                                                         {
                                                             <a class="btn btn-outline-warning btn-sm waves-effect"
-                                                               asp-action="HoureReservationInfo" asp-controller="EmployeeReservation" asp-area="Employee" asp-route-id="@item.HourReservationID">
+                                                               href="/Employee/Invoicing/WarrningForSubmitInvoicing?Id=@reservation.ReservationOrderID">
                                                                 <i class="glyphicon glyphicon-edit"></i>
                                                                 صدور فاکتور
                                                             </a>

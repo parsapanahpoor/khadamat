@@ -25,7 +25,7 @@ namespace Models.Entities.Factor
         public int ReservationOrderID { get; set; }
 
         [ForeignKey("PaymentMethod")]
-        public int PaymentMethod { get; set; }
+        public int PaymentMethodID { get; set; }
 
         public string EmployeeID { get; set; }
 
@@ -46,7 +46,10 @@ namespace Models.Entities.Factor
 
         public bool IsDelete { get; set; }
 
-        public bool IsFinaly { get; set; }
+        public bool IsOpen { get; set; }
+
+        public bool IsPay { get; set; }
+        public bool IsFinally { get; set; }
 
 
         #region Navigation
@@ -58,6 +61,7 @@ namespace Models.Entities.Factor
         public DataReservation DataReservation { get; set; }
         public ReservationOrder ReservationOrder { get; set; }
         public List<InvoicingDetail> invoicingDetails { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
 
         #endregion
     }

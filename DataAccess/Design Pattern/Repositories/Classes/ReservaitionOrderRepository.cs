@@ -207,5 +207,13 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         {
             return GetAll(p => p.HoureReservationID == HourID).Any();
         }
+
+        public void EndOfReservationOredr(ReservationOrder reservation)
+        {
+            reservation.IsEnd = true;
+            reservation.EndDateTimeReservation = DateTime.Now;
+
+            Update(reservation);
+        }
     }
 }

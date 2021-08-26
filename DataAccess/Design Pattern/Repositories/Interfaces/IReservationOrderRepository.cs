@@ -31,6 +31,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         List<ReservationOrder> GetTodayDeletedReservationOrder( );
         List<ReservationOrder> GetTodayEmployeeDeletedReservationOrder(string EmployeeID);
         bool IsExistRservationOrderWithHourReservationID(int HourID);
+        void EndOfReservationOredr(ReservationOrder reservation);
 
     }
 }

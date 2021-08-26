@@ -1,0 +1,148 @@
+﻿@model Models.Entities.Factor.Invoicing
+@{
+    ViewData["Title"] = "صدور فاکتور ";
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+
+    Models.Entities.EmployeeReservation.ReservationOrder reservationOrder = ViewBag.ReservationOrder as Models.Entities.EmployeeReservation.ReservationOrder;
+
+    List<DataAccess.ViewModels.InvoicingDetail> invoicingDetail = ViewBag.ListOfInvoicingDetails as List<DataAccess.ViewModels.InvoicingDetail>;
+}
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> صدور فاکتور  </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                        <li class="breadcrumb-item active">صدور فاکتور </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+
+            <partial name="_InvoicingDetail" />
+
+
+            <form asp-action="InvoicingFromEmployeePanel" asp-controller="Invoicing" asp-area="Employee" method="post" enctype="multipart/form-data">
+
+                <input type="hidden" asp-for="ReservationOrderID" value="@reservationOrder.ReservationOrderID" />
+                <input type="hidden" asp-for="EmployeeID" value="@reservationOrder.EmployeeID" />
+                <input type="hidden" asp-for="UserID" value="@reservationOrder.UserID" />
+                <input type="hidden" asp-for="JobCategoryID" value="@reservationOrder.JobCategoryID" />
+                <input type="hidden" asp-for="HoureReservationID" value="@reservationOrder.HoureReservationID" />
+                <input type="hidden" asp-for="DateReservationID" value="@reservationOrder.DateReservationID" />
+                <input type="hidden" asp-for="DateReservationID" value="@reservationOrder.DateReservationID" />
+
+
+
+
+                <div class="col-md-12">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">   ثبت فاکتور   </h3>
+                        </div>
+
+
+                        <div class="form-horizontal ">
+                            <div class="row">
+                                <div class="card-body row">
+                                    @if (invoicingDetail != null)
+                                    {
+                                        <div class="card-body col-md-12" style="margin-bottom:0px; margin-top:0px;">
+
+                                            <!-- /.card-header -->
+                                            <div class="card-body p-0">
+                                                <table class="table table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th style="width: 10px">#</th>
+                                                            <th>فعالیت</th>
+                                                            <th>پیشرفت</th>
+                                                            <th style="width: 40px">درصد</th>
+                                                        </tr>
+                                                        @foreach (var item in invoicingDetail)
+                                                        {
+                                                            <tr>
+                                                                <td>۱.</td>
+                                                                <td>آپدیت نرم افزار</td>
+                                                                <td>
+                                                                    <div class="progress progress-xs">
+                                                                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="badge bg-danger">۵۵%</span></td>
+                                                            </tr>
+
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.card-body -->
+                                        </div>
+
+                                    }
+
+
+                                    <div class="card-body col-md-12" style="margin-bottom:0px; margin-top:0px;">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputEmail1">  توضیحات تکمیلی  </label>
+                                            <textarea type="text" class="form-control" asp-for="Description" id="exampleInputEmail1"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success">ثبت </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+
+
+
+
+
+
+</div>
+
+
+
+@section scripts{
+
+    <script>
+        $("#Main").change(function () {
+            $("#Sub").empty();
+            $.getJSON("/home/GetSubGroups/" + $("#Main :selected").val(),
+                function (data) {
+
+                    $.each(data,
+                        function () {
+                            $("#Sub").append('<option value=' + this.value + '>' + this.text + '</option>');
+
+                        });
+
+                });
+
+
+        });
+
+    </script>
+
+}

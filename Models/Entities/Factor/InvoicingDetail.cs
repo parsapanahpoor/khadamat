@@ -29,7 +29,7 @@ namespace Models.Entities.Factor
 
         public string Description { get; set; }
 
-        public int PerCent { get; set; }
+        public int? PerCent { get; set; }
 
         public bool IsDelete { get; set; }
 

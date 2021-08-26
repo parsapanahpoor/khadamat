@@ -25,6 +25,8 @@ namespace Models.Entities.Factor
 
         #region MyRegion
 
+        public List<Invoicing> invoicings { get; set; }
+
         #endregion
 
     }
