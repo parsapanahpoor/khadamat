@@ -139,5 +139,27 @@ namespace Presentation.Areas.Employee.Controllers
 
             return Redirect("/Employee/Home/Index?CloseInvoicing=True");
         }
+        public async Task<IActionResult> CheckPayedInvoicings(int? id)
+        {
+            if (id == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            Invoicing invoicing = _context.invoicingRepository.GetInvoicingByID((int)id);
+            HourReservation houre = _context.hourReservationRepository.GetHoureReservationByID((int)invoicing.HoureReservationID);
+            if (invoicing == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            if (houre == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            ViewBag.HoureInfo = houre;
+            ViewBag.InvoicingDetail = _context.invoicingDetailsRepository.GetListOfInvoicingDetailByInvoicingId(invoicing.InvoicingID);
+            ViewBag.Employee = await _userManager.FindByIdAsync(invoicing.EmployeeID);
+
+            return View(invoicing);
+        }
     }
 }

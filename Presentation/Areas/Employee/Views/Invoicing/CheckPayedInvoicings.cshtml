@@ -1,0 +1,271 @@
+﻿@model Models.Entities.Factor.Invoicing
+@using Microsoft.AspNetCore.Identity;
+
+@{
+    ViewData["Title"] = "برسی فاکتور ";
+    Layout = "~/Areas/Users/Views/Shared/_TestLayout.cshtml";
+
+    Models.Entities.User.User Employee = ViewBag.Employee as Models.Entities.User.User;
+    Models.Entities.EmployeeReservation.HourReservation Houre = ViewBag.HoureInfo as Models.Entities.EmployeeReservation.HourReservation;
+
+    List<Models.Entities.Factor.InvoicingDetail> List = ViewBag.InvoicingDetail as List<Models.Entities.Factor.InvoicingDetail>;
+}
+
+
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>برسی فاکتور  </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                        <li class="breadcrumb-item active">برسی فاکتور </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-header">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-widget widget-user-2">
+                            <div class="widget-user-header bg-warning">
+                                <div class="widget-user-image">
+                                    <img style="width:100px;height:100px;" class="img-circle elevation-2" src="~/Images/UserAvatar/@Employee.UserAvatar" alt="User Avatar">
+                                </div>
+                                <h3 class="widget-user-username">اطلاعات خدمت رسان  </h3>
+                                <h5 class="widget-user-desc">@Employee.UserName </h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ‌شماره موبایل  <span class="float-left badge bg-primary">@Employee.PhoneNumber</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ایمیل <span class="float-left badge bg-info">@Employee.Email</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            تاریخ ثبت نام  <span class="float-left badge bg-success">@Employee.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-widget widget-user-2">
+                            <div class="widget-user-header bg-primary">
+                                <div class="widget-user-image">
+                                    <img style="width:100px;height:100px;" class="img-circle elevation-2" src="~/Images/UserAvatar/@Model.User.UserAvatar" alt="User Avatar">
+                                </div>
+                                <h3 class="widget-user-username">اطلاعات مشتری  </h3>
+                                <h5 class="widget-user-desc">@Model.User.UserName </h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ‌شماره موبایل  <span class="float-left badge bg-primary">@Model.User.PhoneNumber</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            ایمیل <span class="float-left badge bg-info">@Model.User.Email</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            تاریخ ثبت نام  <span class="float-left badge bg-success">@Model.User.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">اطلاعات خدمت   </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1"> تاریخ ثبت</label>
+                                        <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.ReservationOrder.DateTimeReservation.ToString("dddd dd/ MMMM MM/ yyyy")">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1"> تاریخ خدمت</label>
+                                        <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Houre.DataReservation.ReservationDateTime.ToString("dddd dd/ MMMM MM/ yyyy")">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">  ساعت شروع کار </label>
+                                        <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Houre.StartHourReservation">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">  ساعت پایان کار </label>
+
+                                        <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.ReservationOrder.EndDateTimeReservation.Value.ToString("HH:mm:ss")">
+                                    </div>
+                                    @if (Model.PaymentMethodID == 1)
+                                    {
+                                        <div class="form-group col-md-4">
+                                            <label for="exampleInputEmail1">  روش پرداخت   </label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="پرداخت نقدی  ">
+                                        </div>
+                                    }
+                                    @if (Model.PaymentMethodID == 2)
+                                    {
+                                        <div class="form-group col-md-4">
+                                            <label for="exampleInputEmail1">  روش پرداخت   </label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="پرداخت آنلاین  ">
+                                        </div>
+                                    }
+                                    @if (Model.ReservationOrder.UserReservationStatus == 1)
+                                    {
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputEmail1">  حالت دریافت خدمت   </label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="دریافت به صورت آنلاین ">
+                                        </div>
+                                    }
+                                    @if (Model.ReservationOrder.UserReservationStatus == 2)
+                                    {
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputEmail1">  حالت دریافت خدمت   </label>
+                                            <input type="text" class="form-control" readonly id="exampleInputEmail1" value="دریافت به صورت رزروی ">
+                                        </div>
+                                    }
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">  عنوان دسته بندی خدمت  </label>
+                                        <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.JobCategory.CategoryTitle">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="exampleInputEmail1">  توضیحات مشتری   </label>
+                                        <textarea type="text" class="form-control" readonly id="exampleInputEmail1">@Model.ReservationOrder.Description</textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="exampleInputEmail1">  توضیحات خدمت رسان   </label>
+                                        <textarea type="text" class="form-control" readonly asp-for="Description" id="exampleInputEmail1"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="exampleInputEmail1">  کد پستی  </label>
+                                        <input type="text" class="form-control" readonly id="exampleInputEmail1" value="@Model.Location.PostalCode">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="exampleInputEmail1">   آدرس و نشانی مشتری   </label>
+                                        <textarea type="text" class="form-control" readonly id="exampleInputEmail1">@Model.Location.LocationAddress</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+                @if (List.Count > 0)
+                {
+
+                    <div class="col-md-12">
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">    فاکتور   </h3>
+                            </div>
+
+                            <div class="form-horizontal ">
+                                <div class="row">
+                                    <div class="card-body row">
+                                        <div class="card-body col-md-12" style="margin-bottom:0px; margin-top:0px;">
+                                            @{
+
+                                                double Money = 0;
+
+                                            }
+                                            <div class="card-body p-0">
+                                                <table class="table table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>عنوان </th>
+                                                            <th>مبلغ دریافتی </th>
+                                                        </tr>
+                                                        @foreach (var item in List)
+                                                        {
+                                                            Money = Money + item.Price;
+                                                            <tr>
+                                                                @if (item.TariffID != null)
+                                                                {
+                                                                    <td>
+                                                                        <span class="badge bg-primary">@item.Tariff.TariffTitle</span>
+                                                                    </td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>
+                                                                        <span class="badge bg-primary">@item.Description</span>
+                                                                    </td>
+                                                                }
+                                                                <td>
+                                                                    <span class="badge bg-success">@item.Price.ToString("#,0") ریال</span>
+                                                                </td>
+                                                            </tr>
+
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="input-group mr-3">
+                                                <div class="input-group-prepend">
+                                                    <div type="button" class="btn btn-warning">مبلغ کل </div>
+                                                </div>
+                                                <!-- /btn-group -->
+                                                <div class="form-control">@Money.ToString("#,0") ریال</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer">
+                                    @if (Model.IsPay == false)
+                                    {
+                                        <a href="/Users/Invoicing/PaymentInvoicingAmount/@Model.InvoicingID" class="btn btn-success">پرداخت   </a>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+
+            </div>
+        </section>
+    </div>
+
+
+</div>

@@ -196,9 +196,9 @@
                                                             .GetReservationOrderByHourReservationID(item.HourReservationID);
 
                                                         @if (item.DataReservation.ReservationDateTime.Year <= DateTime.Now.Year
-                                                                 && item.DataReservation.ReservationDateTime.Month <= DateTime.Now.Month
-                                                                 && item.DataReservation.ReservationDateTime.Day <= DateTime.Now.Day
-                                                                 && reservation.IsEnd == false)
+                                                               && item.DataReservation.ReservationDateTime.Month <= DateTime.Now.Month
+                                                               && item.DataReservation.ReservationDateTime.Day <= DateTime.Now.Day
+                                                               && reservation.IsEnd == false)
                                                         {
                                                             <a class="btn btn-outline-warning btn-sm waves-effect"
                                                                href="/Employee/Invoicing/WarrningForSubmitInvoicing?Id=@reservation.ReservationOrderID">
@@ -208,17 +208,32 @@
                                                         }
 
                                                         @if (item.DataReservation.ReservationDateTime.Year <= DateTime.Now.Year
-                                                               && item.DataReservation.ReservationDateTime.Month <= DateTime.Now.Month
-                                                               && item.DataReservation.ReservationDateTime.Day <= DateTime.Now.Day
-                                                               && reservation.IsEnd == true)
+                                                          && item.DataReservation.ReservationDateTime.Month <= DateTime.Now.Month
+                                                          && item.DataReservation.ReservationDateTime.Day <= DateTime.Now.Day
+                                                          && reservation.IsEnd == true)
                                                         {
-                                                            <a class="btn btn-outline-warning btn-sm waves-effect"
-                                                               asp-action="HoureReservationInfo" asp-controller="EmployeeReservation" asp-area="Employee" asp-route-id="@item.HourReservationID">
-                                                                <i class="glyphicon glyphicon-edit"></i>
-                                                                برسی فاکتور
-                                                            </a>
-                                                        }
+                                                            if (_context.invoicingRepository.ISExistInvoicingWithHourReservationID(item.HourReservationID))
+                                                            {
+                                                                var invoicing = _context.invoicingRepository.GetInvoicingByHourID(item.HourReservationID);
+                                                                if (invoicing.IsOpen == true)
+                                                                {
+                                                                    <a class="btn btn-outline-warning btn-sm waves-effect"
+                                                                       href="/Employee/Invoicing/InvoicingDetails?Id=@invoicing.InvoicingID">
+                                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                                        صدور فاکتور
+                                                                    </a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a class="btn btn-outline-primary btn-sm waves-effect"
+                                                                       href="/Employee/Invoicing/CheckPayedInvoicings?Id=@invoicing.InvoicingID">
+                                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                                        برسی فاکتور
+                                                                    </a>
+                                                                }
+                                                            }
 
+                                                        }
 
                                                         <a class="btn btn-outline-info btn-sm waves-effect"
                                                            asp-action="HoureReservationInfo" asp-controller="EmployeeReservation" asp-area="Employee" asp-route-id="@item.HourReservationID">

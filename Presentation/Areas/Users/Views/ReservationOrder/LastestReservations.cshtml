@@ -1,4 +1,9 @@
 ﻿@model List<Models.Entities.EmployeeReservation.ReservationOrder>
+@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+
+@inject IUnitOfWork _context
 @{
     ViewData["Title"] = "خدمات رزرو شده ";
     Layout = "~/Areas/Users/Views/Shared/_TestLayout.cshtml";
@@ -7,8 +12,8 @@
 @section Styls
     {
 
-<!-- DataTables -->
-<link rel="stylesheet" href="/Admin_Panel/plugins/datatables/dataTables.bootstrap4.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/Admin_Panel/plugins/datatables/dataTables.bootstrap4.css">
 
 }
 
@@ -93,16 +98,30 @@
 
                                                 <td>
 
-                                                    <a class="btn btn-outline-primary btn-sm waves-effect" href="/Users/ReservationOrder/OrderReservationInfo?id=@item.ReservationOrderID&&Later=True">
+                                                    <a class="btn btn-outline-info btn-sm waves-effect" href="/Users/ReservationOrder/OrderReservationInfo?id=@item.ReservationOrderID&&Later=True">
                                                         <i class="glyphicon glyphicon-trash"></i>
                                                         جزییات
                                                     </a>
-                                                    @if (item.IsEnd == true)
+
+                                                    @if (_context.invoicingRepository.ISExistInvoicingWithHourReservationID((int)item.HoureReservationID))
                                                     {
-                                                        <a class="btn btn-outline-warning btn-sm waves-effect" href="/Users/Invoicing/CheckInvoicingFromUser?id=@item.ReservationOrderID">
-                                                            <i class="glyphicon glyphicon-trash"></i>
-                                                            برسی فاکتور 
-                                                        </a>
+                                                        Models.Entities.Factor.Invoicing invoicing =
+                                                                      _context.invoicingRepository.GetInvoicingByHourID((int)item.HoureReservationID);
+                                                        if (invoicing.IsPay == true)
+                                                        {
+                                                            <a class="btn btn-outline-primary btn-sm waves-effect" href="/Users/Invoicing/CheckInvoicingFromUser?id=@item.ReservationOrderID">
+                                                                <i class="glyphicon glyphicon-trash"></i>
+                                                                برسی فاکتور
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="btn btn-outline-warning btn-sm waves-effect" href="/Users/Invoicing/CheckInvoicingFromUser?id=@item.ReservationOrderID">
+                                                                <i class="glyphicon glyphicon-trash"></i>
+                                                                پرداخت فاکتور 
+                                                            </a>
+                                                        }
+
                                                     }
                                                 </td>
                                             </tr>
