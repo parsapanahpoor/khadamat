@@ -66,5 +66,10 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetAll(includeProperties: "Tariff")
                     .Where(p => p.InvoicingID == InvoicingID).ToList();
         }
+
+        public void UpdateInvoicingDetail(InvoicingDetail invoicingDetail)
+        {
+            Update(invoicingDetail);
+        }
     }
 }

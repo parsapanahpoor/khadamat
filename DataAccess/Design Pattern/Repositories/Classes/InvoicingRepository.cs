@@ -60,6 +60,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Update(invoicing);
         }
 
+        public Invoicing GetInvoicingByHourID(int id)
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder,Location")
+                                        .FirstOrDefault(p => p.HoureReservationID == id);
+        }
+
         public Invoicing GetInvoicingByID(int id)
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder,Location")
@@ -88,6 +94,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             {
                 return false;
             }
+        }
+
+        public void SubmitInvoicingFromAdminPanel(Invoicing invoicing)
+        {
+            invoicing.IsFinally = true;
+            Update(invoicing);
         }
 
         public void UpdateInvoicing(Invoicing invoicing)

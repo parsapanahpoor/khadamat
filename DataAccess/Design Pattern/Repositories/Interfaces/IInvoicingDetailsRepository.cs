@@ -15,5 +15,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         List<InvoicingDetail> GetListOfInvoicingDetailByInvoicingId(int InvoicingID);
         InvoicingDetail GetInvoicingDetailByID(int id);
         void DeleteInvoicingDetailSoftDelete(InvoicingDetail invoicingDetail);
+        void UpdateInvoicingDetail(InvoicingDetail invoicingDetail);
     }
 }

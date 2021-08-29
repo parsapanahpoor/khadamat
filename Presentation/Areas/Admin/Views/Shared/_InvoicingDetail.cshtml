@@ -1,0 +1,97 @@
+﻿@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+@using Microsoft.AspNetCore.Identity;
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
+
+@inject IUnitOfWork _context
+@{
+
+    var MainTariff = _context.tariffRepository.GetMainTariffForCreateInvoicing();
+    SelectList MainTariffs = new SelectList(MainTariff, "Value", "Text");
+
+    var SubTariff = _context.tariffRepository.GetSubTariffForCreateInvoicing(int.Parse(MainTariff.First().Value));
+    SelectList SubTariffs = new SelectList(SubTariff, "Value", "Text");
+
+}
+
+@if (Context.Request.Query["HoureID"].ToString() != "empty")
+{
+
+    <form asp-action="AddInvoicingDetails" asp-controller="Invoicing" asp-area="Admin" method="post" enctype="multipart/form-data">
+        @{
+            var Invoicing = _context.invoicingRepository.GetInvoicingByHourID(int.Parse(Context.Request.Query["HoureID"].ToString()));
+         }
+
+        <input type="hidden" name="InvoicingId" value="@Invoicing.InvoicingID" />
+
+        <div class="col-md-12">
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h3 class="card-title">   صدور ریز فاکتور   </h3>
+                </div>
+
+
+                <div class="form-horizontal ">
+                    <div class="row">
+                        <div class="card-body row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>عنوان  </label>
+                                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="Main" asp-items="@MainTariffs">
+                                        <option selected="selected">------   عنوان   -------</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label> خدمت </label>
+                                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="TariffID" id="Sub" asp-items="@SubTariffs">
+                                        <option selected="selected" value="0">------   انتخاب کنید   -------</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">    مبلغ دریافتی         </label>
+                                        <input type="text" class="form-control" name="Price" placeholder="مبلغ را به ریال وارد کنید ">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-body col-md-12" style="margin-bottom:0px; margin-top:0px;">
+
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">  توضیحات   </label>
+                                    <textarea type="text" class="form-control" name="Description" id="exampleInputEmail1"></textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-warning">ثبت </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+}
+
+
+

@@ -1,0 +1,93 @@
+﻿@model Models.Entities.Factor.InvoicingDetail
+@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+@using Microsoft.AspNetCore.Identity;
+
+@{
+    ViewData["Title"] = "ویرایش فاکتور ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>تایید فاکتور  </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Admin">خانه</a></li>
+                        <li class="breadcrumb-item active">تایید فاکتور </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <form asp-action="EditInvoicingDetail" asp-controller="Invoicing" asp-area="Admin" method="post" enctype="multipart/form-data">
+
+
+        <input type="hidden" asp-for="InvoicingID" />
+        <input type="hidden" asp-for="InvoicingDetailID" />
+
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">   ویرایش ریز فاکتور   </h3>
+                </div>
+
+
+                <div class="form-horizontal ">
+                    <div class="row">
+                        <div class="card-body row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">    مبلغ دریافتی         </label>
+                                        <input type="text" class="form-control" asp-for="Price" placeholder="مبلغ را به ریال وارد کنید ">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">     درصد کمیسیون         </label>
+                                        <input type="text" class="form-control" asp-for="PerCent" placeholder="درصد کمیسیون را به ریال وارد کنید ">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-body col-md-12" style="margin-bottom:0px; margin-top:0px;">
+
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">  توضیحات   </label>
+                                    <textarea type="text" class="form-control" asp-for="Description" id="exampleInputEmail1"></textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-outline-primary">ثبت </button>
+                        <a href="/Admin/Invoicing/SubmitInvoicingFromAdmin?HoureID=@ViewBag.HourId" class="btn btn-outline-info">بازگشت  </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </form>
+
+</div>
+
+
+

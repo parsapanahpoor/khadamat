@@ -19,5 +19,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void UpdateInvoicing(Invoicing invoicing);
         bool ISExistInvoicingWithHourReservationID(int id);
         bool IsInvoicingFinallyByHourID(int HourID);
+        Invoicing GetInvoicingByHourID(int id);
+        void SubmitInvoicingFromAdminPanel(Invoicing invoicing);
     }
 }

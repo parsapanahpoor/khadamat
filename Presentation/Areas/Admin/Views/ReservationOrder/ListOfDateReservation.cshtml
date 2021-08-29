@@ -190,14 +190,14 @@
                                                         {
                                                             if (_context.invoicingRepository.IsInvoicingFinallyByHourID(item.HourReservationID))
                                                             {
-                                                                <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?HoureID=@item.HourReservationID&&HoureIndex=True">
+                                                                <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/Invoicing/CheckInvoicingFromAdmin?HoureID=@item.HourReservationID">
                                                                     <i class="glyphicon glyphicon-edit"></i>
                                                                     نمایش فاکتور
                                                                 </a>
                                                             }
                                                             if (_context.invoicingRepository.IsInvoicingFinallyByHourID(item.HourReservationID) == false)
                                                             {
-                                                                <a class="btn btn-outline-warning btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?HoureID=@item.HourReservationID&&HoureIndex=True">
+                                                                <a class="btn btn-outline-warning btn-sm waves-effect" href="/Admin/Invoicing/SubmitInvoicingFromAdmin?HoureID=@item.HourReservationID">
                                                                     <i class="glyphicon glyphicon-edit"></i>
                                                                     تایید فاکتور
                                                                 </a>
