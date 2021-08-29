@@ -1,4 +1,9 @@
 ﻿@model List<Models.Entities.EmployeeReservation.ReservationOrder>
+@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@using System;
+
+@inject IUnitOfWork _context
 @{
     ViewData["Title"] = "تاریخجه ی خدمات ";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -73,7 +78,34 @@
                               method="post">
                             <input type="text" class="form-control" value="@ViewBag.StartDate" name="StartDate" id="StartDate" />
                             <input type="text" class="form-control" value="@ViewBag.EndDate" name="EndDate" id="EndDate" />
-                            <input type="submit" class="btn btn-success" value="ثبت" />
+
+                            <div class="row">
+                                <div class="form-group mr-2 mt-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="IsPay" value="true" @((ViewBag.IsPay == true) ? "Checked" : "")>
+                                        <label class="form-check-label"> فاکتورهای پرداخت شده </label>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group mr-4 mt-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="IsOpen" value="true" @((ViewBag.IsOpen == true) ? "Checked" : "")>
+                                        <label class="form-check-label">فاکتور های بسته شده  </label>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group mr-4 mt-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="Isfinally" value="true" @((ViewBag.Isfinally == true) ? "Checked" : "")>
+                                        <label class="form-check-label">فاکتور های تایید شده  </label>
+                                    </div>
+
+
+                                </div>
+                                <input type="submit" class="btn btn-success mr-3" value="ثبت" />
+                            </div>
                         </form>
 
                     </div>
@@ -93,6 +125,7 @@
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">  تاریخ    </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">  دسته بندی خدمت     </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">  روش ثبت      </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">   فاکتور      </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"></th>
 
@@ -164,19 +197,64 @@
                                                     </td>
                                                 }
 
+                                                <td>
+                                                        @if (item.IsEnd == true)
+                                                        {
+                                                            Models.Entities.Factor.Invoicing invoicing = _context.invoicingRepository
+                                                                                                                    .GetInvoicingByHourID((int)item.HoureReservationID);
+                                                            if (invoicing.IsPay)
+                                                            {
+                                                                <div class="badge badge-success" style="color: white;"> پرداخت شده   </div>
+                                                            }
+                                                            if (invoicing.IsPay == false)
+                                                            {
+                                                                <div class="badge badge-warning" style="color:black;">  در انتظار پرداخت     </div>
+                                                            }
+                                                            if (invoicing.IsFinally)
+                                                            {
+                                                                <div class="badge badge-success" style="color: white;">  تایید شده     </div>
+                                                            }
+                                                            if (invoicing.IsFinally == false)
+                                                            {
+                                                                <div class="badge badge-warning" style="color:black;">  تایید نشده     </div>
+                                                            }
+                                                            if (invoicing.IsOpen == true)
+                                                            {
+                                                                <div class="badge badge-warning" style="color: black;">   فاکتور بسته نشده      </div>
+                                                            }
+                                                            if (invoicing.IsOpen == false)
+                                                            {
+                                                                <div class="badge badge-success" style="color: white;">   فاکتور بسته شده      </div>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="badge badge-dark" style="color:white;">شروع نشده    </div>
+                                                        }
+                                                </td>
 
-                                            <td>
+                                                <td>
+                                                    @if (item.IsEnd == true)
+                                                    {
+                                                        <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/Invoicing/CheckInvoicingFromUserSide?HoureID=@item.HoureReservationID">
+                                                            <i class="glyphicon glyphicon-edit"></i>
+                                                            فاکتور
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?id=@item.ReservationOrderID&&HistoryIndex=True">
+                                                            <i class="glyphicon glyphicon-edit"></i>
+                                                            برسی
+                                                        </a>
+                                                    }
 
-                                                <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?id=@item.ReservationOrderID&&HistoryIndex=True">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                    برسی 
-                                                </a>
-                                                <a class="btn btn-outline-danger btn-sm waves-effect" href="/Admin/ReservationOrder/ShowDeletePage?id=@item.ReservationOrderID&&HistoryIndex=True">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                    حذف 
-                                                </a>
+                                                    <a class="btn btn-outline-danger btn-sm waves-effect" href="/Admin/ReservationOrder/ShowDeletePage?id=@item.ReservationOrderID&&HistoryIndex=True">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                        حذف
+                                                    </a>
 
-                                            </td>
+                                                </td>
                                             </tr>
                                         }
                                     </tbody>

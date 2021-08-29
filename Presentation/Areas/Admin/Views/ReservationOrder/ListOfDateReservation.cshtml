@@ -143,6 +143,7 @@
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.317px;" aria-label="وضعیت: activate to sort column ascending">ساعت شروع  </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.317px;" aria-label="وضعیت: activate to sort column ascending">ساعت پایان  </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.317px;" aria-label="وضعیت: activate to sort column ascending">وضعیت  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 100.317px;" aria-label="وضعیت: activate to sort column ascending">وضعیت فاکتور   </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 420.6px;" aria-label=" activate to sort column ascending"></th>
                                         </tr>
@@ -169,6 +170,43 @@
                                                         </a>
                                                     }
                                                 </td>
+
+                                                <td>
+                                                    @if (_context.invoicingRepository.ISExistInvoicingWithHourReservationID(item.HourReservationID))
+                                                    {
+                                                        var invoicing = _context.invoicingRepository.GetInvoicingByHourID(item.HourReservationID);
+                                                        if (invoicing.IsPay)
+                                                        {
+                                                            <div class="badge badge-success" style="color: white;"> پرداخت شده   </div>
+                                                        }
+                                                        if (invoicing.IsPay == false)
+                                                        {
+                                                            <div class="badge badge-warning" style="color:black;">  در انتظار پرداخت     </div>
+                                                        }
+                                                        if (invoicing.IsFinally)
+                                                        {
+                                                            <div class="badge badge-success" style="color: white;">  تایید شده     </div>
+                                                        }
+                                                        if (invoicing.IsFinally == false)
+                                                        {
+                                                            <div class="badge badge-warning" style="color:black;">  تایید نشده     </div>
+                                                        }
+                                                        if (invoicing.IsOpen == true)
+                                                        {
+                                                            <div class="badge badge-warning" style="color: black;">   فاکتور بسته نشده      </div>
+                                                        }
+                                                        if (invoicing.IsOpen == false)
+                                                        {
+                                                            <div class="badge badge-success" style="color: white;">   فاکتور بسته شده      </div>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="badge badge-dark" style="color:white;"> ناموجود     </div>
+                                                    }
+                                                </td>
+
+
                                                 <td>
 
                                                     @if (item.ReservationStatusID == 2 && ViewBag.History != true)

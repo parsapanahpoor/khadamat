@@ -162,5 +162,28 @@ namespace Presentation.Areas.Admin.Controllers
 
             return View(invoicingDetail);
         }
+        public async Task<IActionResult> CheckInvoicingFromUserSide(int? HoureID)
+        {
+            if (HoureID == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            Invoicing invoicing = _context.invoicingRepository.GetInvoicingByHourID((int)HoureID);
+            HourReservation houre = _context.hourReservationRepository.GetHoureReservationByID((int)invoicing.HoureReservationID);
+            if (invoicing == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            if (houre == null)
+            {
+                return View("~/Views/Shared/_404.cshtml");
+            }
+            ViewBag.HoureInfo = houre;
+            ViewBag.InvoicingDetail = _context.invoicingDetailsRepository.GetListOfInvoicingDetailByInvoicingId(invoicing.InvoicingID);
+            ViewBag.Employee = await _userManager.FindByIdAsync(invoicing.EmployeeID);
+
+            return View(invoicing);
+        }
+       
     }
 }

@@ -400,7 +400,7 @@ namespace Presentation.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult HistoryOfReservationOrder(string StartDate = "", string EndDate = "")
+        public IActionResult HistoryOfReservationOrder(string StartDate = "", string EndDate = "", bool IsPay = false, bool Isfinally = false, bool IsOpen = false)
         {
             List<ReservationOrder> list = new List<ReservationOrder>();
             list.AddRange(_context.reservaitionOrderRepository.GetAllReservationOrder());
@@ -455,6 +455,25 @@ namespace Presentation.Areas.Admin.Controllers
 
             ViewBag.StartDate = StartDate;
             ViewBag.EndDate = EndDate;
+
+            if (IsPay == true)
+            {
+                List<ReservationOrder> ListOfPayed = _context.invoicingRepository.IsPayedReservations();
+                ViewBag.IsPay = true;
+                return View(ListOfPayed);
+            }
+            if (Isfinally == true)
+            {
+                List<ReservationOrder> ListOfFinally = _context.invoicingRepository.IsFinallyReservations();
+                ViewBag.Isfinally = true;
+                return View(ListOfFinally);
+            }
+            if (IsOpen == true)
+            {
+                List<ReservationOrder> ListOfClosed = _context.invoicingRepository.IsCloseReservations();
+                ViewBag.IsOpen = true;
+                return View(ListOfClosed);
+            }
 
             return View(list);
         }

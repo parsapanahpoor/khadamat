@@ -78,9 +78,23 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                             .FirstOrDefault(p => p.ReservationOrderID == reservationID);
         }
 
+        public List<ReservationOrder> IsCloseReservations()
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder,Location")
+                                     .Where(p => p.IsOpen == false)
+                                     .Select(p => p.ReservationOrder).ToList();
+        }
+
         public bool ISExistInvoicingWithHourReservationID(int id)
         {
             return GetAll().Any(p => p.HoureReservationID == id);
+        }
+
+        public List<ReservationOrder> IsFinallyReservations()
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder,Location")
+                                     .Where(p => p.IsFinally == true)
+                                     .Select(p => p.ReservationOrder).ToList();
         }
 
         public bool IsInvoicingFinallyByHourID(int HourID)
@@ -94,6 +108,25 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             {
                 return false;
             }
+        }
+
+        public bool IsInvoicingPayed(Invoicing invoicing)
+        {
+            if (invoicing.IsPay == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public List<ReservationOrder> IsPayedReservations()
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder,Location")
+                           .Where(p=>p.IsPay == true)
+                           .Select(p=>p.ReservationOrder).ToList();
         }
 
         public void SubmitInvoicingFromAdminPanel(Invoicing invoicing)

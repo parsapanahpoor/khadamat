@@ -21,5 +21,9 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         bool IsInvoicingFinallyByHourID(int HourID);
         Invoicing GetInvoicingByHourID(int id);
         void SubmitInvoicingFromAdminPanel(Invoicing invoicing);
+        bool IsInvoicingPayed(Invoicing invoicing);
+        List<ReservationOrder> IsPayedReservations();
+        List<ReservationOrder> IsFinallyReservations();
+        List<ReservationOrder> IsCloseReservations();
     }
 }
