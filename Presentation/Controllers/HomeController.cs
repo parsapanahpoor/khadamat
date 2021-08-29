@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using Models.Entities.Factor;
 using Presentation.Models;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,41 @@ namespace Presentation.Controllers
             };
             list.AddRange(_context.tariffRepository.GetSubTariffForCreateInvoicing(id));
             return Json(new SelectList(list, "Value", "Text"));
+        }
+
+        [Route("OnlinePayment/{id}")]
+        public IActionResult onlinePayment(int id)
+        {
+            if (HttpContext.Request.Query["Status"] != "" &&
+                HttpContext.Request.Query["Status"].ToString().ToLower() == "ok"
+                && HttpContext.Request.Query["Authority"] != "")
+            {
+                string authority = HttpContext.Request.Query["Authority"];
+
+                Invoicing invoicing = _context.invoicingRepository.GetInvoicingByID(id);
+                List<InvoicingDetail> invoicingDetails = _context.invoicingDetailsRepository.GetListOfInvoicingDetailByInvoicingId(id);
+
+                int Amount = 0;
+
+                foreach (var item in invoicingDetails)
+                {
+                    Amount = Amount + (int)item.Price;
+                }
+                //در این مرحله باید مبلغی که به صورت آنلاین پرداخت شده به حساب ها وارد شود 
+
+                var payment = new ZarinpalSandbox.Payment(Amount);
+                var res = payment.Verification(authority).Result;
+                if (res.Status == 100)
+                {
+                    ViewBag.code = res.RefId;
+                    ViewBag.IsSuccess = true;
+                    invoicing.IsPay = true;
+                    _context.invoicingRepository.UpdateInvoicing(invoicing);
+                    _context.SaveChangesDB();
+                }
+            }
+
+            return View();
         }
     }
 }

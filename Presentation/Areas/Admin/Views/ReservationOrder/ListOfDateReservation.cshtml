@@ -1,5 +1,9 @@
 ﻿@model List<Models.Entities.EmployeeReservation.HourReservation>
 @using Utilities.Convertors
+@using DataAccess.Design_Pattern.Repositories
+@using DataAccess.Design_Pattern.UnitOfWork
+@inject IUnitOfWork _context
+
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "لیست ساعات";
@@ -122,7 +126,7 @@
                 <div class="card ">
                     <div class="card-header">
                         <div class="card-tools">
-                     
+
 
                         </div>
                     </div>
@@ -182,10 +186,31 @@
                                                     }
                                                     @if (item.ReservationStatusID == 1)
                                                     {
-                                                        <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?HoureID=@item.HourReservationID&&HoureIndex=True">
-                                                            <i class="glyphicon glyphicon-edit"></i>
-                                                             جزییات
-                                                        </a>
+                                                        if (_context.invoicingRepository.ISExistInvoicingWithHourReservationID(item.HourReservationID))
+                                                        {
+                                                            if (_context.invoicingRepository.IsInvoicingFinallyByHourID(item.HourReservationID))
+                                                            {
+                                                                <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?HoureID=@item.HourReservationID&&HoureIndex=True">
+                                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                                    نمایش فاکتور
+                                                                </a>
+                                                            }
+                                                            if (_context.invoicingRepository.IsInvoicingFinallyByHourID(item.HourReservationID) == false)
+                                                            {
+                                                                <a class="btn btn-outline-warning btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?HoureID=@item.HourReservationID&&HoureIndex=True">
+                                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                                    تایید فاکتور
+                                                                </a>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="btn btn-outline-primary btn-sm waves-effect" href="/Admin/ReservationOrder/ReservationOrderInformation?HoureID=@item.HourReservationID&&HoureIndex=True">
+                                                                <i class="glyphicon glyphicon-edit"></i>
+                                                                جزییات
+                                                            </a>
+                                                        }
+
                                                         <a class="btn btn-outline-danger btn-sm waves-effect"
                                                            href="/Admin/ReservationOrder/UpdateHourReservation?id=@item.HourReservationID&&Delete=true">
                                                             <i class="glyphicon glyphicon-trash"></i>

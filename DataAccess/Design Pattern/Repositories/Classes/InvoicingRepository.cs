@@ -63,7 +63,36 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         public Invoicing GetInvoicingByID(int id)
         {
             return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder,Location")
-                            .FirstOrDefault(p=>p.InvoicingID == id);
+                            .FirstOrDefault(p => p.InvoicingID == id);
+        }
+
+        public Invoicing GetInvoicingByReservationOrderID(int reservationID)
+        {
+            return GetAll(includeProperties: "User,DataReservation,HourReservation,JobCategory,ReservationOrder,Location")
+                            .FirstOrDefault(p => p.ReservationOrderID == reservationID);
+        }
+
+        public bool ISExistInvoicingWithHourReservationID(int id)
+        {
+            return GetAll().Any(p => p.HoureReservationID == id);
+        }
+
+        public bool IsInvoicingFinallyByHourID(int HourID)
+        {
+            Invoicing invoicing = GetAll(p => p.HoureReservationID == HourID).Single();
+            if (invoicing.IsFinally == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void UpdateInvoicing(Invoicing invoicing)
+        {
+            Update(invoicing);
         }
     }
 }

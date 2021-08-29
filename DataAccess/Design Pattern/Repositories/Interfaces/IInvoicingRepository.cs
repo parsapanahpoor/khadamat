@@ -15,6 +15,9 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         Invoicing AddInvoicingByReservationOrderInformations(ReservationOrder reservation , FirstStepForInvoicing first);
         Invoicing GetInvoicingByID(int id);
         void CloseInvoicingFromEmployeePanel(Invoicing invoicing);
-
+        Invoicing GetInvoicingByReservationOrderID(int reservationID);
+        void UpdateInvoicing(Invoicing invoicing);
+        bool ISExistInvoicingWithHourReservationID(int id);
+        bool IsInvoicingFinallyByHourID(int HourID);
     }
 }

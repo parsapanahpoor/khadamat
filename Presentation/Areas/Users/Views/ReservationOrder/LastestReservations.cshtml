@@ -4,14 +4,13 @@
     Layout = "~/Areas/Users/Views/Shared/_TestLayout.cshtml";
 }
 
-section Styls
+@section Styls
     {
 
 <!-- DataTables -->
 <link rel="stylesheet" href="/Admin_Panel/plugins/datatables/dataTables.bootstrap4.css">
 
 }
-
 
 <div class="content-wrapper" style="min-height: 805px;">
     <section class="content-header">
@@ -56,6 +55,7 @@ section Styls
 
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending">تاریخ ثبت </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"> خدمت  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending">   </th>
 
                                         </tr>
                                     </thead>
@@ -97,6 +97,13 @@ section Styls
                                                         <i class="glyphicon glyphicon-trash"></i>
                                                         جزییات
                                                     </a>
+                                                    @if (item.IsEnd == true)
+                                                    {
+                                                        <a class="btn btn-outline-warning btn-sm waves-effect" href="/Users/Invoicing/CheckInvoicingFromUser?id=@item.ReservationOrderID">
+                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                            برسی فاکتور 
+                                                        </a>
+                                                    }
                                                 </td>
                                             </tr>
                                         }
@@ -115,6 +122,7 @@ section Styls
         <!-- /.row -->
     </section> <!-- /.content -->
 </div>
+
 
 
 
@@ -157,5 +165,6 @@ section Styls
             });
         });</script>
 }
+
 
 
