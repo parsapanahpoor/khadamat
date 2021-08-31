@@ -10,6 +10,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public interface IFinancialTransactionRepository : IGernericRepository<FinancialTrnsaction>
     {
-        void AddFinancialTransaction(Invoicing invoicing , decimal price);
+        void AddFinancialTransactionForCashPaymentToEmployeeFromUser(Invoicing invoicing , decimal price);
+        void AddFinancialTransactionForOnlinePaymentToEmployeeFromUser(Invoicing invoicing , decimal price);
     }
 }

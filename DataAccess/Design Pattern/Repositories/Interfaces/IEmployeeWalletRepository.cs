@@ -12,6 +12,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
     {
         bool IsExistEmployeeWallet(string EmployeeId);
         void UpdateEmployeeWalletForCashPaymentFromUser(string employeeId , decimal AdminPercent);
+        void UpdateEmployeeWalletForOnlinePaymentFromUser(string employeeId , decimal EmployeePercent);
         void AddEmployeeWallet(string EmployeeId);
     }
 }

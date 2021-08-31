@@ -19,7 +19,7 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             _db = db;
         }
 
-        public void AddFinancialTransaction(Invoicing invoicing, decimal price)
+        public void AddFinancialTransactionForCashPaymentToEmployeeFromUser(Invoicing invoicing, decimal price)
         {
             FinancialTrnsaction financial = new FinancialTrnsaction()
             {
@@ -29,6 +29,21 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                 EmployeeID = invoicing.EmployeeID,
                 UserID = invoicing.EmployeeID,
                 Description = "پزداخت نقدی مبلغ خدمت از مشتری به خدمت رسان ",
+                DateTime = DateTime.Now
+            };
+
+            Add(financial);
+        }
+
+        public void AddFinancialTransactionForOnlinePaymentToEmployeeFromUser(Invoicing invoicing, decimal price)
+        {
+            FinancialTrnsaction financial = new FinancialTrnsaction()
+            {
+                FinancialTransactionStatusID = 1,
+                InvoicingId = invoicing.InvoicingID,
+                Price = price,
+                UserID = invoicing.EmployeeID,
+                Description = "پزداخت آنلاین مبلغ خدمت از مشتری به حساب خدمت رسان",
                 DateTime = DateTime.Now
             };
 

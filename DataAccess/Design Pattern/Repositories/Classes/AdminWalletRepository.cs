@@ -52,5 +52,14 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
             Update(wallet);
         }
+
+        public void UpdateAdminWalletForOnlinePaymentTotheEmployeeFromUser(decimal AdminPercent, decimal EmployeePercent)
+        {
+            AdminWallet wallet = GetAll().Single();
+            wallet.WalletAmount = wallet.WalletAmount + AdminPercent;
+            wallet.DebtAmount = wallet.DebtAmount + EmployeePercent;
+
+            Update(wallet);
+        }
     }
 }

@@ -99,7 +99,7 @@ namespace Presentation.Areas.Admin.Controllers
             //پرداخت نقدی مبلغ 
             if (invoicing.PaymentMethodID == 1)
             {
-                _context.FinancialTransactionRepository.AddFinancialTransaction(invoicing, AllPrice);
+                _context.FinancialTransactionRepository.AddFinancialTransactionForCashPaymentToEmployeeFromUser(invoicing, AllPrice);
 
                 //پرداخت سهم شرکت 
                 if (_context.AdminWalletRepository.IsExistAdminWallet())
@@ -127,7 +127,30 @@ namespace Presentation.Areas.Admin.Controllers
             }
             if (invoicing.PaymentMethodID == 2)
             {
+                _context.FinancialTransactionRepository.AddFinancialTransactionForOnlinePaymentToEmployeeFromUser(invoicing, AllPrice);
+                //پرداخت سهم شرکت 
+                if (_context.AdminWalletRepository.IsExistAdminWallet())
+                {
+                    _context.AdminWalletRepository.UpdateAdminWalletForOnlinePaymentTotheEmployeeFromUser(AdminPercent,EmployeePercent);
+                }
+                if (!_context.AdminWalletRepository.IsExistAdminWallet())
+                {
+                    _context.AdminWalletRepository.AddAdminWallet();
+                    _context.SaveChangesDB();
+                    _context.AdminWalletRepository.UpdateAdminWalletForOnlinePaymentTotheEmployeeFromUser(AdminPercent, EmployeePercent);
+                }
 
+                //پرداخت سهم خدمت رسان  
+                if (_context.EmployeeWalletRepository.IsExistEmployeeWallet(invoicing.EmployeeID))
+                {
+                    _context.EmployeeWalletRepository.UpdateEmployeeWalletForOnlinePaymentFromUser(invoicing.EmployeeID, EmployeePercent);
+                }
+                if (!_context.EmployeeWalletRepository.IsExistEmployeeWallet(invoicing.EmployeeID))
+                {
+                    _context.EmployeeWalletRepository.AddEmployeeWallet(invoicing.EmployeeID);
+                    _context.SaveChangesDB();
+                    _context.EmployeeWalletRepository.UpdateEmployeeWalletForOnlinePaymentFromUser(invoicing.EmployeeID, EmployeePercent);
+                }
             }
             #endregion
             _context.SaveChangesDB();
