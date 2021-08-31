@@ -22,6 +22,9 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         TariffRepository tariffRepository { get; }
         InvoicingDetailsRepository invoicingDetailsRepository { get; }
         InvoicingRepository invoicingRepository { get; }
+        FinancialTransactionRepository FinancialTransactionRepository { get; }
+        AdminWalletRepository AdminWalletRepository { get; }
+        EmployeeWalletRepository EmployeeWalletRepository { get; }
 
         #endregion
 

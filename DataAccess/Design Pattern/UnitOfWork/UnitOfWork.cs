@@ -27,6 +27,9 @@ namespace DataAccess.Design_Pattern.UnitOfWork
             tariffRepository = new TariffRepository(_db);
             invoicingDetailsRepository = new InvoicingDetailsRepository(_db);
             invoicingRepository = new InvoicingRepository(_db);
+            FinancialTransactionRepository = new FinancialTransactionRepository(_db);
+            AdminWalletRepository = new AdminWalletRepository(_db);
+            EmployeeWalletRepository = new EmployeeWalletRepository(_db);
         }
 
         #endregion
@@ -43,6 +46,9 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         public TariffRepository tariffRepository { get; private set; }
         public InvoicingDetailsRepository invoicingDetailsRepository { get; private set; }
         public InvoicingRepository invoicingRepository { get; private set; }
+        public FinancialTransactionRepository FinancialTransactionRepository { get; private set; }
+        public AdminWalletRepository AdminWalletRepository { get; private set; }
+        public EmployeeWalletRepository EmployeeWalletRepository { get; private set; }
 
         #endregion
 
