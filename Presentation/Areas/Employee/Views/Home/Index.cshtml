@@ -1,7 +1,7 @@
 ﻿@model Models.Entities.User.User
 @{
     ViewData["Title"] = "داشبورد خدمت رسان ";
-
+    Models.Entities.Factor.EmployeeWallet Wallet = ViewBag.Wallet as Models.Entities.Factor.EmployeeWallet;
 }
 
 
@@ -26,6 +26,40 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            @if (ViewBag.IsExistWallet == true)
+            {
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fa fa-dollar"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">موجودی حساب شما  </span>
+                                <span class="info-box-number">
+                                    @Wallet.CreditAmount.ToString("#,0") ریال
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-dollar"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">‌بدهکاری شما به شرکت </span>
+                                <span class="info-box-number">@Wallet.DebtAmount.ToString("#,0") ریال</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                </div>
+            }
             <div class="row">
                 @if (ViewBag.Edit == true)
                 {
@@ -258,7 +292,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                همکار عزیز از صدور فاکتور خود متشکریم 
+                                همکار عزیز از صدور فاکتور خود متشکریم
                             </div>
                             <!-- /.card-body -->
                         </div>

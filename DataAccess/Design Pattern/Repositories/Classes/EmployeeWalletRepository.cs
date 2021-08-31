@@ -31,6 +31,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Add(wallet);
         }
 
+        public EmployeeWallet GetEmployeeWalletByEmployeeID(string EmployeeID)
+        {
+            return GetAll(p => p.EmployeeId == EmployeeID).FirstOrDefault();
+        }
+
         public bool IsExistEmployeeWallet(string EmployeeId)
         {
             bool response = GetAll(p => p.EmployeeId == EmployeeId).Any();

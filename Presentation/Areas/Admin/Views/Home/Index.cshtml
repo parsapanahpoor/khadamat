@@ -1,6 +1,13 @@
 ﻿
 
+@{ 
 
+    decimal Money = ViewBag.AllBalance;
+    decimal AdminPercent = ViewBag.AdminPercent;
+    decimal DebtAmount = ViewBag.DebtAmount;
+    decimal Credit = ViewBag.Credit;
+
+}
 
 <div class="content-wrapper" style="min-height: 805px;">
     <section class="content-header">
@@ -18,11 +25,74 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    <section class="content">
-        <div class="row">
-            <div class="col-12">
-                <partial name="_ShowTodayDeletedOrderReservations" />
+    @if (ViewBag.IsExist == true)
+    {
+        <section class="content">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fa fa-dollar"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text"> موجودی کل صندوق </span>
+                            <span class="info-box-number">
+                                @Money.ToString("#,0") ریال
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon badge-success elevation-1"><i class="fa fa-dollar"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">‌سهم شرکت </span>
+                            <span class="info-box-number">@AdminPercent.ToString("#,0") ریال </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon badge-danger elevation-1"><i class="fa fa-dollar"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">مقدار بدهکاری  </span>
+                            <span class="info-box-number">@DebtAmount.ToString("#,0") ریال</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon badge-warning elevation-1"><i class="fa fa-dollar"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text"> مقدار طلبکاری </span>
+                            <span class="info-box-number">@Credit.ToString("#,0") ریال</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
             </div>
-        </div>
-    </section>
+            <div class="row">
+                <div class="col-12">
+                    <partial name="_ShowTodayDeletedOrderReservations" />
+                </div>
+            </div>
+        </section>
+
+    }
 </div>

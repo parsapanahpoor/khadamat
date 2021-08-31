@@ -20,20 +20,15 @@ namespace Presentation.Areas.Supporter.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IUnitOfWork _context;
-
-
         public HomeController(UserManager<User> userManager,
-            SignInManager<User> signInManager, IUnitOfWork context
-            )
+            SignInManager<User> signInManager, IUnitOfWork context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
-
         }
+
         #endregion
-
-
         public async Task<IActionResult> Index(int? status , bool Edit = false , bool CloseInvoicing = false)
         {
             var user =await _userManager.FindByNameAsync(User.Identity.Name);
@@ -43,7 +38,6 @@ namespace Presentation.Areas.Supporter.Controllers
             {
                 ViewBag.UserSelectedJob = true;
             }
-
             ViewBag.Possition = Employee.PossitionId;
 
             if (Edit == true)
@@ -61,12 +55,16 @@ namespace Presentation.Areas.Supporter.Controllers
             if (status == 2)
             {
                 ViewBag.Status = 2;
-
             }
             if (status == 3)
             {
                 ViewBag.Status = 3;
+            }
 
+            if (_context.EmployeeWalletRepository.IsExistEmployeeWallet(user.Id))
+            {
+                ViewBag.IsExistWallet = true;
+                ViewBag.Wallet = _context.EmployeeWalletRepository.GetEmployeeWalletByEmployeeID(user.Id);
             }
 
             return View(user);

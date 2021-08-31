@@ -14,5 +14,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void UpdateAdminWalletForCashPaymentTotheEmployeeFromUser(decimal AdminPercent);
         void UpdateAdminWalletForOnlinePaymentTotheEmployeeFromUser(decimal AdminPercent , decimal EmployeePercent);
         void AddAdminWallet();
+        AdminWallet GetAdminWallet();
     }
 }

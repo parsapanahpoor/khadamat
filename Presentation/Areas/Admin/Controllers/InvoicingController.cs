@@ -131,7 +131,7 @@ namespace Presentation.Areas.Admin.Controllers
                 //پرداخت سهم شرکت 
                 if (_context.AdminWalletRepository.IsExistAdminWallet())
                 {
-                    _context.AdminWalletRepository.UpdateAdminWalletForOnlinePaymentTotheEmployeeFromUser(AdminPercent,EmployeePercent);
+                    _context.AdminWalletRepository.UpdateAdminWalletForOnlinePaymentTotheEmployeeFromUser(AdminPercent, EmployeePercent);
                 }
                 if (!_context.AdminWalletRepository.IsExistAdminWallet())
                 {

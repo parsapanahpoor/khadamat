@@ -31,6 +31,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Add(wallet);
         }
 
+        public AdminWallet GetAdminWallet()
+        {
+            return GetAll().First();
+        }
+
         public bool IsExistAdminWallet()
         {
             bool respone = GetAll().Any();
