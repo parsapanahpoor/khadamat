@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210831071642_AddTransactionStatusTBL")]
+    partial class AddTransactionStatusTBL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -316,51 +318,6 @@ namespace DataContext.Migrations
                     b.ToTable("UserReserveStatus");
                 });
 
-            modelBuilder.Entity("Models.Entities.Factor.AdminWallet", b =>
-                {
-                    b.Property<int>("AdminWalletID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("CreditAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DebtAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("WalletAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("AdminWalletID");
-
-                    b.ToTable("AdminWallet");
-                });
-
-            modelBuilder.Entity("Models.Entities.Factor.EmployeeWallet", b =>
-                {
-                    b.Property<int>("EmployeeWalletID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("CreditAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DebtAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("EmployeeWalletID");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("EmployeeWallet");
-                });
-
             modelBuilder.Entity("Models.Entities.Factor.FinancialTransactionStatus", b =>
                 {
                     b.Property<int>("FinancialTransactionStatusID")
@@ -373,63 +330,6 @@ namespace DataContext.Migrations
                     b.HasKey("FinancialTransactionStatusID");
 
                     b.ToTable("FinancialTransactionStatus");
-                });
-
-            modelBuilder.Entity("Models.Entities.Factor.FinancialTrnsaction", b =>
-                {
-                    b.Property<int>("FinancialTransactionID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BankRecepiet")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("BankTransferNumber")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DepositeFromPerson")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeeID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("FinancialTransactionStatusID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("InvoicingId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ReciverPerson")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("FinancialTransactionID");
-
-                    b.HasIndex("EmployeeID");
-
-                    b.HasIndex("FinancialTransactionStatusID");
-
-                    b.HasIndex("InvoicingId");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("FinancialTrnsactions");
                 });
 
             modelBuilder.Entity("Models.Entities.Factor.Invoicing", b =>
@@ -1033,46 +933,6 @@ namespace DataContext.Migrations
                     b.Navigation("UserReserveStatus");
                 });
 
-            modelBuilder.Entity("Models.Entities.Factor.EmployeeWallet", b =>
-                {
-                    b.HasOne("Models.Entities.User.User", "User")
-                        .WithMany("EmployeeWallets")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Models.Entities.Factor.FinancialTrnsaction", b =>
-                {
-                    b.HasOne("Models.Entities.User.User", "Employee")
-                        .WithMany("FinancialTrnsactionsEmployee")
-                        .HasForeignKey("EmployeeID");
-
-                    b.HasOne("Models.Entities.Factor.FinancialTransactionStatus", "FinancialTransactionStatus")
-                        .WithMany("FinancialTrnsactions")
-                        .HasForeignKey("FinancialTransactionStatusID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.Factor.Invoicing", "Invoicing")
-                        .WithMany("FinancialTrnsactions")
-                        .HasForeignKey("InvoicingId");
-
-                    b.HasOne("Models.Entities.User.User", "User")
-                        .WithMany("FinancialTrnsactionsUser")
-                        .HasForeignKey("UserID");
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("FinancialTransactionStatus");
-
-                    b.Navigation("Invoicing");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Models.Entities.Factor.Invoicing", b =>
                 {
                     b.HasOne("Models.Entities.EmployeeReservation.DataReservation", "DataReservation")
@@ -1238,15 +1098,8 @@ namespace DataContext.Migrations
                     b.Navigation("ReservationOrders");
                 });
 
-            modelBuilder.Entity("Models.Entities.Factor.FinancialTransactionStatus", b =>
-                {
-                    b.Navigation("FinancialTrnsactions");
-                });
-
             modelBuilder.Entity("Models.Entities.Factor.Invoicing", b =>
                 {
-                    b.Navigation("FinancialTrnsactions");
-
                     b.Navigation("invoicingDetails");
                 });
 
@@ -1277,12 +1130,6 @@ namespace DataContext.Migrations
                     b.Navigation("DataReservation");
 
                     b.Navigation("EmployeeDocuments");
-
-                    b.Navigation("EmployeeWallets");
-
-                    b.Navigation("FinancialTrnsactionsEmployee");
-
-                    b.Navigation("FinancialTrnsactionsUser");
 
                     b.Navigation("HourReservation");
 

@@ -66,6 +66,7 @@ namespace Models.Entities.Factor
         public List<InvoicingDetail> invoicingDetails { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public Location Location { get; set; }
+        public List<FinancialTrnsaction> FinancialTrnsactions { get; set; }
 
         #endregion
     }

@@ -59,6 +59,10 @@ namespace Models.Entities.User
         public List<ReservationOrder> ReservationOrderUser { get; set; }
         public List<Invoicing> InvoicingEmployee { get; set; }
         public List<Invoicing> InvoicingUser { get; set; }
+        public List<FinancialTrnsaction> FinancialTrnsactionsUser { get; set; }
+        public List<FinancialTrnsaction> FinancialTrnsactionsEmployee { get; set; }
+        public List<EmployeeWallet> EmployeeWallets { get; set; }
+
         #endregion
 
     }
