@@ -18,5 +18,21 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         {
             _db = db;
         }
+
+        public void AddFinancialTransaction(Invoicing invoicing, decimal price)
+        {
+            FinancialTrnsaction financial = new FinancialTrnsaction()
+            {
+                FinancialTransactionStatusID = 2,
+                InvoicingId = invoicing.InvoicingID,
+                Price = price,
+                EmployeeID = invoicing.EmployeeID,
+                UserID = invoicing.EmployeeID,
+                Description = "پزداخت نقدی مبلغ خدمت از مشتری به خدمت رسان ",
+                DateTime = DateTime.Now
+            };
+
+            Add(financial);
+        }
     }
 }

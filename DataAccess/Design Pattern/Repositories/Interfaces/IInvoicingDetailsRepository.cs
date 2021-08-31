@@ -16,5 +16,8 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         InvoicingDetail GetInvoicingDetailByID(int id);
         void DeleteInvoicingDetailSoftDelete(InvoicingDetail invoicingDetail);
         void UpdateInvoicingDetail(InvoicingDetail invoicingDetail);
+        decimal GetAdminPercerntFromInvoicing(int invoicingID);
+        decimal GetEmployeePercentFromInvoicing(int invoicingID);
+        decimal GetFullPriceFromInvoicing(int invoicingID);
     }
 }

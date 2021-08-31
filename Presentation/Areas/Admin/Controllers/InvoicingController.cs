@@ -87,10 +87,52 @@ namespace Presentation.Areas.Admin.Controllers
             {
                 return View("~/Views/Shared/_404.cshtml");
             }
+
             _context.invoicingRepository.SubmitInvoicingFromAdminPanel(invoicing);
+
+            decimal AllPrice = _context.invoicingDetailsRepository.GetFullPriceFromInvoicing(invoicing.InvoicingID);
+            decimal EmployeePercent = _context.invoicingDetailsRepository.GetEmployeePercentFromInvoicing(invoicing.InvoicingID);
+            decimal AdminPercent = _context.invoicingDetailsRepository.GetAdminPercerntFromInvoicing(invoicing.InvoicingID);
+
+            //محاسبه ی عملیات مالی 
+            #region FinancialTransaction
+            //پرداخت نقدی مبلغ 
+            if (invoicing.PaymentMethodID == 1)
+            {
+                _context.FinancialTransactionRepository.AddFinancialTransaction(invoicing, AllPrice);
+
+                //پرداخت سهم شرکت 
+                if (_context.AdminWalletRepository.IsExistAdminWallet())
+                {
+                    _context.AdminWalletRepository.UpdateAdminWalletForCashPaymentTotheEmployeeFromUser(AdminPercent);
+                }
+                if (!_context.AdminWalletRepository.IsExistAdminWallet())
+                {
+                    _context.AdminWalletRepository.AddAdminWallet();
+                    _context.SaveChangesDB();
+                    _context.AdminWalletRepository.UpdateAdminWalletForCashPaymentTotheEmployeeFromUser(AdminPercent);
+                }
+
+                //پرداخت سهم خدمت رسان  
+                if (_context.EmployeeWalletRepository.IsExistEmployeeWallet(invoicing.EmployeeID))
+                {
+                    _context.EmployeeWalletRepository.UpdateEmployeeWalletForCashPaymentFromUser(invoicing.EmployeeID, AdminPercent);
+                }
+                if (!_context.EmployeeWalletRepository.IsExistEmployeeWallet(invoicing.EmployeeID))
+                {
+                    _context.EmployeeWalletRepository.AddEmployeeWallet(invoicing.EmployeeID);
+                    _context.SaveChangesDB();
+                    _context.EmployeeWalletRepository.UpdateEmployeeWalletForCashPaymentFromUser(invoicing.EmployeeID, AdminPercent);
+                }
+            }
+            if (invoicing.PaymentMethodID == 2)
+            {
+
+            }
+            #endregion
             _context.SaveChangesDB();
 
-            return Redirect("/Admin/ReservationOrder/ListOfDateReservation?id="+invoicing.DateReservationID);
+            return Redirect("/Admin/ReservationOrder/ListOfDateReservation?id=" + invoicing.DateReservationID);
         }
         public IActionResult AddInvoicingDetails(int InvoicingId, int? TariffID, decimal Price, string Description = "")
         {
@@ -184,6 +226,6 @@ namespace Presentation.Areas.Admin.Controllers
 
             return View(invoicing);
         }
-       
+
     }
 }

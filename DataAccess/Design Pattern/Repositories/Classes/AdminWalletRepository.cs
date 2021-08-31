@@ -18,5 +18,39 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         {
             _db = db;
         }
+
+        public void AddAdminWallet()
+        {
+            AdminWallet wallet = new AdminWallet()
+            {
+                WalletAmount = 0,
+                DebtAmount = 0,
+                CreditAmount = 0,
+            };
+
+            Add(wallet);
+        }
+
+        public bool IsExistAdminWallet()
+        {
+            bool respone = GetAll().Any();
+
+            if (respone == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void UpdateAdminWalletForCashPaymentTotheEmployeeFromUser(decimal AdminPercent)
+        {
+            AdminWallet wallet = GetAll().Single();
+            wallet.CreditAmount = wallet.CreditAmount + AdminPercent;
+
+            Update(wallet);
+        }
     }
 }

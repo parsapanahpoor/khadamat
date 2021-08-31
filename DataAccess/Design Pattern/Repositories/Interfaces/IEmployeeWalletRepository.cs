@@ -10,5 +10,8 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public interface IEmployeeWalletRepository : IGernericRepository<EmployeeWallet>
     {
+        bool IsExistEmployeeWallet(string EmployeeId);
+        void UpdateEmployeeWalletForCashPaymentFromUser(string employeeId , decimal AdminPercent);
+        void AddEmployeeWallet(string EmployeeId);
     }
 }

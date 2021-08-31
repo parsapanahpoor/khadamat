@@ -56,6 +56,64 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Delete(invoicingDetail);
         }
 
+        public decimal GetAdminPercerntFromInvoicing(int invoicingID)
+        {
+            IEnumerable<InvoicingDetail> List = GetAll(p => p.InvoicingID == invoicingID);
+
+            decimal AdminPercent = 0;
+
+            foreach (var item in List)
+            {
+                float comison = (float)item.PerCent;
+                float darsad = (float)100;
+
+                var per = comison / darsad;
+
+                var AdminComision = item.Price * (per);
+
+                AdminPercent = (decimal)((float)AdminPercent + (float)AdminComision);
+            }
+
+            return AdminPercent;
+
+        }
+
+        public decimal GetEmployeePercentFromInvoicing(int invoicingID)
+        {
+            IEnumerable<InvoicingDetail> List = GetAll(p => p.InvoicingID == invoicingID);
+
+            decimal EmployeePercent = 0;
+
+            foreach (var item in List)
+            {
+                float comison = (float)item.PerCent;
+                float darsad = (float)100;
+
+                var per = comison / darsad;
+
+                var AdminComision = item.Price * (per);
+                var SellerComision = item.Price - AdminComision;
+
+                EmployeePercent = (decimal)((float)EmployeePercent + (float)SellerComision);
+            }
+
+            return EmployeePercent;
+        }
+
+        public decimal GetFullPriceFromInvoicing(int invoicingID)
+        {
+            IEnumerable<InvoicingDetail> List = GetAll(p => p.InvoicingID == invoicingID);
+
+            decimal Sum = 0;
+
+            foreach (var item in List)
+            {
+                Sum = Sum + (decimal)item.Price;
+            }
+
+            return Sum;
+        }
+
         public InvoicingDetail GetInvoicingDetailByID(int id)
         {
             return GetById(id);
