@@ -62,6 +62,7 @@ namespace Models.Entities.User
         public List<FinancialTrnsaction> FinancialTrnsactionsUser { get; set; }
         public List<FinancialTrnsaction> FinancialTrnsactionsEmployee { get; set; }
         public List<EmployeeWallet> EmployeeWallets { get; set; }
+        public List<RequestForCheckout> RequestForCheckouts { get; set; }
 
         #endregion
 

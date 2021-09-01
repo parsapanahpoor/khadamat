@@ -31,6 +31,14 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Add(wallet);
         }
 
+        public void CheckOutWhitEmployeeAfterHisRequest(string EmployeeID, decimal Price)
+        {
+            EmployeeWallet wallet = GetAll(p => p.EmployeeId == EmployeeID).First();
+            wallet.CreditAmount = wallet.CreditAmount - Price;
+
+            Update(wallet);
+        }
+
         public EmployeeWallet GetEmployeeWalletByEmployeeID(string EmployeeID)
         {
             return GetAll(p => p.EmployeeId == EmployeeID).FirstOrDefault();

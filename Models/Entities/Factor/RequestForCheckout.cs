@@ -21,6 +21,10 @@ namespace Models.Entities.Factor
         [ForeignKey("RequestForCheckoutStatus")]
         public int RequestForCheckoutStatusID { get; set; }
 
+        [ForeignKey("User")]
+        [Required]
+        public string EmployeeID { get; set; }
+
         public decimal Price { get; set; }
 
         public DateTime DateTime { get; set; }
@@ -34,6 +38,7 @@ namespace Models.Entities.Factor
         #region Navigation Propert
 
         public RequestForCheckoutStatus RequestForCheckoutStatus { get; set; }
+        public User.User User { get; set; }
 
         #endregion
     }

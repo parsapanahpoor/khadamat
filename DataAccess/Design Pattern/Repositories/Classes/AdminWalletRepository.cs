@@ -31,6 +31,14 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Add(wallet);
         }
 
+        public void CheckoutWhitEmployeeAfterHisRequest(decimal price)
+        {
+            AdminWallet wallet = GetAll().First();
+            wallet.DebtAmount = wallet.DebtAmount - price;
+
+            Update(wallet);
+        }
+
         public AdminWallet GetAdminWallet()
         {
             return GetAll().First();

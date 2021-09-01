@@ -10,5 +10,12 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public interface IRequestForCheckoutRepository : IGernericRepository<RequestForCheckout>
     {
+        List<RequestForCheckout> GetAllEmployeeRequestForCheckout(string EmployeeID);
+        void AddRequestForCheckout(RequestForCheckout checkout );
+        List<RequestForCheckout> GetAllRequestsForCheckout();
+        List<RequestForCheckout> GetAllNewRequests();
+        int GetRequestForCheckoutStatusID(int id );
+        RequestForCheckout GetRequestForCheckoutbyID(int id);
+        void UpdateRequestForCheckout(RequestForCheckout request);
     }
 }

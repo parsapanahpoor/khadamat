@@ -49,5 +49,20 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
 
             Add(financial);
         }
+
+        public void CheckoutWhitEmployeeAfterHisRequest(decimal price, string EmployeeID)
+        {
+            FinancialTrnsaction financial = new FinancialTrnsaction()
+            {
+                FinancialTransactionStatusID = 3,
+                Price = price,
+                EmployeeID = EmployeeID,
+                DepositeFromPerson = "حساب شرکت ",
+                DateTime = DateTime.Now,
+                Description = "واریز مبلغ درخواستی از شرکت به حصاب خدمت رسان  "
+            };
+
+            Add(financial);
+        }
     }
 }

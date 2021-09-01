@@ -1,0 +1,73 @@
+﻿@model Models.Entities.Factor.RequestForCheckout
+@{
+    ViewData["Title"] = "درخواست تسویه حساب ";
+    Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
+}
+
+
+<div class="content-wrapper" style="min-height: 805px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> درخواست تسویه حساب </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
+                        <li class="breadcrumb-item active">درخواست تسویه حساب </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card card-primary">
+
+                    <div class="card-header">
+                        <h3 class="card-title">درخواست تسویه حساب </h3>
+                    </div>
+
+                    <form role="form" asp-action="CreateCheckout" asp-controller="Checkout" asp-area="Employee" method="post">
+                        <div style="color: darkred;" asp-validation-summary="ModelOnly"></div>
+                        <input type="hidden" asp-for="EmployeeID" value="@ViewBag.EmployeeID"/>
+
+                        <div class="row">
+                            <div class="card-body col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">مبلغ  </label>
+                                    <input type="text" class="form-control" asp-for="Price" id="exampleInputEmail1" placeholder="مبلغ درخواستی را به ریال وارد کنید">
+                                    <span class="text text-danger" asp-validation-for="Price"></span>
+                                </div>
+                            </div>
+                            <div class="card-body col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">شماره کارت بانکی   </label>
+                                    <input type="text" class="form-control" asp-for="CartBankNumber" id="exampleInputEmail1" placeholder="  شماره کارت را وارد کنید">
+                                    <span class="text text-danger" asp-validation-for="CartBankNumber"></span>
+                                </div>
+                            </div>
+                            <div class="card-body col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">صاحب کارت بانکی   </label>
+                                    <input type="text" class="form-control" asp-for="OwnerBankCart" id="exampleInputEmail1" placeholder="   نام صاحب کارت را وارد کنید">
+                                    <span class="text text-danger" asp-validation-for="OwnerBankCart"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">ارسال</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>

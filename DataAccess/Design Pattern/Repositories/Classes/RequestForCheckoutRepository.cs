@@ -18,5 +18,53 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
         {
             _db = db;
         }
+
+        public void AddRequestForCheckout(RequestForCheckout checkout)
+        {
+            RequestForCheckout request = new RequestForCheckout()
+            {
+                RequestForCheckoutStatusID = 1,
+                Price = checkout.Price,
+                DateTime = DateTime.Now,
+                CartBankNumber = checkout.CartBankNumber,
+                OwnerBankCart = checkout.OwnerBankCart,
+                EmployeeID = checkout.EmployeeID
+            };
+
+            Add(request);
+        }
+
+        public List<RequestForCheckout> GetAllEmployeeRequestForCheckout(string EmployeeID)
+        {
+            return GetAll(p => p.EmployeeID == EmployeeID).ToList();
+        }
+
+        public List<RequestForCheckout> GetAllNewRequests()
+        {
+            return GetAll(includeProperties: "User")
+                            .Where(p=>p.RequestForCheckoutStatusID == 1).ToList();
+        }
+
+        public List<RequestForCheckout> GetAllRequestsForCheckout()
+        {
+            return GetAll(includeProperties:"User").ToList();
+        }
+
+        public RequestForCheckout GetRequestForCheckoutbyID(int id)
+        {
+            return GetById(id);
+        }
+
+        public int GetRequestForCheckoutStatusID(int id)
+        {
+            RequestForCheckout request =  GetById(id);
+
+            return request.RequestForCheckoutStatusID;
+        }
+
+        public void UpdateRequestForCheckout(RequestForCheckout request)
+        {
+            Update(request);
+        }
     }
 }
