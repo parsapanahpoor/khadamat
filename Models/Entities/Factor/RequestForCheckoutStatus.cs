@@ -25,6 +25,8 @@ namespace Models.Entities.Factor
 
         #region Navigation Property
 
+        public List<RequestForCheckout> RequestForCheckouts { get; set; }
+
         #endregion
     }
 }

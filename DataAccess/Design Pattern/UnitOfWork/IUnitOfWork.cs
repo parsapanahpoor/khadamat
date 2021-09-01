@@ -25,6 +25,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         FinancialTransactionRepository FinancialTransactionRepository { get; }
         AdminWalletRepository AdminWalletRepository { get; }
         EmployeeWalletRepository EmployeeWalletRepository { get; }
+        RequestForCheckoutRepository RequestForCheckoutRepository { get; }
 
         #endregion
 

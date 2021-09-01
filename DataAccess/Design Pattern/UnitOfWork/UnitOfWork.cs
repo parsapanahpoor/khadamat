@@ -30,6 +30,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
             FinancialTransactionRepository = new FinancialTransactionRepository(_db);
             AdminWalletRepository = new AdminWalletRepository(_db);
             EmployeeWalletRepository = new EmployeeWalletRepository(_db);
+            RequestForCheckoutRepository = new RequestForCheckoutRepository(_db);
         }
 
         #endregion
@@ -49,6 +50,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         public FinancialTransactionRepository FinancialTransactionRepository { get; private set; }
         public AdminWalletRepository AdminWalletRepository { get; private set; }
         public EmployeeWalletRepository EmployeeWalletRepository { get; private set; }
+        public RequestForCheckoutRepository RequestForCheckoutRepository { get; private set; }
 
         #endregion
 

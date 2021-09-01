@@ -58,6 +58,7 @@ namespace DataContext.Context
         public DbSet<AdminWallet> AdminWallet { get; set; }
         public DbSet<EmployeeWallet> EmployeeWallet { get; set; }
         public DbSet<RequestForCheckoutStatus> RequestForCheckoutStatus { get; set; }
+        public DbSet<RequestForCheckout> RequestForCheckout { get; set; }
 
         #endregion
 
