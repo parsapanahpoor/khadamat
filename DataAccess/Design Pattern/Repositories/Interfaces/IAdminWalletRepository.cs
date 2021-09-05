@@ -16,5 +16,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void AddAdminWallet();
         AdminWallet GetAdminWallet();
         void CheckoutWhitEmployeeAfterHisRequest(decimal price);
+        void PaymentToCompanyPercentFromEmployeeOnlineToTheCompanyAccount(decimal price);
     }
 }

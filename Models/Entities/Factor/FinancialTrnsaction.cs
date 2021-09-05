@@ -44,6 +44,7 @@ namespace Models.Entities.Factor
         public string Description { get; set; }
 
         public DateTime DateTime { get; set; }
+        public bool IsActiveForEmployeePay { get; set; }
 
         #region Navigation Property
 

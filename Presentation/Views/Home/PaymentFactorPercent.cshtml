@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "نتیجه ی پرداخت ";
+    Layout = "~/Views/Shared/_TestLayout.cshtml";
+}
+
+<div class="content-wrapper" style="min-height: 963.763px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>نتیجه ی پرداخت   </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                        <li class="breadcrumb-item active">نتیجه ی پرداخت   </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="col-md-12">
+            <div class="card bg-success-gradient">
+                <div class="card-header">
+                    <h2>پرداخت با موفقیت انجام شد</h2>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    کد پیگیری : @ViewBag.Code
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <script>
+            // Your delay in milliseconds
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+    }
+    else
+    {
+        <div class="col-md-12">
+            <div class="card bg-danger-gradient">
+                <div class="card-header">
+                    <h2>پرداخت ناموفق بود </h2>
+
+                    <div class="card-tools">
+                        <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <script>
+            // Your delay in milliseconds
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+    }
+
+
+
+</div>
+

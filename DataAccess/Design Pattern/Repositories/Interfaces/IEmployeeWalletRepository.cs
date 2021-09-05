@@ -16,5 +16,6 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         void AddEmployeeWallet(string EmployeeId);
         EmployeeWallet GetEmployeeWalletByEmployeeID(string EmployeeID);
         void CheckOutWhitEmployeeAfterHisRequest(string EmployeeID , decimal Price);
+        void PaymentToCompanyPercentFromEmployeeOnlineToTheCompanyAccount(string EmployeeID , decimal price);
     }
 }

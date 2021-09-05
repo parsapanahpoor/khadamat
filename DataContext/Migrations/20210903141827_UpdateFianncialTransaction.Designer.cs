@@ -4,14 +4,16 @@ using DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataContext.Migrations
 {
     [DbContext(typeof(KhadamatContext))]
-    partial class KhadamatContextModelSnapshot : ModelSnapshot
+    [Migration("20210903141827_UpdateFianncialTransaction")]
+    partial class UpdateFianncialTransaction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,7 +411,7 @@ namespace DataContext.Migrations
                     b.Property<int?>("InvoicingId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActiveForEmployeePay")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Price")

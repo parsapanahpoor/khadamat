@@ -119,5 +119,56 @@ namespace Presentation.Controllers
 
             return View();
         }
+
+        [Route("PaymentFactorPercent/{id}")]
+        public IActionResult PaymentFactorPercent(int id)
+        {
+            if (HttpContext.Request.Query["Status"] != "" &&
+          HttpContext.Request.Query["Status"].ToString().ToLower() == "ok"
+          && HttpContext.Request.Query["Authority"] != "")
+            {
+                string authority = HttpContext.Request.Query["Authority"];
+
+                FinancialTrnsaction financial = _context.FinancialTransactionRepository.GetFinancialTransactionByID(id);
+
+                int Amount = (int)financial.Price;
+
+                var payment = new ZarinpalSandbox.Payment(Amount);
+                var res = payment.Verification(authority).Result;
+                if (res.Status == 100)
+                {
+                    ViewBag.code = res.RefId;
+                    ViewBag.IsSuccess = true;
+                    financial.IsActiveForEmployeePay = true;
+                    _context.FinancialTransactionRepository.UpdateFinancialTransaction(financial);
+
+                    //مدیریت مالی و تسویه حساب با خدمت رسان 
+
+                    if (_context.AdminWalletRepository.IsExistAdminWallet())
+                    {
+                        _context.AdminWalletRepository.PaymentToCompanyPercentFromEmployeeOnlineToTheCompanyAccount(financial.Price);
+                    }
+                    if (!_context.AdminWalletRepository.IsExistAdminWallet())
+                    {
+                        _context.AdminWalletRepository.AddAdminWallet();
+                        _context.SaveChangesDB();
+                        _context.AdminWalletRepository.PaymentToCompanyPercentFromEmployeeOnlineToTheCompanyAccount(financial.Price);
+                    }
+
+                    if (_context.EmployeeWalletRepository.IsExistEmployeeWallet(financial.EmployeeID))
+                    {
+                        _context.EmployeeWalletRepository.PaymentToCompanyPercentFromEmployeeOnlineToTheCompanyAccount(financial.EmployeeID, financial.Price);
+                    }
+                    else
+                    {
+                        return View("~/Views/Shared/_404.cshtml");
+                    }
+
+                    _context.SaveChangesDB();
+                }
+            }
+
+            return View();
+        }
     }
 }

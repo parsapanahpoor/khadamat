@@ -58,6 +58,15 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             }
         }
 
+        public void PaymentToCompanyPercentFromEmployeeOnlineToTheCompanyAccount(decimal price)
+        {
+            AdminWallet wallet = GetAll().Single();
+            wallet.WalletAmount = wallet.WalletAmount + price;
+            wallet.CreditAmount = wallet.CreditAmount - price;
+
+            Update(wallet);
+        }
+
         public void UpdateAdminWalletForCashPaymentTotheEmployeeFromUser(decimal AdminPercent)
         {
             AdminWallet wallet = GetAll().Single();

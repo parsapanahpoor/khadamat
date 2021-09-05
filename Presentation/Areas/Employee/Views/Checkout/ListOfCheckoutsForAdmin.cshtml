@@ -1,8 +1,9 @@
-﻿@model List<Models.Entities.Factor.RequestForCheckout>
+﻿@model List<Models.Entities.Factor.FinancialTrnsaction>
 @{
-    ViewData["Title"] = "تاریخچه ی تسویه ";
+    ViewData["Title"] = "لیست پرداختی ها برای شرکت ";
     Layout = "~/Areas/Employee/Views/Shared/_TestLayout.cshtml";
 }
+
 
 @section Styls
     {
@@ -18,12 +19,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> تاریخچه ی تسویه </h1>
+                    <h1> لیست پرداختی ها برای شرکت </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="/Employee">خانه</a></li>
-                        <li class="breadcrumb-item active">تاریخچه ی تسویه </li>
+                        <li class="breadcrumb-item active">لیست پرداختی ها برای شرکت  </li>
                     </ol>
                 </div>
             </div>
@@ -65,7 +66,7 @@
                     <div class="card-header">
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
-                                <a href="/Employee/Checkout/CreateCheckout" class="btn btn-block btn-primary btn-sm waves-effect">افزودن درخواست جدید  </a>
+                                <a href="/Employee/Checkout/PaymenttoTheCompanyAccount" class="btn btn-block btn-success btn-sm waves-effect">  پرداخت بدهکاری   </a>
                             </div>
                         </div>
                     </div>
@@ -77,14 +78,13 @@
                                     <thead>
                                         <tr role="row">
 
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     مبلغ درخواستی  </th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری  : activate to sort column descending">     مبلغ پرداختی   </th>
 
 
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="موبایل : activate to sort column ascending">شماره کارت  </th>
 
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending">صاحب کارت</th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"> تاریخ درخواست </th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending">  وضعیت  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"> کد مستند</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending"> شناسه ی پرداخت  </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="وضعیت: activate to sort column ascending">  تاریخ   </th>
 
                                         </tr>
                                     </thead>
@@ -101,47 +101,22 @@
                                             </td>
 
                                             <td>
-                                                <div class="badge badge-primary">
-                                                    @item.CartBankNumber
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="badge badge-primary">
-                                                    @item.OwnerBankCart
+                                                <div class="badge badge-warning">
+                                                    @item.BankRecepiet
                                                 </div>
                                             </td>
 
                                             <td>
                                                 <div class="badge badge-warning">
-                                                    @item.DateTime.ToString("yyyy/MM/dd")
+                                                    @item.BankTransferNumber
                                                 </div>
                                             </td>
-                                            @if (item.RequestForCheckoutStatusID == 1)
-                                            {
-                                                <td>
-                                                    <div class="badge badge-primary">
-                                                        در حال برسی
-                                                    </div>
-                                                </td>
-                                            }
-                                            @if (item.RequestForCheckoutStatusID == 2)
-                                            {
-                                                <td>
-                                                    <div class="badge badge-success">
-                                                        پرداخت شده
-                                                    </div>
-                                                </td>
-                                            }
-                                            @if (item.RequestForCheckoutStatusID == 3)
-                                            {
-                                                <td>
-                                                    <div class="badge badge-danger">
-                                                        تایید نشده 
-                                                    </div>
-                                                </td>
-                                            }
 
+                                            <td>
+                                                <div class="badge badge-warning">
+                                                    @item.DateTime.ToString("yyyy,MM,dd")
+                                                </div>
+                                            </td>
                                         </tr>
                                         }
                                     </tbody>
@@ -197,5 +172,6 @@
             });
         });</script>
 }
+
 
 
