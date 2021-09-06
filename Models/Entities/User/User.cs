@@ -61,6 +61,8 @@ namespace Models.Entities.User
         public List<Invoicing> InvoicingUser { get; set; }
         public List<FinancialTrnsaction> FinancialTrnsactionsUser { get; set; }
         public List<FinancialTrnsaction> FinancialTrnsactionsEmployee { get; set; }
+        public List<Score.Scores> ScoresUser { get; set; }
+        public List<Score.Scores> ScoresEmployee { get; set; }
         public List<EmployeeWallet> EmployeeWallets { get; set; }
         public List<RequestForCheckout> RequestForCheckouts { get; set; }
 

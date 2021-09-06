@@ -18,6 +18,7 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
         FinancialTrnsaction GetFinancialTransactionByID(int id);
         void UpdateFinancialTransaction(FinancialTrnsaction financial);
         List<FinancialTrnsaction> GetListOFUserFinacialTransaction(string Userid);
-        List<FinancialTrnsaction> GetAllEmployeeFinancialTransaction(string EmployeeID); 
+        List<FinancialTrnsaction> GetAllEmployeeFinancialTransaction(string EmployeeID);
+        List<FinancialTrnsaction> GeAllFinancialTrnsactions();
     }
 }

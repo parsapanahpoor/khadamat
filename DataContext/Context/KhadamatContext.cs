@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models.Entities.EmployeeReservation;
 using Models.Entities.Factor;
+using Models.Entities.Score;
 using Models.Entities.User;
 using Models.Entities.Works;
 using System;
@@ -47,7 +48,6 @@ namespace DataContext.Context
 
         #endregion
 
-
         #region Factor
 
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
@@ -59,6 +59,12 @@ namespace DataContext.Context
         public DbSet<EmployeeWallet> EmployeeWallet { get; set; }
         public DbSet<RequestForCheckoutStatus> RequestForCheckoutStatus { get; set; }
         public DbSet<RequestForCheckout> RequestForCheckout { get; set; }
+
+        #endregion
+
+        #region Scores
+
+        public DbSet<Models.Entities.Score.Scores> Scores { get; set; }
 
         #endregion
 
@@ -140,6 +146,20 @@ namespace DataContext.Context
 
             modelBuilder.Entity<Invoicing>()
                   .HasQueryFilter(u => !u.IsDelete);
+
+            #endregion
+
+            #region Scores
+
+            modelBuilder.Entity<Scores>()
+               .HasOne(x => x.Employee)
+               .WithMany(x => x.ScoresEmployee)
+               .HasForeignKey(x => x.EmployeeID);
+
+            modelBuilder.Entity<Scores>()
+             .HasOne(x => x.User)
+             .WithMany(x => x.ScoresUser)
+             .HasForeignKey(x => x.UserID);
 
             #endregion
 

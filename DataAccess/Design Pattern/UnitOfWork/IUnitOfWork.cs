@@ -26,6 +26,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         AdminWalletRepository AdminWalletRepository { get; }
         EmployeeWalletRepository EmployeeWalletRepository { get; }
         RequestForCheckoutRepository RequestForCheckoutRepository { get; }
+        ScoreRepository ScoreRepository { get; }
 
         #endregion
 

@@ -43,7 +43,7 @@ namespace Presentation.Areas.Admin.Controllers
 
         public IActionResult ListOfNewRequests()
         {
-            List<RequestForCheckout> List = _context.RequestForCheckoutRepository.GetAllRequestsForCheckout();
+            List<RequestForCheckout> List = _context.RequestForCheckoutRepository.GetAllNewRequests();
             return View(List);
         }
         public IActionResult ManageRequest(int? id)
@@ -62,7 +62,7 @@ namespace Presentation.Areas.Admin.Controllers
             return View("~/Views/Shared/_404.cshtml");
         }
 
-        public IActionResult SubmitRequest(int? id , int? Result)
+        public IActionResult SubmitRequest(int? id, int? Result)
         {
             if (id == null)
             {
@@ -72,13 +72,13 @@ namespace Presentation.Areas.Admin.Controllers
             {
                 return View("~/Views/Shared/_404.cshtml");
             }
-            RequestForCheckout request = _context.RequestForCheckoutRepository.GetRequestForCheckoutbyID((int) id);
+            RequestForCheckout request = _context.RequestForCheckoutRepository.GetRequestForCheckoutbyID((int)id);
 
             //مدیریت مالی و تسویه حساب با خدمت رسان 
             if (Result == 2)
             {
                 request.RequestForCheckoutStatusID = 2;
-                _context.FinancialTransactionRepository.CheckoutWhitEmployeeAfterHisRequest(request.Price , request.EmployeeID);
+                _context.FinancialTransactionRepository.CheckoutWhitEmployeeAfterHisRequest(request.Price, request.EmployeeID);
 
                 if (_context.AdminWalletRepository.IsExistAdminWallet())
                 {
@@ -93,7 +93,7 @@ namespace Presentation.Areas.Admin.Controllers
 
                 if (_context.EmployeeWalletRepository.IsExistEmployeeWallet(request.EmployeeID))
                 {
-                    _context.EmployeeWalletRepository.CheckOutWhitEmployeeAfterHisRequest(request.EmployeeID , request.Price);
+                    _context.EmployeeWalletRepository.CheckOutWhitEmployeeAfterHisRequest(request.EmployeeID, request.Price);
                 }
                 else
                 {
@@ -109,6 +109,13 @@ namespace Presentation.Areas.Admin.Controllers
             _context.SaveChangesDB();
 
             return Redirect("/Admin/ManageMoney/ListOfCheckoutRequests?Update=true");
+        }
+
+        public IActionResult ListOfAllFinancialTransaction()
+        {
+            List<FinancialTrnsaction> List = _context.FinancialTransactionRepository.GeAllFinancialTrnsactions();
+
+            return View(List);
         }
     }
 }

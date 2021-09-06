@@ -31,6 +31,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
             AdminWalletRepository = new AdminWalletRepository(_db);
             EmployeeWalletRepository = new EmployeeWalletRepository(_db);
             RequestForCheckoutRepository = new RequestForCheckoutRepository(_db);
+            ScoreRepository = new ScoreRepository(_db);
         }
 
         #endregion
@@ -51,6 +52,7 @@ namespace DataAccess.Design_Pattern.UnitOfWork
         public AdminWalletRepository AdminWalletRepository { get; private set; }
         public EmployeeWalletRepository EmployeeWalletRepository { get; private set; }
         public RequestForCheckoutRepository RequestForCheckoutRepository { get; private set; }
+        public ScoreRepository ScoreRepository { get; private set; }
 
         #endregion
 

@@ -50,6 +50,8 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             return GetAll(includeProperties:"User").ToList();
         }
 
+  
+
         public RequestForCheckout GetRequestForCheckoutbyID(int id)
         {
             return GetById(id);

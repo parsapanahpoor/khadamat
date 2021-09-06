@@ -87,6 +87,12 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
             Add(financial);
         }
 
+        public List<FinancialTrnsaction> GeAllFinancialTrnsactions()
+        {
+            return GetAll(includeProperties:"User")
+                        .Where(p=>p.IsActiveForEmployeePay == true).ToList();
+        }
+
         public List<FinancialTrnsaction> GetAllEmployeeFinancialTransaction(string EmployeeID)
         {
             return GetAll(includeProperties:"User")
