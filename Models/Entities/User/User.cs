@@ -65,7 +65,8 @@ namespace Models.Entities.User
         public List<Score.Scores> ScoresEmployee { get; set; }
         public List<EmployeeWallet> EmployeeWallets { get; set; }
         public List<RequestForCheckout> RequestForCheckouts { get; set; }
-
+        public List<Comment> UserComment { get; set; }
+        public List<Comment> EmployeeComment { get; set; }
         #endregion
 
     }

@@ -10,5 +10,8 @@ namespace DataAccess.Design_Pattern.Repositories.Interfaces
 {
     public interface IScoreRepository : IGernericRepository<Scores>
     {
+        bool IsExistScoreFromUserToEmployee(string userid , string EmployeeId);
+        void AddScoreToTheEmployee(string userid , string EmployeeID ,  int point);
+        int CalculateEmployeeScore(string EmployeeID);
     }
 }

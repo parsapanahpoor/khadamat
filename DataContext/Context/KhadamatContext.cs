@@ -28,6 +28,7 @@ namespace DataContext.Context
         public DbSet<UserSelectedJob> UserSelectedJobs { get; set; }
         public DbSet<EmployeeStatus> EmployeeStatuses { get; set; }
         public DbSet<Location> locations { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         #endregion
 
@@ -93,11 +94,18 @@ namespace DataContext.Context
              .WithOne(a => a.EmployeeDocuments)
              .HasForeignKey<EmployeeDocuments>(c => c.PossitionId);
 
-
-
             modelBuilder.Entity<JobCategory>()
            .HasQueryFilter(u => !u.IsDelete);
 
+            modelBuilder.Entity<Comment>()
+                 .HasOne(x => x.Employee)
+                 .WithMany(x => x.EmployeeComment)
+                 .HasForeignKey(x => x.EmployeeID);
+
+            modelBuilder.Entity<Comment>()
+             .HasOne(x => x.User)
+             .WithMany(x => x.UserComment)
+             .HasForeignKey(x => x.UserID);
             #endregion
 
             #region ReservationOrder

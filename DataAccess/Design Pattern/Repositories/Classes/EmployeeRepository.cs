@@ -51,6 +51,11 @@ namespace DataAccess.Design_Pattern.Repositories.Classes
                         .Select(p => p.PossitionId).Single();
         }
 
+        public bool IsExistEmployeeDocument(string EmployeeId)
+        {
+            return GetAll(p => p.Userid == EmployeeId).Any();
+        }
+
         public void UpdateEmployeeDocumentFromEmployeePanel(EmployeeDocuments employee, IFormFile Picture, IFormFile Certificate)
         {
             if (Picture != null && Picture.IsImage())

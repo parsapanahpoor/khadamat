@@ -29,16 +29,20 @@ namespace Presentation.Areas.Supporter.Controllers
         }
 
         #endregion
-        public async Task<IActionResult> Index(int? status , bool Edit = false , bool CloseInvoicing = false)
+        public async Task<IActionResult> Index(int? status, bool Edit = false, bool CloseInvoicing = false)
         {
-            var user =await _userManager.FindByNameAsync(User.Identity.Name);
-            var Employee = _context.employeeRepository.GetEmployeeDocument(user.Id);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (_context.employeeRepository.IsExistEmployeeDocument(user.Id))
+            {
+                var Employee = _context.employeeRepository.GetEmployeeDocument(user.Id);
+                ViewBag.Possition = Employee.PossitionId;
+            }
 
             if (!_context.userSelectedJobRepository.IsExistUserSelectedJob(user.Id))
             {
                 ViewBag.UserSelectedJob = true;
             }
-            ViewBag.Possition = Employee.PossitionId;
 
             if (Edit == true)
             {

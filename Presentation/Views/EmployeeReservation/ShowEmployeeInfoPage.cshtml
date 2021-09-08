@@ -41,6 +41,70 @@
 
                                 <p class="text-muted text-center">@Model.JobCategory.CategoryTitle</p>
 
+
+                                @if (ViewBag.EmployeePoint == 1)
+                                {
+                                    <p class="text-muted text-center">
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                    </p>
+                                }
+                                @if (ViewBag.EmployeePoint == 2)
+                                {
+                                    <p class="text-muted text-center">
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                    </p>
+                                }
+                                @if (ViewBag.EmployeePoint == 3)
+                                {
+                                    <p class="text-muted text-center">
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                    </p>
+                                }
+                                @if (ViewBag.EmployeePoint == 4)
+                                {
+                                    <p class="text-muted text-center">
+                                        <a> <img src="~/star-2x.png" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                    </p>
+                                }
+                                @if (ViewBag.EmployeePoint == 5)
+                                {
+                                    <p class="text-muted text-center">
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                        <a> <img src="~/star-2x.png" style="background-color:yellow;" /></a>
+                                    </p>
+                                }
+
+
+                                @if (ViewBag.Score == true)
+                                {
+                                    <p class="text-muted text-center">
+                                        <a href="/Scores/AddScoreToTheEmployee?ReturnId=@ViewBag.userSelectedjobsid&&EmployeeID=@Model.User.Id&&Point=5"> <img src="~/star-2x.png" /></a>
+                                        <a href="/Scores/AddScoreToTheEmployee?ReturnId=@ViewBag.userSelectedjobsid&&EmployeeID=@Model.User.Id&&Point=4"> <img src="~/star-2x.png" /></a>
+                                        <a href="/Scores/AddScoreToTheEmployee?ReturnId=@ViewBag.userSelectedjobsid&&EmployeeID=@Model.User.Id&&Point=3"> <img src="~/star-2x.png" /></a>
+                                        <a href="/Scores/AddScoreToTheEmployee?ReturnId=@ViewBag.userSelectedjobsid&&EmployeeID=@Model.User.Id&&Point=2"> <img src="~/star-2x.png" /></a>
+                                        <a href="/Scores/AddScoreToTheEmployee?ReturnId=@ViewBag.userSelectedjobsid&&EmployeeID=@Model.User.Id&&Point=1"> <img src="~/star-2x.png" /></a>
+                                    </p>
+                                }
+
                                 <div class="text-center mb-4">
                                     @if (Model.User.EmployeeStatusID == 1)
                                     {
@@ -59,29 +123,29 @@
                                         </a>}
                                 </div>
 
-                                    <ul class="list-group list-group-unbordered mb-3">
-                                        <li class="list-group-item">
-                                            <a class="float-left">@Model.User.PhoneNumber</a>  <b>شماره موبایل  </b>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a class="float-left">@Model.User.Email</a>  <b>ایمیل   </b>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a class="float-left">@Model.User.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</a>  <b>تاریخ ثبت نام    </b>
-                                        </li>
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <a class="float-left">@Model.User.PhoneNumber</a>  <b>شماره موبایل  </b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a class="float-left">@Model.User.Email</a>  <b>ایمیل   </b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a class="float-left">@Model.User.RegisterDate.ToString("dddd dd/ MMMM MM/ yyyy")</a>  <b>تاریخ ثبت نام    </b>
+                                    </li>
 
-                                    </ul>
-                                    @if (Model.User.EmployeeStatusID == 2)
-                                    {
-                            <a href="/EmployeeReservation/OnlineReservation?EmployeeInfo=@Model.JobCategorySelectedID">
+                                </ul>
+                                @if (Model.User.EmployeeStatusID == 2)
+                                {
+                                    <a href="/EmployeeReservation/OnlineReservation?EmployeeInfo=@Model.JobCategorySelectedID">
 
-                                <div class="text-center mb-1">
-                                    <span class="btn btn-success"> ثبت درخواست   </span>
-                                </div>
-                            </a>
-                                        }
-                                </div>
+                                        <div class="text-center mb-1">
+                                            <span class="btn btn-success"> ثبت درخواست   </span>
+                                        </div>
+                                    </a>
+                                }
                             </div>
+                        </div>
                     </div>
                     <div class="col-md-9">
                         <div class="card">
@@ -115,6 +179,7 @@
                                                 <p>
                                                     @Html.Raw(Model.ResumeDescription)
                                                 </p>
+
                                             </div>
                                         </div>
                                         <div class="tab-pane active show" id="timeline">

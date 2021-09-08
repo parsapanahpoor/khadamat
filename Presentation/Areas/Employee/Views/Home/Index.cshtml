@@ -60,40 +60,142 @@
                     <!-- /.col -->
                 </div>
             }
-            <div class="row">
-                @if (ViewBag.Edit == true)
-                {
-                    <div class="col-md-12">
-                        <div class="card bg-primary-gradient">
-                            <div class="card-header">
-                                <h3 class="card-title">ویرایش موفقیت آمیز  </h3>
+        <div class="row">
+            @if (ViewBag.Edit == true)
+            {
+                <div class="col-md-12">
+                    <div class="card bg-primary-gradient">
+                        <div class="card-header">
+                            <h3 class="card-title">ویرایش موفقیت آمیز  </h3>
 
-                                <div class="card-tools">
-                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                                <!-- /.card-tools -->
+                            <div class="card-tools">
+                                <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                ویرایش کاربر با موفقیت ثبت گردید
-                            </div>
-                            <!-- /.card-body -->
+                            <!-- /.card-tools -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            ویرایش کاربر با موفقیت ثبت گردید
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <script>
-                        // Your delay in milliseconds
-                        var delay = 5000;
-                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
-                }
-                @if (ViewBag.Possition == 1)
+                    <!-- /.card -->
+                </div>
+                <script>
+                    // Your delay in milliseconds
+                    var delay = 5000;
+                    setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+            }
+            @if (ViewBag.Possition == null)
+            {
+                <div class="col-md-12">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title"> حساب کاربری شما تایید نگردیده </h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body" style="display: block;">
+                            کاربر محترم ! ضمن تشکر از ثبت نام شما در سامانه ی خدمت یار خواهش مندیم ثبت نام خود را نهایی کنید
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+            }
+            @if (ViewBag.Possition == 1)
+            {
+                <div class="col-md-12">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title"> حساب کاربری شما تایید نگردیده </h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body" style="display: block;">
+                            کاربر محترم ! ضمن تشکر از ثبت نام شما در سامانه ی خدمت یار خواهش مندیم ثبت نام خود را نهایی کنید
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+            }
+            @if (ViewBag.Possition == 2)
+            {
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title"> مدارک شما ارسال شد </h3>
+
+                            <div class="card-tools">
+                                <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body" style="display: block;">
+                            ضمن تشکر از ارسال مدارک شما خواهشمندیم منتظر اعلام نتیجه ی برسی توسط تیم پشتیبانی باشید
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+                <script>
+                    // Your delay in milliseconds
+                    var delay = 5000;
+                    setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
+            }
+            @if (ViewBag.Possition == 3)
+            {
+                <div class="col-md-12">
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title"> حساب کاربری شما تایید نگردیده </h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body" style="display: block;">
+                            کاربر محترم ! مدارک ارسالی شما توسط پشتیبان برسی شده و متاسفانه تایید نگردیده
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+            }
+            @if (Model.IsAccepted == true)
+            {
+                @if (ViewBag.UserSelectedJob == true)
                 {
                     <div class="col-md-12">
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title"> حساب کاربری شما تایید نگردیده </h3>
+                                <h3 class="card-title"> دسته ی فعالیت خود را انتخاب کنید  </h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-widget="collapse">
@@ -104,7 +206,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="display: block;">
-                                کاربر محترم ! ضمن تشکر از ثبت نام شما در سامانه ی خدمت یار خواهش مندیم ثبت نام خود را نهایی کنید
+                                کاربر محترم لطفا دسته ای که می خواهید در آن فعالیت کنید را انتخاب کنید
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -112,199 +214,121 @@
                     </div>
 
                 }
-                @if (ViewBag.Possition == 2)
-                {
-                    <div class="col-md-12">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title"> مدارک شما ارسال شد </h3>
 
-                                <div class="card-tools">
-                                    <button type="button" id="CreateBtn" class="btn btn-tool" data-widget="collapse">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <!-- /.card-tools -->
+            }
+            @if (ViewBag.Status == 1)
+            {
+                <div class="col-md-12">
+                    <div class="card bg-danger-gradient">
+                        <div class="card-header">
+                            <h3 class="card-title">وضعیت آفلاین   </h3>
+
+                            <div class="card-tools">
+                                <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body" style="display: block;">
-                                ضمن تشکر از ارسال مدارک شما خواهشمندیم منتظر اعلام نتیجه ی برسی توسط تیم پشتیبانی باشید
-                            </div>
-                            <!-- /.card-body -->
+                            <!-- /.card-tools -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            کاربر محترم وضعیت شما به آفلاین تغییر کرده
+                        </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
+                </div>
+                <script>
+                    // Your delay in milliseconds
+                    var delay = 5000;
+                    setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
 
-                    <script>
-                        // Your delay in milliseconds
-                        var delay = 5000;
-                        setTimeout(function () { document.getElementById("CreateBtn").click(); }, delay);</script>
-                }
-                @if (ViewBag.Possition == 3)
-                {
-                    <div class="col-md-12">
-                        <div class="card card-danger">
-                            <div class="card-header">
-                                <h3 class="card-title"> حساب کاربری شما تایید نگردیده </h3>
+            }
+            @if (ViewBag.Status == 2)
+            {
+                <div class="col-md-12">
+                    <div class="card bg-success-gradient">
+                        <div class="card-header">
+                            <h3 class="card-title">وضعیت آنلاین    </h3>
 
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-widget="collapse">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <!-- /.card-tools -->
+                            <div class="card-tools">
+                                <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body" style="display: block;">
-                                کاربر محترم ! مدارک ارسالی شما توسط پشتیبان برسی شده و متاسفانه تایید نگردیده
-                            </div>
-                            <!-- /.card-body -->
+                            <!-- /.card-tools -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            کاربر محترم وضعیت شما به آنلاین تغییر کرده
+                        </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
+                </div>
+                <script>
+                    // Your delay in milliseconds
+                    var delay = 5000;
+                    setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
 
-                }
-                @if (Model.IsAccepted == true)
-                {
-                    @if (ViewBag.UserSelectedJob == true)
-                    {
-                        <div class="col-md-12">
-                            <div class="card card-warning">
-                                <div class="card-header">
-                                    <h3 class="card-title"> دسته ی فعالیت خود را انتخاب کنید  </h3>
+            }
+            @if (ViewBag.Status == 3)
+            {
+                <div class="col-md-12">
+                    <div class="card bg-primary-gradient">
+                        <div class="card-header">
+                            <h3 class="card-title">وضعیت درحال کار     </h3>
 
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-widget="collapse">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <!-- /.card-tools -->
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body" style="display: block;">
-                                    کاربر محترم لطفا دسته ای که می خواهید در آن فعالیت کنید را انتخاب کنید
-                                </div>
-                                <!-- /.card-body -->
+                            <div class="card-tools">
+                                <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
                             </div>
-                            <!-- /.card -->
+                            <!-- /.card-tools -->
                         </div>
-
-                    }
-
-                }
-                @if (ViewBag.Status == 1)
-                {
-                    <div class="col-md-12">
-                        <div class="card bg-danger-gradient">
-                            <div class="card-header">
-                                <h3 class="card-title">وضعیت آفلاین   </h3>
-
-                                <div class="card-tools">
-                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                                <!-- /.card-tools -->
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                کاربر محترم وضعیت شما به آفلاین تغییر کرده
-                            </div>
-                            <!-- /.card-body -->
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            کاربر محترم وضعیت شما به درحال کار  تغییر کرده
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-body -->
                     </div>
-                    <script>
-                        // Your delay in milliseconds
-                        var delay = 5000;
-                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+                    <!-- /.card -->
+                </div>
+                <script>
+                    // Your delay in milliseconds
+                    var delay = 5000;
+                    setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
 
-                }
-                @if (ViewBag.Status == 2)
-                {
-                    <div class="col-md-12">
-                        <div class="card bg-success-gradient">
-                            <div class="card-header">
-                                <h3 class="card-title">وضعیت آنلاین    </h3>
+            }
+            @if (ViewBag.CloseInvoicing == true)
+            {
+                <div class="col-md-12">
+                    <div class="card bg-primary-gradient">
+                        <div class="card-header">
+                            <h3 class="card-title">ثبت فاکتور موفقیت آمیز  </h3>
 
-                                <div class="card-tools">
-                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                                <!-- /.card-tools -->
+                            <div class="card-tools">
+                                <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                کاربر محترم وضعیت شما به آنلاین تغییر کرده
-                            </div>
-                            <!-- /.card-body -->
+                            <!-- /.card-tools -->
                         </div>
-                        <!-- /.card -->
-                    </div>
-                    <script>
-                        // Your delay in milliseconds
-                        var delay = 5000;
-                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
-
-                }
-                @if (ViewBag.Status == 3)
-                {
-                    <div class="col-md-12">
-                        <div class="card bg-primary-gradient">
-                            <div class="card-header">
-                                <h3 class="card-title">وضعیت درحال کار     </h3>
-
-                                <div class="card-tools">
-                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                                <!-- /.card-tools -->
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                کاربر محترم وضعیت شما به درحال کار  تغییر کرده
-                            </div>
-                            <!-- /.card-body -->
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            همکار عزیز از صدور فاکتور خود متشکریم
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-body -->
                     </div>
-                    <script>
-                        // Your delay in milliseconds
-                        var delay = 5000;
-                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+                    <!-- /.card -->
+                </div>
+                <script>
+                    // Your delay in milliseconds
+                    var delay = 5000;
+                    setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
+            }
 
-                }
-                @if (ViewBag.CloseInvoicing == true)
-                {
-                    <div class="col-md-12">
-                        <div class="card bg-primary-gradient">
-                            <div class="card-header">
-                                <h3 class="card-title">ثبت فاکتور موفقیت آمیز  </h3>
-
-                                <div class="card-tools">
-                                    <button type="button" id="EditBtn" class="btn btn-tool" data-widget="remove">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                                <!-- /.card-tools -->
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                همکار عزیز از صدور فاکتور خود متشکریم
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <script>
-                        // Your delay in milliseconds
-                        var delay = 5000;
-                        setTimeout(function () { document.getElementById("EditBtn").click(); }, delay);</script>
-                }
-
-            </div>
+        </div>
             <div class="row">
                 <partial name="_ShowTodayReservationTimes" />
                 <partial name="_ShowTodayUserThatReserveThisEmployee" />

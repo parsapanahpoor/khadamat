@@ -5,8 +5,15 @@
 @inject UserManager<Models.Entities.User.User> _userManager;
 @using DataAccess.ViewModels
 @{ var user = await _userManager.FindByNameAsync(User.Identity.Name);
-    var possition = _UserService.employeeRepository.GetEmployeeInfoPossition(user.Id);
-}
+    int possition;
+    if (_UserService.employeeRepository.IsExistEmployeeDocument(user.Id))
+    {
+        possition = _UserService.employeeRepository.GetEmployeeInfoPossition(user.Id);
+    }
+    else
+    {
+        possition = 0;
+    }}
 
 @if (possition == 4)
 {
@@ -17,6 +24,10 @@
     <span class="right badge badge-danger">تایید نشده </span>
 }
 @if (possition == 1)
+{
+    <span class="right badge badge-warning">تکمیل نشده  </span>
+}
+@if (possition == 0)
 {
     <span class="right badge badge-warning">تکمیل نشده  </span>
 }

@@ -5,7 +5,15 @@
 @inject UserManager<Models.Entities.User.User> _userManager;
 @using DataAccess.ViewModels
 @{ var user = await _userManager.FindByNameAsync(User.Identity.Name);
-    var possition = _UserService.employeeRepository.GetEmployeeInfoPossition(user.Id);
+    int possition;
+    if (_UserService.employeeRepository.IsExistEmployeeDocument(user.Id))
+    {
+        possition = _UserService.employeeRepository.GetEmployeeInfoPossition(user.Id);
+    }
+    else
+    {
+        possition = 0;
+    }
 }
 
 
@@ -76,4 +84,50 @@
         </ul>
 
     </li>
-}
+
+
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-dollar"></i>
+            <p style="color:white">
+                مدیریت مالی
+                <i class="right fa fa-angle-left"></i>
+            </p>
+        </a>
+
+        <ul class="nav nav-treeview">
+            <li class="nav-item has-treeview">
+                <a href="/Employee/FianancialTransaction/ListOFEmployeeFianancialTransaction" class="nav-link ">
+                    <i class="nav-icon fa fa-dollar"></i>
+                    <p style="color:white">
+                        لیست تراکنش ها
+                        <i class="right fa fa-angle-left"></i>
+
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="/Employee/Checkout/ListOfCheckouts" class="nav-link ">
+                    <i class="nav-icon fa fa-dollar"></i>
+                    <p style="color:white">
+                        دریافت وجه
+                        <i class="right fa fa-angle-left"></i>
+
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="/Employee/Checkout/ListOfCheckoutsForAdmin" class="nav-link ">
+                    <i class="nav-icon fa fa-dollar"></i>
+                    <p style="color:white">
+                        پرداخت وجه
+                        <i class="right fa fa-angle-left"></i>
+
+                    </p>
+                </a>
+            </li>
+        </ul>
+
+    </li>
+           
+    }

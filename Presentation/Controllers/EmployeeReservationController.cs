@@ -33,8 +33,9 @@ namespace Presentation.Controllers
         }
 
         #endregion
-        public IActionResult ShowEmployeeInfoPage(int? id, string Houre = "empty")
+        public async Task<IActionResult> ShowEmployeeInfoPage(int? id, string Houre = "empty")
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (id == null)
             {
                 return View("~/Views/Shared/_404.cshtml");
@@ -46,6 +47,13 @@ namespace Presentation.Controllers
             }
             ViewBag.ListOFEmployeeDateReservation = _context.dataReservationRepository
                                                     .GetDateReservationAfterTodayByEmployeeId(userSelectedJob.Userid);
+            ViewBag.userSelectedjobsid = id;
+            ViewBag.EmployeePoint = _context.ScoreRepository.CalculateEmployeeScore(userSelectedJob.Userid);
+
+            if (!_context.ScoreRepository.IsExistScoreFromUserToEmployee(user.Id , userSelectedJob.Userid))
+            {
+                ViewBag.Score = true;
+            }
             if (Houre != "empty")
             {
                 ViewBag.Houre = true;
@@ -204,7 +212,6 @@ namespace Presentation.Controllers
 
             ReservationOrder Reservation = _context.reservaitionOrderRepository.AddRservationOrderFromSession(reserve);
             _context.SaveChangesDB();
-
 
             return Redirect("/Home/Index?AddReservation=true&&ReservationId=" + Reservation.ReservationOrderID);
         }
